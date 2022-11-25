@@ -8,6 +8,8 @@ class AppImage {
   static const String splashImage = "assets/images/splash_image.png";
   static const String addProduct = "assets/images/add_product.png";
   static const String addCart = "assets/images/add_cart.png";
+  static const String errorImage = "assets/images/error.png";
+  static const String emptyImage = "assets/images/empty.png";
   static const String testImage01 = "assets/images/test0.jpg";
   static const String testImage02 = "assets/images/test1.jpg";
   static const String testImage03 = "assets/images/test2.jpg";

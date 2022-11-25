@@ -66,11 +66,17 @@ class CategoriesComponent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.favorite_border,
-                  color: Colors.red,
-                ),
+                onPressed: () =>
+                    LayoutCubit.get(context).insertToFavorites(item),
+                icon: LayoutCubit.get(context).isFavoriteFromDatabase(item.id)
+                    ? const Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                      )
+                    : const Icon(
+                        Icons.favorite_border,
+                        color: Colors.grey,
+                      ),
               ),
               IconButton(
                 onPressed: () {},

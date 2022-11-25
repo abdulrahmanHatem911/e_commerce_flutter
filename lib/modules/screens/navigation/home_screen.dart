@@ -71,7 +71,7 @@ class HomeScreen extends StatelessWidget {
         Expanded(
           child: Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.black87,
               fontSize: 20,
               fontWeight: FontWeight.bold,

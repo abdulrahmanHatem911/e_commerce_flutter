@@ -1,31 +1,53 @@
+import 'package:e_commerce_flutter/controllers/layout_cubit/layout_cubit.dart';
+import 'package:e_commerce_flutter/models/product_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/utils/app_size.dart';
 import '../../../core/utils/app_strings.dart';
 import '../../../core/utils/screen_config.dart';
+import '../../../core/widget/build_item_list.dart';
+import '../../widgets/empty_screen.dart';
 
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.separated(
-        physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.symmetric(
-          horizontal: 10.0,
-          vertical: 10.0,
-        ),
-        itemBuilder: (context, index) {
-          return _builtItemList();
-        },
-        separatorBuilder: (context, index) => AppSize.sv_10,
-        itemCount: 10,
-      ),
+    return BlocConsumer<LayoutCubit, LayoutState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        var cubit = LayoutCubit.get(context);
+        if (cubit.databaseFavoritesProducts.isEmpty) {
+          return const EmptyScreen(
+            image: AppImage.emptyImage,
+            text: "No Favorites Products",
+          );
+        } else {
+          return Scaffold(
+            body: ListView.separated(
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10.0,
+                vertical: 10.0,
+              ),
+              itemBuilder: (context, index) {
+                return _buildItemList(
+                  context: context,
+                  item: cubit.databaseFavoritesProducts[index],
+                );
+              },
+              separatorBuilder: (context, index) => AppSize.sv_10,
+              itemCount: cubit.databaseFavoritesProducts.length,
+            ),
+          );
+        }
+      },
     );
   }
 
-  Widget _builtItemList() {
+  Widget _buildItemList(
+      {required BuildContext context, required ProductModel item}) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
@@ -47,10 +69,10 @@ class FavoriteScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),
-              image: const DecorationImage(
-                image: NetworkImage(
-                  AppImage.welcomeImage,
-                ),
+              image: DecorationImage(
+                image: item.imageUrl != null
+                    ? NetworkImage(item.imageUrl) as ImageProvider
+                    : const AssetImage(AppImage.testImage03),
                 fit: BoxFit.contain,
               ),
             ),
@@ -60,29 +82,29 @@ class FavoriteScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Title',
+                Text(
+                  item.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 AppSize.sv_10,
-                const Text(
-                  'Description',
+                Text(
+                  item.description,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14,
                     color: Colors.grey,
                   ),
                 ),
                 AppSize.sv_10,
-                const Text(
-                  '\$ 100',
-                  style: TextStyle(
+                Text(
+                  '\$ ${item.price}',
+                  style: const TextStyle(
                     fontSize: 14,
                     color: Colors.grey,
                   ),
@@ -91,12 +113,17 @@ class FavoriteScreen extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.favorite_border,
-              color: Colors.black,
-            ),
-          )
+            onPressed: () => LayoutCubit.get(context).insertToFavorites(item),
+            icon: LayoutCubit.get(context).isFavoriteFromDatabase(item.id)
+                ? const Icon(
+                    Icons.favorite,
+                    color: Colors.red,
+                  )
+                : const Icon(
+                    Icons.favorite_border,
+                    color: Colors.grey,
+                  ),
+          ),
         ],
       ),
     );

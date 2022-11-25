@@ -8,7 +8,7 @@ import '../../modules/screens/add_product.dart';
 import '../../modules/screens/auth/signup_screen.dart';
 import '../../modules/screens/search_screen.dart';
 import '../../modules/screens/splash_screen.dart';
-import '../../modules/widgets/categories/gradview_component.dart';
+import '../../modules/widgets/categories/product_by_category_id.dart';
 
 class Routers {
   static const String SPLASH_SCREEN = '/splash';
@@ -45,7 +45,7 @@ class RoutersGenerated {
         );
       case Routers.GRID_VIEW:
         return MaterialPageRoute(
-            builder: (_) => const GridViewComponent(), settings: settings);
+            builder: (_) => const ProductByCategoryId(), settings: settings);
       case Routers.SEARCH_SCREEN:
         return MaterialPageRoute(
             builder: (_) => SearchScreen(), settings: settings);

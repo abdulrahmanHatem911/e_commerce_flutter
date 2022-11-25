@@ -38,3 +38,8 @@ class LayoutGetProductByCategoryIdErrorState extends LayoutState {
   final String error;
   LayoutGetProductByCategoryIdErrorState(this.error);
 }
+
+//insert to database
+class LayoutInsertToDatabaseState extends LayoutState {}
+
+class LayoutGetFromDatabaseState extends LayoutState {}

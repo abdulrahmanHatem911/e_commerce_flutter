@@ -18,7 +18,8 @@ class LayoutScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => LayoutCubit()
         ..getProductDio()
-        ..getCategoryDio(),
+        ..getCategoryDio()
+        ..getFromDatabase(),
       child: BlocBuilder<LayoutCubit, LayoutState>(
         builder: (context, state) {
           var cubit = LayoutCubit.get(context);
@@ -76,15 +77,15 @@ class LayoutScreen extends StatelessWidget {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(IconBroken.Scan),
-                  label: 'Favorite',
+                  label: 'Payment',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(IconBroken.Heart),
-                  label: 'Person',
+                  label: 'Favorite',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(IconBroken.Profile),
-                  label: 'Person',
+                  label: 'Settings',
                 ),
               ],
             ),

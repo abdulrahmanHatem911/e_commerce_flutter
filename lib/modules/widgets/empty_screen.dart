@@ -13,23 +13,26 @@ class EmptyScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            width: SizeConfig.screenWidth,
-            height: SizeConfig.screenHeight * 0.5,
-            child: Image(
-              fit: BoxFit.cover,
-              image: AssetImage(image),
+          Container(
+            width: SizeConfig.screenWidth * 0.9,
+            height: SizeConfig.screenHeight * 0.6,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(image),
+                fit: BoxFit.contain,
+              ),
             ),
           ),
           AppSize.sv_10,
           Text(
-            text ?? '',
+            text!,
             style: const TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.w400,
-              color: Colors.black45,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey,
             ),
           ),
+          AppSize.sv_30,
         ],
       ),
     );

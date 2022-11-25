@@ -53,6 +53,10 @@ class AuthCubit extends Cubit<AuthState> {
           key: 'admin',
           value: registerModel.roles[1],
         );
+        CacheHelper.saveData(
+          key: 'token',
+          value: registerModel.token,
+        );
       }
       print('the roles is: ${registerModel.roles}');
       emit(
