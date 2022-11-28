@@ -15,6 +15,11 @@ class DioHelper {
           'Accept': "*/*",
           'connection': 'keep-alive',
           'Accept-Encoding': 'gzip, deflate, br',
+          'Accept-Language': 'en-US,en;q=0.9',
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache',
+          'User-Agent':
+              'Mozilla/5.0 (Linux; Android 10; SM-A107F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.105 Mobile Safari/537.36',
         },
       ),
     );

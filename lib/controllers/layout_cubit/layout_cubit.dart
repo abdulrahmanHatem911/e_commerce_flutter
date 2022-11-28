@@ -45,7 +45,7 @@ class LayoutCubit extends Cubit<LayoutState> {
   List<ProductModel> shoes = [];
   void getProductDio() {
     emit(LayoutGetProductLoadingState());
-    DioHelper.getData(url: ApiConstant.PRODUCTS).then((value) {
+    DioHelper.getData(url: ApiConstant.GET_PRODUCTS).then((value) {
       value.data.forEach((element) {
         if (element['category']['name'] == 'Clothes') {
           clothes.add(ProductModel.fromJson(element));
@@ -70,7 +70,7 @@ class LayoutCubit extends Cubit<LayoutState> {
   var admin = CacheHelper.getData(key: 'admin');
   void getCategoryDio() {
     emit(LayoutGetCategoryLoadingState());
-    DioHelper.getData(url: ApiConstant.CATEGORIES).then((value) {
+    DioHelper.getData(url: ApiConstant.GET_CATEGORIES).then((value) {
       if (admin != null && admin != '') {
         value.data.forEach((element) {
           categories.add(CategoryModel.fromJson(element));
