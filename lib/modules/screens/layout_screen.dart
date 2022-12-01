@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:e_commerce_flutter/controllers/layout_cubit/layout_cubit.dart';
 import 'package:e_commerce_flutter/core/routes/app_routers.dart';
 import 'package:e_commerce_flutter/core/services/cache_helper.dart';
@@ -45,15 +46,6 @@ class LayoutScreen extends StatelessWidget {
                   onPressed: () =>
                       Navigator.pushNamed(context, Routers.SEARCH_SCREEN),
                 ),
-                IconButton(
-                  icon: Icon(
-                    IconBroken.Bag_2,
-                    color: AppColor.black,
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, Routers.CART_SCREEN);
-                  },
-                ),
                 //search
               ],
             ),
@@ -61,33 +53,50 @@ class LayoutScreen extends StatelessWidget {
                 ? const AdminDrawerComponent()
                 : const UserDrawerComponent(),
             body: cubit.screens[cubit.currentIndex],
-            bottomNavigationBar: BottomNavigationBar(
-              currentIndex: cubit.currentIndex,
-              onTap: (index) {
-                cubit.changeBottomNavBar(index);
-              },
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(IconBroken.Home),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(IconBroken.Category),
-                  label: 'Categories',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(IconBroken.Scan),
-                  label: 'Payment',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(IconBroken.Heart),
-                  label: 'Favorite',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(IconBroken.Profile),
-                  label: 'Settings',
-                ),
-              ],
+            bottomNavigationBar: Container(
+              decoration: BoxDecoration(
+                color: AppColor.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: CurvedNavigationBar(
+                index: cubit.currentIndex,
+                onTap: (index) {
+                  cubit.changeBottomNavBar(index);
+                },
+                color: Colors.white,
+                backgroundColor: Colors.grey.shade200,
+                buttonBackgroundColor: AppColor.blue,
+                height: 50.0,
+                items: const [
+                  Icon(
+                    IconBroken.Bag,
+                    size: 25,
+                  ),
+                  Icon(
+                    IconBroken.Heart,
+                    size: 25,
+                  ),
+                  Icon(
+                    IconBroken.Home,
+                    size: 25,
+                  ),
+                  Icon(
+                    IconBroken.Category,
+                    size: 25,
+                  ),
+                  Icon(
+                    IconBroken.Profile,
+                    size: 25,
+                  ),
+                ],
+              ),
             ),
           );
         },

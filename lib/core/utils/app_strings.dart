@@ -17,12 +17,15 @@ class AppImage {
   static const String testImage05 = "assets/images/test4.jpg";
   static const String testImage06 = "assets/images/test5.jpg";
   static const String testImage07 = "assets/images/test6.jpg";
-  static const String beaneryImage1 = "assets/images/banner/1.jpg";
-  static const String beaneryImage2 = "assets/images/banner/2.jpg";
-  static const String beaneryImage3 = "assets/images/banner/3.jpg";
-  static const String beaneryImage4 = "assets/images/banner/4.jpg";
-  static const String beaneryImage5 = "assets/images/banner/5.jpg";
-  static const String beaneryImage6 = "assets/images/banner/6.jpg";
-  static const String drawerUser = "assets/images/drawer/userDrawer.jpg";
-  static const String drawerAdmin = "assets/images/drawer/adminDrawer.jpg";
+  static const String beaneryImage1 = "assets/images/banner/banner_00.jpg";
+  static const String beaneryImage2 = "assets/images/banner/banner_01.jpg";
+  static const String beaneryImage3 = "assets/images/banner/banner_02.jpg";
+  static const String beaneryImage4 = "assets/images/banner/banner_03.jpg";
+  static const String beaneryImage5 = "assets/images/banner/banner_04.jpg";
+  static const String beaneryImage6 = "assets/images/banner/banner_05.jpg";
+  static const String drawerUser = "assets/images/drawer/drawer.jpg";
+  static const String paymentCash = "assets/images/payment/1.png";
+  static const String paymentCard = "assets/images/payment/2.png";
+  static const String paymentPaypal = "assets/images/payment/3.png";
+  static const String paymentStripe = "assets/images/payment/4.png";
 }

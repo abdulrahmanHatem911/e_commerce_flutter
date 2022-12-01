@@ -22,3 +22,19 @@ class Dummy {
     Dummy(image: AppImage.beaneryImage6),
   ];
 }
+
+class DummyPayment {
+  final String image;
+  final String title;
+  DummyPayment({
+    required this.image,
+    required this.title,
+  });
+  static List<DummyPayment> dummyPayment = [
+    //random image from unsplash
+    DummyPayment(image: AppImage.paymentCard, title: ' Payment Card'),
+    DummyPayment(image: AppImage.paymentCash, title: ' Payment Cash'),
+    DummyPayment(image: AppImage.paymentPaypal, title: ' Payment Paypal'),
+    DummyPayment(image: AppImage.paymentStripe, title: ' Payment Visa'),
+  ];
+}

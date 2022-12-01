@@ -3,6 +3,7 @@ import 'package:e_commerce_flutter/core/network/remote/dio_helper.dart';
 import 'package:e_commerce_flutter/core/services/cache_helper.dart';
 import 'package:e_commerce_flutter/models/category_model.dart';
 import 'package:e_commerce_flutter/models/product_model.dart';
+import 'package:e_commerce_flutter/modules/screens/cart/cart_sreen.dart';
 import 'package:e_commerce_flutter/modules/screens/navigation/payment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,19 +18,19 @@ class LayoutCubit extends Cubit<LayoutState> {
   LayoutCubit() : super(LayoutInitial());
   static LayoutCubit get(context) => BlocProvider.of<LayoutCubit>(context);
 
-  int currentIndex = 0;
+  int currentIndex = 2;
   List<Widget> screens = [
+    const CartScreen(),
+    const FavoriteScreen(),
     HomeScreen(),
     const CategoriesScreen(),
-    const PaymentScreen(),
-    const FavoriteScreen(),
     const SettingScreen(),
   ];
   List<String> titles = [
+    'Cart',
+    'Favorite',
     'Home',
     'Categories',
-    'Payment',
-    'Favorite',
     'Profile',
   ];
   void changeBottomNavBar(int index) {

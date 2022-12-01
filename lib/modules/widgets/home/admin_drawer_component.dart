@@ -22,7 +22,7 @@ class AdminDrawerComponent extends StatelessWidget {
           const DrawerHeader(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(AppImage.drawerAdmin),
+                image: AssetImage(AppImage.drawerUser),
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.low,
               ),
