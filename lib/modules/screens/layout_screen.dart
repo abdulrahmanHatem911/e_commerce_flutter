@@ -2,7 +2,6 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:e_commerce_flutter/controllers/layout_cubit/layout_cubit.dart';
 import 'package:e_commerce_flutter/core/routes/app_routers.dart';
 import 'package:e_commerce_flutter/core/services/cache_helper.dart';
-import 'package:e_commerce_flutter/modules/widgets/home/admin_drawer_component.dart';
 import 'package:e_commerce_flutter/modules/widgets/home/user_drawer_component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,9 +48,7 @@ class LayoutScreen extends StatelessWidget {
                 //search
               ],
             ),
-            drawer: admin != null && admin != ''
-                ? const AdminDrawerComponent()
-                : const UserDrawerComponent(),
+            drawer: const UserDrawerComponent(),
             body: cubit.screens[cubit.currentIndex],
             bottomNavigationBar: Container(
               decoration: BoxDecoration(

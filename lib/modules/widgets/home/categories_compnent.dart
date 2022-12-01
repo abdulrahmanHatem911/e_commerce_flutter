@@ -21,21 +21,27 @@ class CategoriesComponent extends StatelessWidget {
         return SizedBox(
           width: SizeConfig.screenWidth,
           height: SizeConfig.screenHeight * 0.35,
-          child: state is! LayoutGetProductLoadingState
-              ? ListView.separated(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: SizeConfig.screenWidth * 0.02,
-                    vertical: SizeConfig.screenHeight * 0.02,
-                  ),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: productList.length,
-                  itemBuilder: (context, index) {
-                    return _buildItemList(
-                        context: context, item: productList[index]);
-                  },
-                  separatorBuilder: (context, index) => AppSize.sh_15,
+          child: state is! LayoutGetProductErrorState
+              ? const Center(
+                  child: Text("No Products"),
                 )
-              : const CircularProgressComponent(),
+              : state is LayoutGetProductLoadingState
+                  ? const Center(
+                      child: CircularProgressComponent(),
+                    )
+                  : ListView.separated(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.screenWidth * 0.02,
+                        vertical: SizeConfig.screenHeight * 0.02,
+                      ),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: productList.length,
+                      itemBuilder: (context, index) {
+                        return _buildItemList(
+                            context: context, item: productList[index]);
+                      },
+                      separatorBuilder: (context, index) => AppSize.sh_15,
+                    ),
         );
       },
     );
@@ -105,7 +111,7 @@ class CategoriesComponent extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
-                          image: NetworkImage("${item.imageUrl}"),
+                          image: NetworkImage(item.imageUrl),
                           fit: BoxFit.contain,
                           filterQuality: FilterQuality.low,
                         ),
@@ -115,7 +121,7 @@ class CategoriesComponent extends StatelessWidget {
                 ),
                 AppSize.sv_10,
                 Text(
-                  '${item.name}',
+                  item.name,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: const TextStyle(
