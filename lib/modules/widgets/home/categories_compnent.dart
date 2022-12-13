@@ -21,27 +21,18 @@ class CategoriesComponent extends StatelessWidget {
         return SizedBox(
           width: SizeConfig.screenWidth,
           height: SizeConfig.screenHeight * 0.35,
-          child: state is! LayoutGetProductErrorState
-              ? const Center(
-                  child: Text("No Products"),
-                )
-              : state is LayoutGetProductLoadingState
-                  ? const Center(
-                      child: CircularProgressComponent(),
-                    )
-                  : ListView.separated(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: SizeConfig.screenWidth * 0.02,
-                        vertical: SizeConfig.screenHeight * 0.02,
-                      ),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: productList.length,
-                      itemBuilder: (context, index) {
-                        return _buildItemList(
-                            context: context, item: productList[index]);
-                      },
-                      separatorBuilder: (context, index) => AppSize.sh_15,
-                    ),
+          child: ListView.separated(
+            padding: EdgeInsets.symmetric(
+              horizontal: SizeConfig.screenWidth * 0.02,
+              vertical: SizeConfig.screenHeight * 0.02,
+            ),
+            scrollDirection: Axis.horizontal,
+            itemCount: productList.length,
+            itemBuilder: (context, index) {
+              return _buildItemList(context: context, item: productList[index]);
+            },
+            separatorBuilder: (context, index) => AppSize.sh_15,
+          ),
         );
       },
     );

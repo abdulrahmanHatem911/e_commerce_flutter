@@ -14,7 +14,6 @@ class LayoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var admin = CacheHelper.getData(key: 'admin');
     return BlocProvider(
       create: (context) => LayoutCubit()
         ..getProductDio()

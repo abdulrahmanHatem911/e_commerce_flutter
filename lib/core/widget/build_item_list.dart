@@ -36,7 +36,7 @@ class BuildItemListComponent extends StatelessWidget {
                 image: item?.imageUrl != null
                     ? NetworkImage(item!.imageUrl) as ImageProvider
                     : const AssetImage(AppImage.testImage03),
-                fit: BoxFit.contain,
+                fit: BoxFit.cover,
               ),
             ),
           ),
@@ -75,13 +75,6 @@ class BuildItemListComponent extends StatelessWidget {
               ],
             ),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.favorite_border,
-              color: Colors.black,
-            ),
-          )
         ],
       ),
     );

@@ -8,6 +8,7 @@ class TextFormFiledComponent extends StatelessWidget {
   final bool obscureText;
   final Function(String)? validator;
   final Function(String)? onChanged;
+  final Function(String)? onFieldSubmitted;
 
   const TextFormFiledComponent({
     super.key,
@@ -18,6 +19,7 @@ class TextFormFiledComponent extends StatelessWidget {
     this.obscureText = false,
     this.onChanged,
     this.validator,
+    this.onFieldSubmitted,
   });
 
   @override
@@ -27,6 +29,7 @@ class TextFormFiledComponent extends StatelessWidget {
       keyboardType: keyboardType,
       obscureText: obscureText,
       onChanged: onChanged,
+      onFieldSubmitted: onFieldSubmitted,
       cursorColor: Theme.of(context).primaryColor,
       style: Theme.of(context).textTheme.headline4,
       decoration: InputDecoration(

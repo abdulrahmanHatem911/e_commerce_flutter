@@ -43,3 +43,23 @@ class LayoutGetProductByCategoryIdErrorState extends LayoutState {
 class LayoutInsertToDatabaseState extends LayoutState {}
 
 class LayoutGetFromDatabaseState extends LayoutState {}
+
+//search
+class LayoutSearchLoadingState extends LayoutState {}
+
+class LayoutSearchSuccessState extends LayoutState {}
+
+class LayoutSearchErrorState extends LayoutState {
+  final String error;
+  LayoutSearchErrorState(this.error);
+}
+
+//get cart items
+class LayoutGetCartItemsLoadingState extends LayoutState {}
+
+class LayoutGetCartItemsSuccessState extends LayoutState {}
+
+class LayoutGetCartItemsErrorState extends LayoutState {
+  final String error;
+  LayoutGetCartItemsErrorState(this.error);
+}

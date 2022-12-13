@@ -1,10 +1,7 @@
-import 'package:e_commerce_flutter/core/utils/app_strings.dart';
 import 'package:e_commerce_flutter/core/utils/dummy_data.dart';
 import 'package:e_commerce_flutter/core/utils/screen_config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../../core/routes/app_routers.dart';
 import '../../../core/utils/app_size.dart';
 import '../../widgets/cart/botton_pay.dart';
 

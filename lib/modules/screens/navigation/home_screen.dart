@@ -9,8 +9,7 @@ import '../../../core/utils/app_size.dart';
 import '../../../core/utils/screen_config.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
-  TextEditingController searchController = TextEditingController();
+  const HomeScreen({super.key});
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);

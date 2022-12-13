@@ -35,6 +35,20 @@ class DioHelper {
     //psot data
   }
 
+  static Future<Response> getDataUseToken({
+    required String url,
+    required String token,
+  }) async {
+    return await dio!.get(
+      url,
+      options: Options(
+        headers: {
+          'Authorization ': 'Bearer $token',
+        },
+      ),
+    );
+  }
+
   // to post data
   static Future<Response> postData({
     required String url,

@@ -60,6 +60,7 @@ class LayoutCubit extends Cubit<LayoutState> {
         products.add(ProductModel.fromJson(element));
       });
       emit(LayoutGetProductSuccessState());
+      print('success Mdhat🐺');
     }).catchError((error) {
       print("error:🤔${error.toString()}");
       emit(LayoutGetProductErrorState(error.toString()));
@@ -128,5 +129,40 @@ class LayoutCubit extends Cubit<LayoutState> {
   //search from database
   bool isFavoriteFromDatabase(int productId) {
     return databaseFavoritesProducts.any((element) => element.id == productId);
+  }
+
+  //search
+  List<ProductModel> searchProducts = [];
+  void searchForProduct(String productName) {
+    emit(LayoutSearchLoadingState());
+    DioHelper.getData(url: ApiConstant.SEARCH_PRODUCT(productName))
+        .then((value) {
+      searchProducts = [];
+      value.data.forEach((element) {
+        searchProducts.add(ProductModel.fromJson(element));
+      });
+      print("Success get search produces 🚀");
+      emit(LayoutSearchSuccessState());
+    }).catchError((error) {
+      searchProducts = [];
+      print("error:🤔${error.toString()}");
+      emit(LayoutSearchErrorState(error.toString()));
+    });
+  }
+
+  // add product to cart
+  
+  void getCartItems() async {
+    emit(LayoutGetCartItemsLoadingState());
+    DioHelper.getDataUseToken(
+      url: ApiConstant.GET_CART_ITEMS(CacheHelper.getData(key: 'id')),
+      token: CacheHelper.getData(key: 'token'),
+    ).then((value) {
+      print('success get cart items');
+      emit(LayoutGetCartItemsSuccessState());
+    }).catchError((error) {
+      print('error get cart items');
+      emit(LayoutGetCartItemsErrorState(error.toString()));
+    });
   }
 }

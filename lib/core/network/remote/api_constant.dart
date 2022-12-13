@@ -4,7 +4,6 @@ class ApiConstant {
 
   // for real device use your ip address
   //static const String BASE_URL = "https://0.0.0.0:7159";
-
   static const String REGISTER = "/api/Users/Register";
   static const String LOGIN = "/api/Users/Login";
 
@@ -18,8 +17,7 @@ class ApiConstant {
       "/api/Product/Search/$productName";
 
   //cart
-  static String GET_CART_ITEMS(String userId) =>
-      "/api/Cart/GetCartItems/$userId";
+  static String GET_CART_ITEMS(int userId) => "/api/Cart/GetItems/$userId";
   static String ADD_TO_CART = "/api/Cart";
   static String CART_ITEM(int cartItemId) => "/api/Cart/$cartItemId";
   static String DELETE_CART_ITEM(int cartItemId) => "/api/Cart/$cartItemId";
@@ -30,6 +28,5 @@ class ApiConstant {
   static const String ADD_CATEGORY = "/api/Category";
   static String UPDATE_CATEGORY(int categoryId) => "/api/Category/$categoryId";
   static String DELETE_CATEGORY(int categoryId) => "/api/Category/$categoryId";
-
   //
 }

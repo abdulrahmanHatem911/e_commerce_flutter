@@ -6,12 +6,14 @@ class RegistrationModel extends Equatable {
   String username;
   List<String> roles;
   String token;
+  String id;
   RegistrationModel({
     this.message = '',
     this.email = '',
     this.username = '',
     this.roles = const [],
     this.token = '',
+    this.id = '',
   });
 
   factory RegistrationModel.fromJson(Map<String, dynamic> json) =>
@@ -21,6 +23,7 @@ class RegistrationModel extends Equatable {
         username: json["username"],
         roles: List<String>.from(json["roles"].map((x) => x)),
         token: json["token"],
+        id: json["id"],
       );
 
   Map<String, dynamic> toJson() {
@@ -30,6 +33,7 @@ class RegistrationModel extends Equatable {
       "username": username,
       "roles": List<dynamic>.from(roles.map((x) => x)),
       "token": token,
+      "id": id,
     };
   }
 
@@ -41,5 +45,6 @@ class RegistrationModel extends Equatable {
         username,
         roles,
         token,
+        id,
       ];
 }

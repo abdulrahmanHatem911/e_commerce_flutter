@@ -57,8 +57,12 @@ class AuthCubit extends Cubit<AuthState> {
           key: 'token',
           value: registerModel.token,
         );
+        CacheHelper.saveData(
+          key: 'id',
+          value: registerModel.id,
+        );
       }
-      print('the roles is: ${registerModel.roles}');
+      print('the Admin id📌: ${registerModel.id}');
       emit(
         AuthLoginSuccessState(user: value.data['roles'][0]),
       );
