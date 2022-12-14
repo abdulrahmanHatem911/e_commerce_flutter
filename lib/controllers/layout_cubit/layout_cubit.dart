@@ -4,7 +4,6 @@ import 'package:e_commerce_flutter/core/services/cache_helper.dart';
 import 'package:e_commerce_flutter/models/category_model.dart';
 import 'package:e_commerce_flutter/models/product_model.dart';
 import 'package:e_commerce_flutter/modules/screens/cart/cart_sreen.dart';
-import 'package:e_commerce_flutter/modules/screens/navigation/payment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/network/local/sql_server.dart';
@@ -151,7 +150,7 @@ class LayoutCubit extends Cubit<LayoutState> {
   }
 
   // add product to cart
-  
+
   void getCartItems() async {
     emit(LayoutGetCartItemsLoadingState());
     DioHelper.getDataUseToken(
