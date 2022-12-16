@@ -5,7 +5,13 @@ import '../../../core/utils/screen_config.dart';
 class BottomPayment extends StatelessWidget {
   final Function onTap;
   final String text;
-  const BottomPayment({super.key, required this.onTap, required this.text});
+  final String? totalPrice;
+  const BottomPayment({
+    super.key,
+    required this.onTap,
+    required this.text,
+    this.totalPrice,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +45,7 @@ class BottomPayment extends StatelessWidget {
               ),
               AppSize.sv_5,
               Text(
-                '100\$',
+                '\$ ${totalPrice ?? 100}',
                 style: Theme.of(context).textTheme.headline6!.copyWith(
                       color: Colors.red,
                       fontWeight: FontWeight.bold,

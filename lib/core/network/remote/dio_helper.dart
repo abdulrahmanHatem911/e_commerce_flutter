@@ -26,11 +26,11 @@ class DioHelper {
   }
 
   // to get data
-  static Future<Response> getData({
-    required String url,
-  }) async {
+  static Future<Response> getData(
+      {required String url, Map<String, dynamic>? query}) async {
     return await dio!.get(
       url,
+      queryParameters: query,
     );
     //psot data
   }
@@ -50,13 +50,14 @@ class DioHelper {
   }
 
   // to post data
-  static Future<Response> postData({
-    required String url,
-    required Map<String, dynamic> data,
-  }) async {
+  static Future<Response> postData(
+      {required String url,
+      required Map<String, dynamic> data,
+      Map<String, dynamic>? query}) async {
     return await dio!.post(
       url,
       data: data,
+      queryParameters: query,
     );
   }
 }

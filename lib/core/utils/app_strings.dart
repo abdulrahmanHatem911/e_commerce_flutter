@@ -28,4 +28,8 @@ class AppImage {
   static const String paymentCard = "assets/images/payment/2.png";
   static const String paymentPaypal = "assets/images/payment/3.png";
   static const String paymentStripe = "assets/images/payment/4.png";
+  static const String refCodeImage =
+      "https://cdn-icons-png.flaticon.com/128/4090/4090458.png";
+  static const String visaImage =
+      "https://cdn-icons-png.flaticon.com/128/349/349221.png";
 }

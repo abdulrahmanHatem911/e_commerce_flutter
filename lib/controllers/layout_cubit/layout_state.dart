@@ -63,3 +63,48 @@ class LayoutGetCartItemsErrorState extends LayoutState {
   final String error;
   LayoutGetCartItemsErrorState(this.error);
 }
+
+class PaymentAuthLoadingStates extends LayoutState {}
+
+class PaymentAuthSuccessStates extends LayoutState {}
+
+class PaymentAuthErrorStates extends LayoutState {
+  final String error;
+  PaymentAuthErrorStates(this.error);
+}
+
+// for order id
+class PaymentOrderIdLoadingStates extends LayoutState {}
+
+class PaymentOrderIdSuccessStates extends LayoutState {}
+
+class PaymentOrderIdErrorStates extends LayoutState {
+  final String error;
+  PaymentOrderIdErrorStates(this.error);
+}
+
+// for request token
+class PaymentRequestTokenLoadingStates extends LayoutState {}
+
+class PaymentRequestTokenSuccessStates extends LayoutState {}
+
+class PaymentRequestTokenErrorStates extends LayoutState {
+  final String error;
+  PaymentRequestTokenErrorStates(this.error);
+}
+
+// for ref code
+class PaymentRefCodeLoadingStates extends LayoutState {}
+
+class PaymentRefCodeSuccessStates extends LayoutState {}
+
+class PaymentRefCodeErrorStates extends LayoutState {
+  final String error;
+  PaymentRefCodeErrorStates(this.error);
+}
+
+class PaymentVisaUrlSuccessStates extends LayoutState {}
+
+class PaymentVisaUrlErrorStates extends LayoutState {
+  PaymentVisaUrlErrorStates();
+}

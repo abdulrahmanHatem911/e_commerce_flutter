@@ -1,6 +1,10 @@
+import 'package:e_commerce_flutter/controllers/layout_cubit/layout_cubit.dart';
+import 'package:e_commerce_flutter/core/services/cache_helper.dart';
 import 'package:e_commerce_flutter/core/widget/show_snack_bar.dart';
+import 'package:e_commerce_flutter/modules/screens/cart/payment_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/routes/app_routers.dart';
 import '../../../core/utils/app_size.dart';
 import '../../../core/utils/screen_config.dart';
 
@@ -41,7 +45,7 @@ class ReusableWidget extends StatelessWidget {
                 ),
                 AppSize.sv_5,
                 Text(
-                  value.toString(),
+                  r'$ ' + value.toString(),
                   style: Theme.of(context).textTheme.headline6!.copyWith(
                         color: Colors.red,
                         fontWeight: FontWeight.bold,
@@ -52,11 +56,18 @@ class ReusableWidget extends StatelessWidget {
             ),
             AppSize.sh_20,
             ElevatedButton(
-              onPressed: () => showSnackBar(
-                context: context,
-                message: "check out ",
-                color: Colors.amber.shade300,
-              ),
+              onPressed: () {
+                var totalPrice = int.parse(value);
+                LayoutCubit.get(context).getAuthToken().then((value) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PaymentScreen(price: totalPrice),
+                    ),
+                  );
+                });
+                // showSnackBar(context, "Checkout"
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
                 shape: RoundedRectangleBorder(

@@ -1,7 +1,6 @@
 import 'package:e_commerce_flutter/core/utils/app_size.dart';
 import 'package:e_commerce_flutter/core/utils/screen_config.dart';
 import 'package:e_commerce_flutter/models/product_model.dart';
-import 'package:e_commerce_flutter/modules/widgets/bottom_app.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetails extends StatelessWidget {
@@ -54,36 +53,9 @@ class ProductDetails extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            Row(
-              children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.remove),
-                ),
-                Text(
-                  '1',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.add),
-                ),
-              ],
-            ),
             const SizedBox(
               height: 10,
             ),
-            Spacer(),
-            BottomComponent(
-              onPressed: () {},
-              child: Text(
-                'Add to cart',
-                style: Theme.of(context).textTheme.headline1!.copyWith(
-                      color: Colors.white,
-                    ),
-              ),
-            ),
-            Spacer(),
           ],
         ),
       ),

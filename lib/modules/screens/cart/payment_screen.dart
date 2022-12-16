@@ -1,132 +1,156 @@
-import 'package:e_commerce_flutter/core/utils/dummy_data.dart';
+import 'package:e_commerce_flutter/controllers/layout_cubit/layout_cubit.dart';
+import 'package:e_commerce_flutter/core/services/cache_helper.dart';
+import 'package:e_commerce_flutter/core/style/icon_broken.dart';
+import 'package:e_commerce_flutter/core/utils/app_strings.dart';
 import 'package:e_commerce_flutter/core/utils/screen_config.dart';
+import 'package:e_commerce_flutter/modules/screens/cart/toggle_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../core/utils/app_size.dart';
+import '../../../core/widget/circular_progress_component.dart';
 import '../../widgets/cart/botton_pay.dart';
+import '../../widgets/text_form_filed.dart';
 
-class PaymentScreen extends StatelessWidget {
-  const PaymentScreen({super.key});
+class PaymentScreen extends StatefulWidget {
+  final int? price;
+  PaymentScreen({super.key, this.price});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        title: const Text('Payment'),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(10.0),
-                  height: SizeConfig.screenHeight * 0.4,
-                  child: ListView.separated(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) => _buildItemList(
-                      context: context,
-                      data: DummyPayment.dummyPayment[index],
-                    ),
-                    separatorBuilder: (context, index) => Container(
-                      height: 10.0,
-                      color: Colors.white,
-                    ),
-                    itemCount: DummyPayment.dummyPayment.length,
-                  ),
-                ),
-                Expanded(
-                  child: Container(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(10.0),
-                    height: SizeConfig.screenHeight * 0.3,
-                    width: SizeConfig.screenWidth,
-                    color: Colors.grey[100],
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Order Details:',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Divider(color: Colors.grey.shade400, thickness: 1.0),
-                        const Spacer(),
-                        Row(
-                          children: [
-                            const Text(
-                              'Total Price:',
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            const Spacer(),
-                            Text(
-                              '100\$',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline6!
-                                  .copyWith(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22.0,
-                                  ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          BottomPayment(text: 'Payment Processes ', onTap: () {}),
-        ],
-      ),
-    );
-  }
+  State<PaymentScreen> createState() => _PaymentScreenState();
+}
 
-  Widget _buildItemList({
-    required BuildContext context,
-    required DummyPayment data,
-  }) {
-    return InkWell(
-      child: Container(
-        color: Colors.grey.shade100,
-        height: SizeConfig.screenHeight * 0.08,
-        child: Row(
-          children: [
-            Container(
-              width: SizeConfig.screenWidth * 0.2,
-              height: SizeConfig.screenHeight * 0.05,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(data.image),
-                  fit: BoxFit.contain,
-                ),
+class _PaymentScreenState extends State<PaymentScreen> {
+  TextEditingController firstNameController = TextEditingController();
+
+  TextEditingController lastNameController = TextEditingController();
+
+  TextEditingController emailController = TextEditingController();
+
+  TextEditingController phoneController = TextEditingController();
+
+  TextEditingController priceController = TextEditingController();
+
+  var _formKey = GlobalKey<FormState>();
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (BuildContext context) => LayoutCubit(),
+      child: BlocConsumer<LayoutCubit, LayoutState>(
+        listener: (context, state) {
+          if (state is PaymentRequestTokenSuccessStates) {
+            CircularProgressComponent.showSnackBar(
+              context: context,
+              message: 'Payment Success',
+              color: Colors.green,
+            );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ToggleScreen(),
+              ),
+            );
+          }
+        },
+        builder: (context, state) {
+          var cubit = LayoutCubit.get(context);
+          return Scaffold(
+            appBar: AppBar(elevation: 0.0, title: const Text('Payment')),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    width: SizeConfig.screenWidth,
+                    height: SizeConfig.screenHeight * 0.4,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      image: DecorationImage(
+                        image: AssetImage(AppImage.emptyImage),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          TextFormFiledComponent(
+                            controller: firstNameController,
+                            keyboardType: TextInputType.name,
+                            hintText: 'Enter your name',
+                            prefixIcon: IconBroken.Profile,
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Please enter your name';
+                              }
+                            },
+                          ),
+                          AppSize.sv_10,
+                          TextFormFiledComponent(
+                            controller: lastNameController,
+                            keyboardType: TextInputType.name,
+                            hintText: 'Enter your last name',
+                            prefixIcon: IconBroken.Profile,
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Please enter your last name';
+                              }
+                            },
+                          ),
+                          AppSize.sv_10,
+                          TextFormFiledComponent(
+                            controller: emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            hintText: 'Enter your email',
+                            prefixIcon: IconBroken.Message,
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Please enter your email';
+                              }
+                            },
+                          ),
+                          AppSize.sv_10,
+                          TextFormFiledComponent(
+                            controller: phoneController,
+                            keyboardType: TextInputType.phone,
+                            hintText: 'Enter your phone',
+                            prefixIcon: IconBroken.Call,
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Please enter your phone';
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-            AppSize.sh_5,
-            Expanded(
-              child: Text(
-                data.title,
-                style: GoogleFonts.ubuntu(
-                  fontSize: 20.0,
-                  color: Colors.grey.shade800,
-                  fontWeight: FontWeight.w400,
-                ),
+            bottomNavigationBar: SizedBox(
+              child: BottomPayment(
+                text: 'Payment Processes ',
+                totalPrice: widget.price.toString(),
+                onTap: () {
+                  // test the toggal screen
+                  if (_formKey.currentState!.validate()) {
+                    cubit.getOrderRegistrationID(
+                      firstName: firstNameController.text,
+                      lastName: lastNameController.text,
+                      email: emailController.text,
+                      phone: phoneController.text,
+                      price: (widget.price! * 100).toString(),
+                    );
+                  }
+                },
               ),
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

@@ -16,7 +16,7 @@ class CircularProgressComponent extends StatelessWidget {
   static void showSnackBar({
     required BuildContext context,
     required String message,
-    required MaterialColor color,
+    required Color color,
   }) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(

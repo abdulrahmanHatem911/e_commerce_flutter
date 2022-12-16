@@ -1,6 +1,7 @@
 import 'package:e_commerce_flutter/core/network/local/sql_server.dart';
 import 'package:e_commerce_flutter/core/routes/app_routers.dart';
 import 'package:e_commerce_flutter/models/cart_model.dart';
+import 'package:e_commerce_flutter/modules/widgets/empty_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../controllers/cart_provider.dart';
@@ -37,10 +38,9 @@ class _CartScreenState extends State<CartScreen> {
               builder: (BuildContext context, provider, widget) {
                 if (provider.cart.isEmpty) {
                   return const Center(
-                    child: Text(
-                      'Your Cart is Empty',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18.0),
+                    child: EmptyScreen(
+                      image: AppImage.errorImage,
+                      text: "No Items in Cart",
                     ),
                   );
                 } else {
@@ -157,9 +157,31 @@ class _CartScreenState extends State<CartScreen> {
                                         deleteQuantity: () {
                                           cart.deleteQuantity(
                                               provider.cart[index].id);
-                                          cart.removeTotalPrice(double.parse(
-                                              provider.cart[index].price
-                                                  .toString()));
+
+                                          dbHelper!
+                                              .updateQuantity(
+                                            CartModel(
+                                              id: provider.cart[index].id,
+                                              productId: index.toString(),
+                                              name: provider.cart[index].name,
+                                              description: provider
+                                                  .cart[index].description,
+                                              image: provider.cart[index].image,
+                                              price: provider.cart[index].price,
+                                              quantity: ValueNotifier(
+                                                provider.cart[index].quantity!
+                                                    .value,
+                                              ),
+                                            ),
+                                          )
+                                              .then((value) {
+                                            setState(() {
+                                              cart.removeTotalPrice(
+                                                  double.parse(provider
+                                                      .cart[index].price
+                                                      .toString()));
+                                            });
+                                          });
                                         },
                                         text: val.toString(),
                                       );
@@ -205,7 +227,7 @@ class _CartScreenState extends State<CartScreen> {
                     builder: (context, val, child) {
                       return ReusableWidget(
                           title: 'Sub-Total',
-                          value: r'$' + (val?.toStringAsFixed(2) ?? '0'));
+                          value: (val?.toInt().toString() ?? '0'));
                     },
                   ),
                 ],
