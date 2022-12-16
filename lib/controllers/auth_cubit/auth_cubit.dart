@@ -1,6 +1,6 @@
-import 'package:e_commerce_flutter/core/network/remote/api_constant.dart';
-import 'package:e_commerce_flutter/core/network/remote/dio_helper.dart';
-import 'package:e_commerce_flutter/core/services/cache_helper.dart';
+import '../../core/network/remote/api_constant.dart';
+import '../../core/network/remote/dio_helper.dart';
+import '../../core/services/cache_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../models/registration_model.dart';
 import 'auth_state.dart';

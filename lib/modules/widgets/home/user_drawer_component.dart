@@ -1,8 +1,8 @@
-import 'package:e_commerce_flutter/controllers/auth_cubit/auth_cubit.dart';
-import 'package:e_commerce_flutter/controllers/auth_cubit/auth_state.dart';
-import 'package:e_commerce_flutter/controllers/layout_cubit/layout_cubit.dart';
-import 'package:e_commerce_flutter/core/style/app_color.dart';
-import 'package:e_commerce_flutter/core/style/icon_broken.dart';
+import '../../../controllers/auth_cubit/auth_cubit.dart';
+import '../../../controllers/auth_cubit/auth_state.dart';
+import '../../../controllers/layout_cubit/layout_cubit.dart';
+import '../../../core/style/app_color.dart';
+import '../../../core/style/icon_broken.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

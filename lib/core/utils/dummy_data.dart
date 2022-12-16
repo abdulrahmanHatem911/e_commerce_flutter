@@ -1,5 +1,5 @@
-import 'package:e_commerce_flutter/core/routes/app_routers.dart';
-import 'package:e_commerce_flutter/core/utils/app_strings.dart';
+import '../routes/app_routers.dart';
+import 'app_strings.dart';
 
 class Dummy {
   final String image;

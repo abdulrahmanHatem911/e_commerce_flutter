@@ -1,9 +1,9 @@
-import 'package:e_commerce_flutter/core/network/remote/api_constant.dart';
-import 'package:e_commerce_flutter/core/network/remote/dio_helper.dart';
-import 'package:e_commerce_flutter/core/services/cache_helper.dart';
-import 'package:e_commerce_flutter/models/category_model.dart';
-import 'package:e_commerce_flutter/models/product_model.dart';
-import 'package:e_commerce_flutter/modules/screens/cart/cart_sreen.dart';
+import '../../core/network/remote/api_constant.dart';
+import '../../core/network/remote/dio_helper.dart';
+import '../../core/services/cache_helper.dart';
+import '../../models/category_model.dart';
+import '../../models/product_model.dart';
+import '../../modules/screens/cart/cart_sreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:e_commerce_flutter/core/network/remote/api_constant.dart';
+import '../../../core/network/remote/api_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 

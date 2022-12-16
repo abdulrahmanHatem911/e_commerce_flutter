@@ -1,7 +1,7 @@
-import 'package:e_commerce_flutter/core/network/remote/api_constant.dart';
-import 'package:e_commerce_flutter/core/routes/app_routers.dart';
-import 'package:e_commerce_flutter/core/style/icon_broken.dart';
-import 'package:e_commerce_flutter/core/utils/app_size.dart';
+import '../../../core/network/remote/api_constant.dart';
+import '../../../core/routes/app_routers.dart';
+import '../../../core/style/icon_broken.dart';
+import '../../../core/utils/app_size.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/utils/screen_config.dart';

@@ -1,5 +1,5 @@
-import 'package:e_commerce_flutter/controllers/auth_cubit/auth_cubit.dart';
-import 'package:e_commerce_flutter/core/services/cache_helper.dart';
+import '../../../controllers/auth_cubit/auth_cubit.dart';
+import '../../../core/services/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../controllers/auth_cubit/auth_state.dart';

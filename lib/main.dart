@@ -1,9 +1,9 @@
 import 'dart:io';
-import 'package:e_commerce_flutter/controllers/cart_provider.dart';
-import 'package:e_commerce_flutter/core/network/local/sql_server.dart';
-import 'package:e_commerce_flutter/core/network/remote/dio_helper.dart';
-import 'package:e_commerce_flutter/core/services/cache_helper.dart';
-import 'package:e_commerce_flutter/core/style/theme.dart';
+import 'controllers/cart_provider.dart';
+import 'core/network/local/sql_server.dart';
+import 'core/network/remote/dio_helper.dart';
+import 'core/services/cache_helper.dart';
+import 'core/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'core/routes/app_routers.dart';

@@ -1,8 +1,8 @@
-import 'package:e_commerce_flutter/controllers/auth_cubit/auth_cubit.dart';
-import 'package:e_commerce_flutter/controllers/auth_cubit/auth_state.dart';
-import 'package:e_commerce_flutter/core/services/cache_helper.dart';
-import 'package:e_commerce_flutter/core/style/app_color.dart';
-import 'package:e_commerce_flutter/core/utils/screen_config.dart';
+import '../../../controllers/auth_cubit/auth_cubit.dart';
+import '../../../controllers/auth_cubit/auth_state.dart';
+import '../../../core/services/cache_helper.dart';
+import '../../../core/style/app_color.dart';
+import '../../../core/utils/screen_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

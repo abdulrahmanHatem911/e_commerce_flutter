@@ -1,10 +1,10 @@
-import 'package:e_commerce_flutter/controllers/auth_cubit/auth_cubit.dart';
-import 'package:e_commerce_flutter/controllers/auth_cubit/auth_state.dart';
-import 'package:e_commerce_flutter/core/routes/app_routers.dart';
-import 'package:e_commerce_flutter/core/style/app_color.dart';
-import 'package:e_commerce_flutter/core/utils/app_strings.dart';
-import 'package:e_commerce_flutter/core/utils/screen_config.dart';
-import 'package:e_commerce_flutter/core/widget/circular_progress_component.dart';
+import '../../../controllers/auth_cubit/auth_cubit.dart';
+import '../../../controllers/auth_cubit/auth_state.dart';
+import '../../../core/routes/app_routers.dart';
+import '../../../core/style/app_color.dart';
+import '../../../core/utils/app_strings.dart';
+import '../../../core/utils/screen_config.dart';
+import '../../../core/widget/circular_progress_component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

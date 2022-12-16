@@ -1,7 +1,7 @@
-import 'package:e_commerce_flutter/controllers/layout_cubit/layout_cubit.dart';
-import 'package:e_commerce_flutter/core/services/cache_helper.dart';
-import 'package:e_commerce_flutter/core/widget/show_snack_bar.dart';
-import 'package:e_commerce_flutter/modules/screens/cart/payment_screen.dart';
+import '../../../controllers/layout_cubit/layout_cubit.dart';
+import '../../../core/services/cache_helper.dart';
+import '../../../core/widget/show_snack_bar.dart';
+import '../../screens/cart/payment_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/routes/app_routers.dart';

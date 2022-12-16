@@ -1,6 +1,6 @@
-import 'package:e_commerce_flutter/core/style/app_color.dart';
-import 'package:e_commerce_flutter/core/utils/app_size.dart';
-import 'package:e_commerce_flutter/core/utils/screen_config.dart';
+import '../../../core/style/app_color.dart';
+import '../../../core/utils/app_size.dart';
+import '../../../core/utils/screen_config.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 

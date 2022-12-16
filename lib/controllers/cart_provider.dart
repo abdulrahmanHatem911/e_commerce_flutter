@@ -1,5 +1,5 @@
-import 'package:e_commerce_flutter/core/network/local/sql_server.dart';
-import 'package:e_commerce_flutter/models/cart_model.dart';
+import '../core/network/local/sql_server.dart';
+import '../models/cart_model.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

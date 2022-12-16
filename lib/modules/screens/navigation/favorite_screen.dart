@@ -1,5 +1,5 @@
-import 'package:e_commerce_flutter/controllers/layout_cubit/layout_cubit.dart';
-import 'package:e_commerce_flutter/models/product_model.dart';
+import '../../../controllers/layout_cubit/layout_cubit.dart';
+import '../../../models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

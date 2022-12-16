@@ -1,7 +1,7 @@
-import 'package:e_commerce_flutter/modules/screens/auth/login_screen.dart';
-import 'package:e_commerce_flutter/modules/screens/cart/cart_sreen.dart';
-import 'package:e_commerce_flutter/modules/screens/layout_screen.dart';
-import 'package:e_commerce_flutter/modules/screens/product_details.dart';
+import '../../modules/screens/auth/login_screen.dart';
+import '../../modules/screens/cart/cart_sreen.dart';
+import '../../modules/screens/layout_screen.dart';
+import '../../modules/screens/product_details.dart';
 import 'package:flutter/material.dart';
 import '../../modules/screens/auth/signup_screen.dart';
 import '../../modules/screens/cart/payment_screen.dart';

@@ -1,7 +1,7 @@
-import 'package:e_commerce_flutter/controllers/layout_cubit/layout_cubit.dart';
-import 'package:e_commerce_flutter/core/style/icon_broken.dart';
-import 'package:e_commerce_flutter/core/utils/app_size.dart';
-import 'package:e_commerce_flutter/core/utils/app_strings.dart';
+import '../../controllers/layout_cubit/layout_cubit.dart';
+import '../../core/style/icon_broken.dart';
+import '../../core/utils/app_size.dart';
+import '../../core/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

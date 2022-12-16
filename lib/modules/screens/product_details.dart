@@ -1,6 +1,6 @@
-import 'package:e_commerce_flutter/core/utils/app_size.dart';
-import 'package:e_commerce_flutter/core/utils/screen_config.dart';
-import 'package:e_commerce_flutter/models/product_model.dart';
+import '../../core/utils/app_size.dart';
+import '../../core/utils/screen_config.dart';
+import '../../models/product_model.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetails extends StatelessWidget {

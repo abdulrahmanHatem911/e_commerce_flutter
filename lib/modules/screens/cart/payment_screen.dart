@@ -1,9 +1,9 @@
-import 'package:e_commerce_flutter/controllers/layout_cubit/layout_cubit.dart';
-import 'package:e_commerce_flutter/core/services/cache_helper.dart';
-import 'package:e_commerce_flutter/core/style/icon_broken.dart';
-import 'package:e_commerce_flutter/core/utils/app_strings.dart';
-import 'package:e_commerce_flutter/core/utils/screen_config.dart';
-import 'package:e_commerce_flutter/modules/screens/cart/toggle_screen.dart';
+import '../../../controllers/layout_cubit/layout_cubit.dart';
+import '../../../core/services/cache_helper.dart';
+import '../../../core/style/icon_broken.dart';
+import '../../../core/utils/app_strings.dart';
+import '../../../core/utils/screen_config.dart';
+import 'toggle_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';

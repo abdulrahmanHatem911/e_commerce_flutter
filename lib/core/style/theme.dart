@@ -1,6 +1,7 @@
-import 'package:e_commerce_flutter/core/style/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'app_color.dart';
 
 class AppTheme {
   static TextTheme lightTextTheme = TextTheme(

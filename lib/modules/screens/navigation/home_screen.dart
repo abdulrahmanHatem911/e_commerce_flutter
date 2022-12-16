@@ -1,7 +1,7 @@
-import 'package:e_commerce_flutter/controllers/layout_cubit/layout_cubit.dart';
-import 'package:e_commerce_flutter/modules/widgets/home/categories_compnent.dart';
-import 'package:e_commerce_flutter/modules/widgets/home/home_banner_component.dart';
-import 'package:e_commerce_flutter/modules/widgets/text_form_filed.dart';
+import '../../../controllers/layout_cubit/layout_cubit.dart';
+import '../../widgets/home/categories_compnent.dart';
+import '../../widgets/home/home_banner_component.dart';
+import '../../widgets/text_form_filed.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/style/app_color.dart';

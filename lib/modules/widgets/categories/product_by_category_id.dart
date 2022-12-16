@@ -1,4 +1,4 @@
-import 'package:e_commerce_flutter/models/category_model.dart';
+import '../../../models/category_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

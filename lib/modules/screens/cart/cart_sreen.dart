@@ -1,14 +1,12 @@
-import 'package:e_commerce_flutter/core/network/local/sql_server.dart';
-import 'package:e_commerce_flutter/core/routes/app_routers.dart';
-import 'package:e_commerce_flutter/models/cart_model.dart';
-import 'package:e_commerce_flutter/modules/widgets/empty_screen.dart';
+import '../../../core/network/local/sql_server.dart';
+import '../../../models/cart_model.dart';
+import '../../widgets/empty_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../controllers/cart_provider.dart';
 import '../../../core/utils/app_size.dart';
 import '../../../core/utils/app_strings.dart';
 import '../../../core/utils/screen_config.dart';
-import '../../widgets/cart/botton_pay.dart';
 import '../../widgets/cart/plus_minus_buttons.dart';
 import '../../widgets/cart/reusable_widget.dart';
 

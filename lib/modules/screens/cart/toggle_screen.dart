@@ -1,5 +1,5 @@
-import 'package:e_commerce_flutter/core/network/remote/api_constant.dart';
-import 'package:e_commerce_flutter/modules/screens/cart/visa_screen.dart';
+import '../../../core/network/remote/api_constant.dart';
+import 'visa_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
