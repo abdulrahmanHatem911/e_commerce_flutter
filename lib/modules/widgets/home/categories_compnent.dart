@@ -26,7 +26,7 @@ class CategoriesComponent extends StatelessWidget {
       builder: (context, state) {
         return SizedBox(
           width: SizeConfig.screenWidth,
-          height: SizeConfig.screenHeight * 0.35,
+          height: SizeConfig.screenHeight * 0.4,
           child: ListView.separated(
             padding: EdgeInsets.symmetric(
               horizontal: SizeConfig.screenWidth * 0.02,
@@ -39,7 +39,8 @@ class CategoriesComponent extends StatelessWidget {
               final cart = Provider.of<CartProvider>(context, listen: false);
               var item = productList[index];
               return Container(
-                width: SizeConfig.screenWidth * 0.50,
+                width: SizeConfig.screenWidth * 0.39,
+                height: SizeConfig.screenHeight * 0.4,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -49,6 +50,10 @@ class CategoriesComponent extends StatelessWidget {
                       offset: const Offset(5, 6), // changes position of shadow
                     ),
                   ],
+                  border: Border.all(
+                    color: Colors.grey.withOpacity(0.5),
+                    width: 2.0,
+                  ),
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -148,7 +153,7 @@ class CategoriesComponent extends StatelessWidget {
                           Text(
                             item.name,
                             overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
+                            maxLines: 3,
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,

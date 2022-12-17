@@ -51,13 +51,15 @@ class LayoutCubit extends Cubit<LayoutState> {
     emit(LayoutGetProductLoadingState());
     DioHelper.getData(url: ApiConstant.GET_PRODUCTS).then((value) {
       value.data.forEach((element) {
-        if (element['category']['name'] == 'Clothes') {
+        if (element['category']['name'] == 'Clothes' ||
+            element['category']['name'] == "men\'s clothing") {
           clothes.add(ProductModel.fromJson(element));
         } else if (element['category']['name'] == 'Electronics') {
           electronics.add(ProductModel.fromJson(element));
         } else if (element['category']['name'] == 'Furniture') {
           furniture.add(ProductModel.fromJson(element));
-        } else if (element['category']['name'] == 'Shoes') {
+        } else if (element['category']['name'] == 'Shoes' ||
+            element['category']['name'] == "jewelery") {
           shoes.add(ProductModel.fromJson(element));
         }
         products.add(ProductModel.fromJson(element));
