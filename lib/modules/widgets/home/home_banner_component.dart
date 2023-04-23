@@ -13,9 +13,7 @@ class HomeBannerComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(
-        vertical: 10,
-      ).copyWith(bottom: 0),
+      margin: const EdgeInsets.symmetric(vertical: 10).copyWith(bottom: 0),
       height: SizeConfig.screenHeight * 0.28,
       child: Stack(
         children: [

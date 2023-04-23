@@ -1,6 +1,6 @@
 class ApiConstant {
   // for emulator use 10.0.2.2
-  static const String BASE_URL = "https://10.0.2.2:7159";
+  static const String BASE_URL = "http://ecommerce925-001-site1.atempurl.com";
 
   // for real device use your ip address
   //static const String BASE_URL = "https://0.0.0.0:7159";
