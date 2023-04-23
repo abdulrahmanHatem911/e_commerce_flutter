@@ -43,5 +43,4 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
- # i want to ignore this folder but it is not working
-/lib/core/network/remote/api_constant.dart
+lib/core/network/remote/api_constant.dart

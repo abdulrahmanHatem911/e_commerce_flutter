@@ -46,7 +46,7 @@ class ApiConstant {
 
   static String finalToken = '';
 
-  static const String integrationIdCard = '';
+  static const String integrationIdCard = '    ';
   static const String integrationIdKiosk = '';
 
   static String refCode = '';
