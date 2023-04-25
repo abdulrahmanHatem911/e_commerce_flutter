@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../controllers/layout_cubit/layout_cubit.dart';
-import '../../../core/style/app_color.dart';
-import '../../../core/utils/app_size.dart';
-import '../../../core/utils/screen_config.dart';
-import '../../widgets/home/categories_compnent.dart';
-import '../../widgets/home/home_banner_component.dart';
+import '../../controllers/layout_cubit/layout_cubit.dart';
+import '../../core/style/app_color.dart';
+import '../../core/utils/app_size.dart';
+import '../../core/utils/screen_config.dart';
+import '../widgets/home/categories_compnent.dart';
+import '../widgets/home/home_banner_component.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -27,10 +27,11 @@ class HomeScreen extends StatelessWidget {
                   title: 'Man Clothes',
                   onTap: () {},
                 ),
-                AppSize.sv_10,
-                CategoriesComponent(
-                  productList: LayoutCubit.get(context).manProducts,
-                ),
+                LayoutCubit.get(context).manProducts.isNotEmpty
+                    ? CategoriesComponent(
+                        productList: LayoutCubit.get(context).manProducts,
+                      )
+                    : const CircularProgressIndicator(),
                 _buildTitle(
                   title: 'Woman Clothes',
                   onTap: () {},

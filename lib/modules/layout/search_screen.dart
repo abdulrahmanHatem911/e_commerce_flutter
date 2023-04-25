@@ -1,13 +1,13 @@
+
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../controllers/layout_cubit/layout_cubit.dart';
 import '../../core/style/icon_broken.dart';
 import '../../core/utils/app_size.dart';
 import '../../core/utils/app_strings.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../core/utils/screen_config.dart';
 import '../../models/product_model.dart';
-import '../widgets/empty_screen.dart';
 import '../widgets/text_form_filed.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -25,7 +25,7 @@ class SearchScreen extends StatelessWidget {
             appBar: AppBar(
               title: Text(
                 "Search",
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               backgroundColor: Colors.white,
               elevation: 0,
@@ -55,15 +55,17 @@ class SearchScreen extends StatelessWidget {
                     const Center(child: CircularProgressIndicator()),
                   if (state is LayoutSearchErrorState ||
                       cubit.searchProducts.isEmpty)
-                    Container(
-                      height: SizeConfig.screenHeight * 0.4,
-                      width: SizeConfig.screenWidth,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.white,
-                        image: const DecorationImage(
-                          fit: BoxFit.contain,
-                          image: AssetImage(AppImage.errorImage),
+                    Expanded(
+                      child: Container(
+                        height: SizeConfig.screenHeight * 0.4,
+                        width: SizeConfig.screenWidth,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: Colors.white,
+                          image: const DecorationImage(
+                            fit: BoxFit.contain,
+                            image: AssetImage(AppImage.errorImage),
+                          ),
                         ),
                       ),
                     )
@@ -90,6 +92,7 @@ class SearchScreen extends StatelessWidget {
   Widget _buildItemList(
       {required BuildContext context, required ProductModel data}) {
     return Container(
+      height: SizeConfig.screenWidth * 0.31,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
         color: Colors.white,
@@ -107,13 +110,13 @@ class SearchScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              width: SizeConfig.screenWidth * 0.27,
-              height: SizeConfig.screenWidth * 0.31,
+              width: SizeConfig.screenWidth * 0.21,
+              height: SizeConfig.screenWidth * 0.29,
               decoration: BoxDecoration(
-                color: Colors.white,
+                //color: Colors.amber,
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                   image: NetworkImage(data.imageUrl),
                 ),
               ),
@@ -126,17 +129,17 @@ class SearchScreen extends StatelessWidget {
               children: [
                 Text(
                   data.name,
-                  maxLines: 1,
+                  maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 AppSize.sv_10,
                 Text(
                   data.description,
-                  maxLines: 2,
+                  maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontSize: 14,

@@ -1,16 +1,16 @@
-import '../../../controllers/auth_cubit/auth_cubit.dart';
-import '../../../controllers/auth_cubit/auth_state.dart';
-import '../../../core/routes/app_routers.dart';
-import '../../../core/style/app_color.dart';
-import '../../../core/utils/app_strings.dart';
-import '../../../core/utils/screen_config.dart';
-import '../../../core/widget/circular_progress_component.dart';
+import 'package:e_commerce_flutter/controllers/layout_cubit/layout_cubit.dart';
+import 'package:e_commerce_flutter/core/utils/constent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/style/icon_broken.dart';
-import '../../../core/utils/app_size.dart';
-import '../../widgets/bottom_app.dart';
+import '../../core/routes/app_routers.dart';
+import '../../core/style/app_color.dart';
+import '../../core/style/icon_broken.dart';
+import '../../core/utils/app_size.dart';
+import '../../core/utils/app_strings.dart';
+import '../../core/utils/screen_config.dart';
+import '../../core/widget/circular_progress_component.dart';
+import '../widgets/bottom_app.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -18,12 +18,15 @@ class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AuthCubit(),
-      child: BlocConsumer<AuthCubit, AuthState>(
+      create: (context) => LayoutCubit(),
+      child: BlocConsumer<LayoutCubit, LayoutState>(
         listener: (context, state) {
-          if (state is AuthSignOutSuccessState) {
+          if (state is UserSignOutSuccessState) {
             CircularProgressComponent.showSnackBar(
-                context: context, message: 'SGIN OUT', color: Colors.green);
+              context: context,
+              message: 'SGIN OUT',
+              color: Colors.green,
+            );
             Navigator.of(context).pushNamedAndRemoveUntil(
               Routers.LOGIN,
               (route) => false,
@@ -31,7 +34,7 @@ class SettingScreen extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          var cubit = AuthCubit.get(context);
+          var cubit = LayoutCubit.get(context);
           return Scaffold(
             body: SingleChildScrollView(
               padding:
@@ -65,15 +68,13 @@ class SettingScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Paige Turner',
-                              style: Theme.of(context).textTheme.headline2,
+                              CURRENT_USER?.firstName ?? '',
+                              style: Theme.of(context).textTheme.displayMedium,
                             ),
-                            AppSize.sv_5,
                             Text(
-                              'paigeturner@gmail.com',
-                              style: Theme.of(context).textTheme.bodyText2,
+                              CURRENT_USER?.email ?? '',
+                              style: Theme.of(context).textTheme.bodyMedium,
                             ),
-                            AppSize.sv_5,
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColor.primerColor,
@@ -175,7 +176,7 @@ class SettingScreen extends StatelessWidget {
                       'Sign Out',
                       style: Theme.of(context)
                           .textTheme
-                          .headline5!
+                          .headlineSmall!
                           .copyWith(fontSize: 20.0),
                     ),
                     onPressed: () {
@@ -208,7 +209,7 @@ class SettingScreen extends StatelessWidget {
         ),
         title: Text(
           title,
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.bodyLarge,
         ),
         subtitle: Text(subtitle ?? ''),
         trailing: Icon(tailIcon),

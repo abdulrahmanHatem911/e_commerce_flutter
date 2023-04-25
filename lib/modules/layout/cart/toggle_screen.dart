@@ -1,9 +1,6 @@
-import '../../../core/network/remote/api_constant.dart';
-import 'visa_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../controllers/layout_cubit/layout_cubit.dart';
 import '../../../core/routes/app_routers.dart';
@@ -11,6 +8,7 @@ import '../../../core/utils/app_size.dart';
 import '../../../core/utils/app_strings.dart';
 import '../../../core/utils/screen_config.dart';
 import '../../../core/widget/circular_progress_component.dart';
+import 'visa_screen.dart';
 
 class ToggleScreen extends StatelessWidget {
   const ToggleScreen({super.key});

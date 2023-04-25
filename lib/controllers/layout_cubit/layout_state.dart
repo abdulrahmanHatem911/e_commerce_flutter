@@ -108,3 +108,5 @@ class PaymentVisaUrlSuccessStates extends LayoutState {}
 class PaymentVisaUrlErrorStates extends LayoutState {
   PaymentVisaUrlErrorStates();
 }
+
+class UserSignOutSuccessState extends LayoutState {}

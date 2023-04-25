@@ -1,17 +1,18 @@
-import '../../modules/screens/auth/login_screen.dart';
-import '../../modules/screens/cart/cart_sreen.dart';
-import '../../modules/screens/layout_screen.dart';
-import '../../modules/screens/product_details.dart';
 import 'package:flutter/material.dart';
-import '../../modules/screens/auth/signup_screen.dart';
-import '../../modules/screens/cart/payment_screen.dart';
-import '../../modules/screens/cart/ref_code_screen.dart';
-import '../../modules/screens/cart/visa_screen.dart';
-import '../../modules/screens/search_screen.dart';
-import '../../modules/screens/splash_screen.dart';
+
+import '../../modules/auth/login_screen.dart';
+import '../../modules/auth/signup_screen.dart';
+import '../../modules/layout/cart/cart_sreen.dart';
+import '../../modules/layout/cart/payment_screen.dart';
+import '../../modules/layout/cart/ref_code_screen.dart';
+import '../../modules/layout/layout_screen.dart';
+import '../../modules/layout/product_details.dart';
+import '../../modules/layout/search_screen.dart';
+import '../../modules/layout/splash_screen.dart';
 import '../../modules/widgets/categories/product_by_category_id.dart';
 
 class Routers {
+  static const String INIT_ROUTE = '/';
   static const String SPLASH_SCREEN = '/splash';
   static const String LOGIN = '/login_screen';
   static const String REGISTER = '/register_screen';

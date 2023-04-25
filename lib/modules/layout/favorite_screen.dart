@@ -1,13 +1,12 @@
-import '../../../controllers/layout_cubit/layout_cubit.dart';
-import '../../../models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/utils/app_size.dart';
-import '../../../core/utils/app_strings.dart';
-import '../../../core/utils/screen_config.dart';
-import '../../../core/widget/build_item_list.dart';
-import '../../widgets/empty_screen.dart';
+import '../../controllers/layout_cubit/layout_cubit.dart';
+import '../../core/utils/app_size.dart';
+import '../../core/utils/app_strings.dart';
+import '../../core/utils/screen_config.dart';
+import '../../models/product_model.dart';
+import '../widgets/empty_screen.dart';
 
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({super.key});
