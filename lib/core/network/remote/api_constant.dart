@@ -1,16 +1,17 @@
 class ApiConstant {
   // for emulator use 10.0.2.2
-  static const String BASE_URL = "http://ecommerce925-001-site1.atempurl.com";
+  static const String BASE_URL =
+      "http://ecommerce925-001-site1.atempurl.com/api";
 
-  // for real device use your ip address
-  //static const String BASE_URL = "https://0.0.0.0:7159";
-  static const String REGISTER = "/api/Users/Register";
-  static const String LOGIN = "/api/Users/Login";
+  //Authorization
+  static const String REGISTER = "$BASE_URL/AuthUser/Register";
+  static const String LOGIN = "$BASE_URL/AuthUser/Login";
 
-  static const String GET_PRODUCTS = "/api/Product";
-  static String ADD_PRODUCT = "/api/Product";
+  //productes
+  static const String GET_PRODUCTS = "$BASE_URL/Product/GetProducts";
+  static String ADD_PRODUCT = "$BASE_URL/Product/AddProduct";
   static String PRODUCT_BY_CATEGORIES_ID(int categoryId) =>
-      "/api/Product/GetByCategoryId/$categoryId";
+      "$BASE_URL/Product/GetByCategoryId/$categoryId";
   static String UPDATE_PRODUCT(int productId) => "/api/Product/$productId";
   static String DELETE_PRODUCT(int productId) => "/api/Product/$productId";
   static String SEARCH_PRODUCT(String productName) =>
@@ -24,8 +25,8 @@ class ApiConstant {
   static String UPDATE_CART_ITEM(int updateCartId) => "/api/Cart/$updateCartId";
 
   //category
-  static const String GET_CATEGORIES = "/api/Category";
-  static const String ADD_CATEGORY = "/api/Category";
+  static const String GET_CATEGORIES = "$BASE_URL/Category/GetAllCategories";
+  static const String ADD_CATEGORY = "$BASE_URL/Category/AddCategory";
   static String UPDATE_CATEGORY(int categoryId) => "/api/Category/$categoryId";
   static String DELETE_CATEGORY(int categoryId) => "/api/Category/$categoryId";
   //

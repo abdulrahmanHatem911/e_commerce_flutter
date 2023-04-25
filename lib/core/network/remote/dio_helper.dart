@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+
 import 'api_constant.dart';
 
 class DioHelper {
@@ -38,12 +39,14 @@ class DioHelper {
   static Future<Response> getDataUseToken({
     required String url,
     required String token,
+    Map<String, dynamic>? query,
   }) async {
     return await dio!.get(
       url,
+      queryParameters: query,
       options: Options(
         headers: {
-          'Authorization ': 'Bearer $token',
+          'Authorization': 'Bearer $token',
         },
       ),
     );
@@ -51,13 +54,26 @@ class DioHelper {
 
   // to post data
   static Future<Response> postData(
-      {required String url,
-      required Map<String, dynamic> data,
-      Map<String, dynamic>? query}) async {
+      {required String url, required Map<String, dynamic> data}) async {
     return await dio!.post(
       url,
       data: data,
-      queryParameters: query,
+    );
+  }
+
+  static Future<Response> postDataUseToken({
+    required String url,
+    required String token,
+    required Map<String, dynamic> data,
+  }) async {
+    return await dio!.post(
+      url,
+      data: data,
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      ),
     );
   }
 }

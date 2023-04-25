@@ -1,13 +1,12 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../controllers/layout_cubit/layout_cubit.dart';
+import '../../../core/routes/app_routers.dart';
 import '../../../core/utils/app_size.dart';
 import '../../../core/utils/app_strings.dart';
 import '../../../core/utils/screen_config.dart';
 import '../../../core/widget/circular_progress_component.dart';
-import '../../../models/product_model.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../core/routes/app_routers.dart';
 import '../../../models/category_model.dart';
 import '../../widgets/empty_screen.dart';
 
@@ -82,9 +81,8 @@ class CategoriesScreen extends StatelessWidget {
       ),
       child: Container(
         padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.screenWidth * 0.05,
-          vertical: SizeConfig.screenHeight * 0.02,
-        ),
+            horizontal: SizeConfig.screenWidth * 0.05,
+            vertical: SizeConfig.screenHeight * 0.02),
         height: SizeConfig.screenHeight * 0.20,
         width: SizeConfig.screenWidth,
         decoration: BoxDecoration(

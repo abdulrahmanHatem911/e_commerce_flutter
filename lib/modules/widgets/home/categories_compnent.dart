@@ -1,18 +1,16 @@
-import '../../../controllers/layout_cubit/layout_cubit.dart';
-import '../../../core/utils/app_size.dart';
-import '../../../core/widget/circular_progress_component.dart';
-import '../../../models/cart_model.dart';
-
-import '../../../models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import '../../../controllers/cart_provider.dart';
+import '../../../controllers/layout_cubit/layout_cubit.dart';
 import '../../../core/network/local/sql_server.dart';
 import '../../../core/routes/app_routers.dart';
+import '../../../core/utils/app_size.dart';
 import '../../../core/utils/screen_config.dart';
 import '../../../core/widget/show_snack_bar.dart';
+import '../../../models/cart_model.dart';
+import '../../../models/product_model.dart';
 
 class CategoriesComponent extends StatelessWidget {
   final List<ProductModel> productList;
@@ -28,10 +26,7 @@ class CategoriesComponent extends StatelessWidget {
           width: SizeConfig.screenWidth,
           height: SizeConfig.screenHeight * 0.4,
           child: ListView.separated(
-            padding: EdgeInsets.symmetric(
-              horizontal: SizeConfig.screenWidth * 0.02,
-              vertical: SizeConfig.screenHeight * 0.02,
-            ),
+            padding: EdgeInsets.only(bottom: SizeConfig.screenHeight * 0.02),
             scrollDirection: Axis.horizontal,
             itemCount: productList.length,
             separatorBuilder: (context, index) => AppSize.sh_15,
@@ -123,51 +118,67 @@ class CategoriesComponent extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          InkWell(
-                            onTap: () => Navigator.of(context).pushNamed(
-                              Routers.PRODUCT_DETAILS,
-                              arguments: item,
-                            ),
-                            child: Hero(
-                              tag: 'product_image_${item.id}',
-                              child: Container(
-                                width: SizeConfig.screenWidth,
-                                height: SizeConfig.screenHeight * 0.17,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  image: DecorationImage(
-                                    image: NetworkImage(item.imageUrl),
-                                    fit: BoxFit.contain,
-                                    filterQuality: FilterQuality.low,
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            InkWell(
+                              onTap: () => Navigator.of(context).pushNamed(
+                                Routers.PRODUCT_DETAILS,
+                                arguments: item,
+                              ),
+                              child: Hero(
+                                tag: 'product_image_${item.id}',
+                                child: Container(
+                                  width: SizeConfig.screenWidth,
+                                  height: SizeConfig.screenHeight * 0.16,
+                                  decoration: BoxDecoration(
+                                    //color: Colors.amber,
+                                    image: DecorationImage(
+                                      image: NetworkImage(item.imageUrl),
+                                      fit: BoxFit.contain,
+                                      filterQuality: FilterQuality.low,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          AppSize.sv_10,
-                          Text(
-                            item.name,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 3,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                            AppSize.sv_10,
+                            Text(
+                              item.name,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          AppSize.sv_5,
-                          Text(
-                            '\$ ${item.price}',
-                            style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.grey,
+                            Expanded(
+                              child: Text(
+                                item.description,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 3,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
                             ),
-                          ),
-                        ],
+                            Text(
+                              '\$ ${item.price}',
+                              style: const TextStyle(
+                                fontSize: 15,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

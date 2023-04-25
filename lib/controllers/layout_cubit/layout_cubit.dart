@@ -1,20 +1,22 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../core/network/local/sql_server.dart';
 import '../../core/network/remote/api_constant.dart';
 import '../../core/network/remote/dio_helper.dart';
 import '../../core/services/cache_helper.dart';
 import '../../models/category_model.dart';
-import '../../models/product_model.dart';
-import '../../modules/screens/cart/cart_sreen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../../core/network/local/sql_server.dart';
 import '../../models/payment/authentication_request_model.dart';
 import '../../models/payment/order_registration_model.dart';
 import '../../models/payment/payment_reqeust_model.dart';
+import '../../models/product_model.dart';
+import '../../modules/screens/cart/cart_sreen.dart';
 import '../../modules/screens/navigation/categories_screen.dart';
 import '../../modules/screens/navigation/favorite_screen.dart';
 import '../../modules/screens/navigation/home_screen.dart';
 import '../../modules/screens/navigation/setting_screen.dart';
+
 part 'layout_state.dart';
 
 class LayoutCubit extends Cubit<LayoutState> {
@@ -43,32 +45,29 @@ class LayoutCubit extends Cubit<LayoutState> {
 
   // get product
   List<ProductModel> products = [];
-  List<ProductModel> electronics = [];
-  List<ProductModel> clothes = [];
-  List<ProductModel> furniture = [];
-  List<ProductModel> shoes = [];
+  List<ProductModel> manProducts = [];
+  List<ProductModel> womanProducts = [];
+  List<ProductModel> jewelery = [];
   void getProductDio() {
     emit(LayoutGetProductLoadingState());
     DioHelper.getData(url: ApiConstant.GET_PRODUCTS).then((value) {
       value.data.forEach((element) {
-        if (element['category']['name'] == 'Clothes' ||
-            element['category']['name'] == "men\'s clothing") {
-          clothes.add(ProductModel.fromJson(element));
-        } else if (element['category']['name'] == 'Electronics') {
-          electronics.add(ProductModel.fromJson(element));
-        } else if (element['category']['name'] == 'Furniture') {
-          furniture.add(ProductModel.fromJson(element));
-        } else if (element['category']['name'] == 'Shoes' ||
-            element['category']['name'] == "jewelery") {
-          shoes.add(ProductModel.fromJson(element));
+        if (element['category']['name'] == 'jewelery') {
+          jewelery.add(ProductModel.fromJson(element));
+        } else if (element['category']['name'] == 'Man') {
+          manProducts.add(ProductModel.fromJson(element));
+        } else if (element['category']['name'] == 'Woman') {
+          womanProducts.add(ProductModel.fromJson(element));
         }
         products.add(ProductModel.fromJson(element));
       });
       emit(LayoutGetProductSuccessState());
-      print('success Mdhat🐺');
     }).catchError((error) {
-      print("error:🤔${error.toString()}");
-      emit(LayoutGetProductErrorState(error.toString()));
+      if (error.toString().contains('SocketException')) {
+        emit(LayoutGetProductErrorState('No Internet Connection'));
+      } else {
+        emit(LayoutGetProductErrorState(error.toString()));
+      }
     });
   }
 
@@ -100,7 +99,10 @@ class LayoutCubit extends Cubit<LayoutState> {
   List<ProductModel> productsByCategoryId = [];
   void getProductByCategoryIdDio({required int categoryId}) {
     emit(LayoutGetProductByCategoryIdLoadingState());
-    DioHelper.getData(url: ApiConstant.PRODUCT_BY_CATEGORIES_ID(categoryId))
+    DioHelper.getDataUseToken(
+            url: ApiConstant.PRODUCT_BY_CATEGORIES_ID(categoryId),
+            token:
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhYmRvMTE5IiwianRpIjoiNTllYjE1MTUtMjdiMi00ZjA2LWJmZmItYTFkOTI2NjE2ZmNiIiwiZW1haWwiOiJhYmRvMTE5QGdtYWlsLmNvbSIsInVpZCI6IjE2OWY1NTk0LWI2NGEtNDZiYi04ZGFmLWU1NTA4N2M4MTllYyIsInJvbGVzIjpbIkFkbWluIiwiVXNlciJdLCJleHAiOjE2ODMyOTMzNjQsImlzcyI6IlNlY3VyZUFwaSIsImF1ZCI6IlNlY3VyZUFwaVVzZXIifQ.k63DOHEH8jKC6HHFyFb303ltyDHLCJLKzT4KTp4iu7A')
         .then((value) {
       value.data.forEach((element) {
         productsByCategoryId.add(ProductModel.fromJson(element));

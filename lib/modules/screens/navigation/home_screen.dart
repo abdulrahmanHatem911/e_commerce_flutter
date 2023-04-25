@@ -1,12 +1,11 @@
-import '../../../controllers/layout_cubit/layout_cubit.dart';
-import '../../widgets/home/categories_compnent.dart';
-import '../../widgets/home/home_banner_component.dart';
-import '../../widgets/text_form_filed.dart';
 import 'package:flutter/material.dart';
 
+import '../../../controllers/layout_cubit/layout_cubit.dart';
 import '../../../core/style/app_color.dart';
 import '../../../core/utils/app_size.dart';
 import '../../../core/utils/screen_config.dart';
+import '../../widgets/home/categories_compnent.dart';
+import '../../widgets/home/home_banner_component.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -25,37 +24,28 @@ class HomeScreen extends StatelessWidget {
               children: [
                 HomeBannerComponent(),
                 _buildTitle(
-                  title: 'Clothes',
+                  title: 'Man Clothes',
                   onTap: () {},
                 ),
                 AppSize.sv_10,
                 CategoriesComponent(
-                  productList: LayoutCubit.get(context).clothes,
+                  productList: LayoutCubit.get(context).manProducts,
                 ),
-                AppSize.sv_10,
                 _buildTitle(
-                  title: 'Electronics',
+                  title: 'Woman Clothes',
                   onTap: () {},
                 ),
                 CategoriesComponent(
-                  productList: LayoutCubit.get(context).electronics,
+                  productList: LayoutCubit.get(context).womanProducts,
+                ),
+                _buildTitle(
+                  title: 'Jewelery',
+                  onTap: () {},
+                ),
+                CategoriesComponent(
+                  productList: LayoutCubit.get(context).jewelery,
                 ),
                 AppSize.sv_10,
-                _buildTitle(
-                  title: 'Shoes',
-                  onTap: () {},
-                ),
-                CategoriesComponent(
-                  productList: LayoutCubit.get(context).shoes,
-                ),
-                AppSize.sv_10,
-                _buildTitle(
-                  title: 'Furniture',
-                  onTap: () {},
-                ),
-                CategoriesComponent(
-                  productList: LayoutCubit.get(context).furniture,
-                ),
               ],
             ),
           ),
