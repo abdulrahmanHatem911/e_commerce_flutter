@@ -48,6 +48,7 @@ class FavoriteScreen extends StatelessWidget {
   Widget _buildItemList(
       {required BuildContext context, required ProductModel item}) {
     return Container(
+      width: SizeConfig.screenWidth * 0.3,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
         color: Colors.white,
@@ -63,8 +64,8 @@ class FavoriteScreen extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: SizeConfig.screenWidth * 0.3,
-            height: SizeConfig.screenWidth * 0.34,
+            width: SizeConfig.screenWidth * 0.26,
+            height: SizeConfig.screenWidth * 0.29,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),

@@ -1,3 +1,4 @@
+import 'package:e_commerce_flutter/modules/widgets/build_circular_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -94,25 +95,25 @@ class LoginScreen extends StatelessWidget {
                           },
                           builder: (context, state) {
                             var cubit = AuthCubit.get(context);
-                            return BottomComponent(
-                              child: state is AuthLoginLoadingState
-                                  ? const CircularProgressComponent()
-                                  : const Text(
+                            return state is AuthLoginLoadingState
+                                ? const BuildCircularWidget()
+                                : BottomComponent(
+                                    child: const Text(
                                       'Login',
                                       style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white),
                                     ),
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  cubit.userLoginDio(
-                                    email: emailController.text,
-                                    password: passwordController.text,
+                                    onPressed: () {
+                                      if (_formKey.currentState!.validate()) {
+                                        cubit.userLoginDio(
+                                          email: emailController.text,
+                                          password: passwordController.text,
+                                        );
+                                      }
+                                    },
                                   );
-                                }
-                              },
-                            );
                           },
                         ),
                         //or

@@ -1,5 +1,6 @@
 import 'package:e_commerce_flutter/controllers/layout_cubit/layout_cubit.dart';
 import 'package:e_commerce_flutter/core/utils/constent.dart';
+import 'package:e_commerce_flutter/modules/widgets/build_flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,7 +10,6 @@ import '../../core/style/icon_broken.dart';
 import '../../core/utils/app_size.dart';
 import '../../core/utils/app_strings.dart';
 import '../../core/utils/screen_config.dart';
-import '../../core/widget/circular_progress_component.dart';
 import '../widgets/bottom_app.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -22,11 +22,8 @@ class SettingScreen extends StatelessWidget {
       child: BlocConsumer<LayoutCubit, LayoutState>(
         listener: (context, state) {
           if (state is UserSignOutSuccessState) {
-            CircularProgressComponent.showSnackBar(
-              context: context,
-              message: 'SGIN OUT',
-              color: Colors.green,
-            );
+            showFlutterToast(
+                message: "Sign out successfully 🥳", toastColor: Colors.green);
             Navigator.of(context).pushNamedAndRemoveUntil(
               Routers.LOGIN,
               (route) => false,
@@ -36,9 +33,8 @@ class SettingScreen extends StatelessWidget {
         builder: (context, state) {
           var cubit = LayoutCubit.get(context);
           return Scaffold(
-            body: SingleChildScrollView(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
                   Container(
@@ -75,102 +71,36 @@ class SettingScreen extends StatelessWidget {
                               CURRENT_USER?.email ?? '',
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColor.primerColor,
-                                minimumSize: Size(
-                                  SizeConfig.screenWidth * 0.5,
-                                  SizeConfig.screenHeight * 0.05,
-                                ),
-                              ),
-                              onPressed: () {},
-                              child: const Text(
-                                'Edit',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18.0,
-                                  letterSpacing: 1.3,
-                                ),
-                              ),
-                            )
                           ],
                         ),
                       ],
                     ),
                   ),
-                  AppSize.sv_10,
-                  Column(
-                    children: [
-                      _buildListItem(
-                        context,
-                        title: 'Dark Mood',
-                        leadingIcon: IconBroken.Setting,
-                      ),
-                      _buildListItem(
-                        context,
-                        title: 'RTL',
-                        leadingIcon: IconBroken.Setting,
-                      ),
-                      _buildListItem(
-                        context,
-                        title: 'Pages',
-                        leadingIcon: IconBroken.Paper,
-                        subtitle: 'ongoing Orders, Recent Orders..',
-                      ),
-                      _buildListItem(
-                        context,
-                        title: 'Orders',
-                        leadingIcon: IconBroken.Paper_Fail,
-                        subtitle: 'ongoing Orders, Recent Orders..',
-                        onTapFunction: () {},
-                      ),
-                      _buildListItem(
-                        context,
-                        title: 'Your WishList',
-                        leadingIcon: IconBroken.Heart,
-                        subtitle: 'your save products',
-                        onTapFunction: () {},
-                      ),
-                      _buildListItem(
-                        context,
-                        title: 'Payment',
-                        leadingIcon: IconBroken.Buy,
-                        subtitle: 'save cart wallet',
-                        onTapFunction: () {},
-                      ),
-                      _buildListItem(
-                        context,
-                        title: 'Save address',
-                        leadingIcon: IconBroken.Location,
-                        subtitle: 'Home Office',
-                      ),
-                      _buildListItem(
-                        context,
-                        title: 'Langage',
-                        leadingIcon: IconBroken.User,
-                        subtitle: 'Select your langage her',
-                      ),
-                      _buildListItem(
-                        context,
-                        title: 'Notification',
-                        leadingIcon: IconBroken.Notification,
-                        subtitle: 'offers Order Tracking message',
-                      ),
-                      _buildListItem(
-                        context,
-                        title: 'Notification',
-                        leadingIcon: IconBroken.Setting,
-                        subtitle: 'Dark Mood RTL, Notification ',
-                      ),
-                      _buildListItem(
-                        context,
-                        title: 'Profile Setting',
-                        leadingIcon: IconBroken.User1,
-                        subtitle: 'Full Name',
-                      ),
-                    ],
+                  _buildListItem(
+                    context,
+                    title: 'Add Product',
+                    subtitle: 'Add Product, Edit Product, Delete Product',
+                    leadingIcon: IconBroken.Plus,
                   ),
-                  AppSize.sv_10,
+                  _buildListItem(
+                    context,
+                    title: 'Add Category',
+                    subtitle: 'Add Category, Edit Category, Delete Category',
+                    leadingIcon: IconBroken.Plus,
+                  ),
+                  _buildListItem(
+                    context,
+                    title: 'Notification',
+                    leadingIcon: IconBroken.Setting,
+                    subtitle: 'Dark Mood RTL, Notification ',
+                  ),
+                  _buildListItem(
+                    context,
+                    title: 'Profile Setting',
+                    leadingIcon: IconBroken.User1,
+                    subtitle: 'Full Name',
+                  ),
+                  const Spacer(),
                   BottomComponent(
                     child: Text(
                       'Sign Out',

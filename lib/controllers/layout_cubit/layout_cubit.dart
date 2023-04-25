@@ -51,6 +51,10 @@ class LayoutCubit extends Cubit<LayoutState> {
   void getProductDio() {
     emit(LayoutGetProductLoadingState());
     DioHelper.getData(url: ApiConstant.GET_PRODUCTS).then((value) {
+      products.clear();
+      manProducts.clear();
+      womanProducts.clear();
+      jewelery.clear();
       value.data.forEach((element) {
         if (element['category']['name'] == 'jewelery') {
           jewelery.add(ProductModel.fromJson(element));
@@ -77,11 +81,13 @@ class LayoutCubit extends Cubit<LayoutState> {
   void getCategoryDio() {
     emit(LayoutGetCategoryLoadingState());
     DioHelper.getData(url: ApiConstant.GET_CATEGORIES).then((value) {
+      categories.clear();
       if (admin != null && admin != '') {
         value.data.forEach((element) {
           categories.add(CategoryModel.fromJson(element));
         });
       } else {
+        categories.clear();
         value.data.forEach((element) {
           if (element['isActive'] == true) {
             categories.add(CategoryModel.fromJson(element));
@@ -124,6 +130,7 @@ class LayoutCubit extends Cubit<LayoutState> {
   //get from database
   List<ProductModel> databaseFavoritesProducts = [];
   void getFromDatabase() {
+    databaseFavoritesProducts = [];
     SqliteService().getAllItems().then((value) {
       databaseFavoritesProducts = value;
       emit(LayoutGetFromDatabaseState());
@@ -170,9 +177,6 @@ class LayoutCubit extends Cubit<LayoutState> {
     });
   }
 
-  // payment method
-
-  // for authentication in paymob
   AuthenticationRequestModel? authTokenModel;
 
 // for authentication in paymob

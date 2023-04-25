@@ -44,7 +44,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        BlocProvider(create: (context) => LayoutCubit()),
+        BlocProvider(
+          create: (context) => LayoutCubit()
+            ..getProductDio()
+            ..getCategoryDio()
+            ..getFromDatabase(),
+        ),
         BlocProvider(create: (context) => AuthCubit()),
         ChangeNotifierProvider(create: (_) => CartProvider()),
       ],

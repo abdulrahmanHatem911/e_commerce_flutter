@@ -1,15 +1,15 @@
-
-import '../../../core/network/local/sql_server.dart';
-import '../../../models/cart_model.dart';
-import '../../widgets/empty_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../../controllers/cart_provider.dart';
+import '../../../core/network/local/sql_server.dart';
 import '../../../core/utils/app_size.dart';
 import '../../../core/utils/app_strings.dart';
 import '../../../core/utils/screen_config.dart';
+import '../../../models/cart_model.dart';
 import '../../widgets/cart/plus_minus_buttons.dart';
 import '../../widgets/cart/reusable_widget.dart';
+import '../../widgets/empty_screen.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -50,7 +50,9 @@ class _CartScreenState extends State<CartScreen> {
                     itemCount: provider.cart.length,
                     itemBuilder: (context, index) {
                       return Container(
-                        height: SizeConfig.screenWidth * 0.34,
+                        height: SizeConfig.screenWidth * 0.3,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 5.0, vertical: 5.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
                           color: Colors.white,
@@ -67,14 +69,14 @@ class _CartScreenState extends State<CartScreen> {
                         child: Row(
                           children: [
                             Container(
-                              width: SizeConfig.screenWidth * 0.3,
+                              width: SizeConfig.screenWidth * 0.29,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
                                 image: DecorationImage(
                                   image:
                                       NetworkImage(provider.cart[index].image),
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.contain,
                                 ),
                               ),
                             ),
@@ -89,7 +91,7 @@ class _CartScreenState extends State<CartScreen> {
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -99,8 +101,9 @@ class _CartScreenState extends State<CartScreen> {
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 13,
                                       color: Colors.grey,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                   AppSize.sv_10,
