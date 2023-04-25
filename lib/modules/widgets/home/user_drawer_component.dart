@@ -1,14 +1,13 @@
-import '../../../controllers/auth_cubit/auth_cubit.dart';
-import '../../../controllers/auth_cubit/auth_state.dart';
-import '../../../controllers/layout_cubit/layout_cubit.dart';
-import '../../../core/style/app_color.dart';
-import '../../../core/style/icon_broken.dart';
+import 'package:e_commerce_flutter/modules/widgets/build_flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../controllers/auth_cubit/auth_cubit.dart';
+import '../../../controllers/layout_cubit/layout_cubit.dart';
 import '../../../core/routes/app_routers.dart';
+import '../../../core/style/app_color.dart';
+import '../../../core/style/icon_broken.dart';
 import '../../../core/utils/app_strings.dart';
-import '../../../core/widget/circular_progress_component.dart';
 
 class UserDrawerComponent extends StatelessWidget {
   const UserDrawerComponent({super.key});
@@ -73,13 +72,13 @@ class UserDrawerComponent extends StatelessWidget {
                 ],
               ),
             ),
-            BlocConsumer<AuthCubit, AuthState>(
+            BlocConsumer<LayoutCubit, LayoutState>(
               listener: (context, state) {
-                if (state is AuthSignOutSuccessState) {
-                  CircularProgressComponent.showSnackBar(
-                      context: context,
-                      message: 'SGIN OUT',
-                      color: Colors.green);
+                if (state is UserSignOutSuccessState) {
+                  showFlutterToast(
+                    message: "Sign Out Successfully",
+                    toastColor: Colors.green,
+                  );
                   Navigator.of(context).pushNamedAndRemoveUntil(
                     Routers.LOGIN,
                     (route) => false,
@@ -87,7 +86,7 @@ class UserDrawerComponent extends StatelessWidget {
                 }
               },
               builder: (context, state) {
-                var cubit = AuthCubit.get(context);
+                var cubit = LayoutCubit.get(context);
                 return InkWell(
                   onTap: () => cubit.userSignOutDio(),
                   child: Container(
@@ -100,10 +99,12 @@ class UserDrawerComponent extends StatelessWidget {
                       children: [
                         Text(
                           "Log Out",
-                          style:
-                              Theme.of(context).textTheme.headline1!.copyWith(
-                                    color: Colors.white,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge!
+                              .copyWith(
+                                color: Colors.white,
+                              ),
                         ),
                         const Spacer(),
                         const Icon(
@@ -132,7 +133,7 @@ class UserDrawerComponent extends StatelessWidget {
       leading: Icon(
         icon,
       ),
-      title: Text(title, style: Theme.of(context).textTheme.bodyText1),
+      title: Text(title, style: Theme.of(context).textTheme.bodyLarge),
       onTap: () {
         Navigator.pop(context);
         LayoutCubit.get(context).changeBottomNavBar(index);

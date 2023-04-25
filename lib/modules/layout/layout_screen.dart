@@ -1,24 +1,22 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import '../../controllers/layout_cubit/layout_cubit.dart';
-import '../../core/routes/app_routers.dart';
-import '../../core/services/cache_helper.dart';
-import '../widgets/home/user_drawer_component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../controllers/layout_cubit/layout_cubit.dart';
+import '../../core/routes/app_routers.dart';
 import '../../core/style/app_color.dart';
 import '../../core/style/icon_broken.dart';
+import '../widgets/home/user_drawer_component.dart';
 
 class LayoutScreen extends StatelessWidget {
   const LayoutScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LayoutCubit()
-        ..getProductDio()
-        ..getCategoryDio()
-        ..getFromDatabase(),
+    return RefreshIndicator(
+      onRefresh: () async {
+        await _refresh(context);
+      },
       child: BlocBuilder<LayoutCubit, LayoutState>(
         builder: (context, state) {
           var cubit = LayoutCubit.get(context);
@@ -97,6 +95,17 @@ class LayoutScreen extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  _refresh(BuildContext context) {
+    return Future.delayed(
+      const Duration(seconds: 1),
+      () {
+        BlocProvider.of<LayoutCubit>(context).getProductDio();
+        BlocProvider.of<LayoutCubit>(context).getCategoryDio();
+        BlocProvider.of<LayoutCubit>(context).getFromDatabase();
+      },
     );
   }
 }

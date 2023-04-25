@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
+
 import '../../core/utils/app_size.dart';
 import '../../core/utils/screen_config.dart';
 import '../../models/product_model.dart';
-import 'package:flutter/material.dart';
 
 class ProductDetails extends StatelessWidget {
   const ProductDetails({
@@ -29,7 +30,7 @@ class ProductDetails extends StatelessWidget {
                 width: SizeConfig.screenWidth,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage("${args.imageUrl}"),
+                    image: NetworkImage(args.imageUrl),
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -37,18 +38,18 @@ class ProductDetails extends StatelessWidget {
             ),
             AppSize.sv_10,
             Text(
-              '${args.name}',
-              style: Theme.of(context).textTheme.headline2,
+              args.name,
+              style: Theme.of(context).textTheme.displayMedium,
             ),
             AppSize.sv_10,
             Text(
-              '${args.description}',
-              style: Theme.of(context).textTheme.headline1,
+              args.description,
+              style: Theme.of(context).textTheme.displayLarge,
             ),
             AppSize.sv_10,
             Text(
               '\$${args.price}',
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(
               height: 10,

@@ -11,11 +11,11 @@ import '../../models/payment/authentication_request_model.dart';
 import '../../models/payment/order_registration_model.dart';
 import '../../models/payment/payment_reqeust_model.dart';
 import '../../models/product_model.dart';
-import '../../modules/screens/cart/cart_sreen.dart';
-import '../../modules/screens/navigation/categories_screen.dart';
-import '../../modules/screens/navigation/favorite_screen.dart';
-import '../../modules/screens/navigation/home_screen.dart';
-import '../../modules/screens/navigation/setting_screen.dart';
+import '../../modules/layout/cart/cart_sreen.dart';
+import '../../modules/layout/categories_screen.dart';
+import '../../modules/layout/favorite_screen.dart';
+import '../../modules/layout/home_screen.dart';
+import '../../modules/layout/setting_screen.dart';
 
 part 'layout_state.dart';
 
@@ -51,6 +51,10 @@ class LayoutCubit extends Cubit<LayoutState> {
   void getProductDio() {
     emit(LayoutGetProductLoadingState());
     DioHelper.getData(url: ApiConstant.GET_PRODUCTS).then((value) {
+      products.clear();
+      manProducts.clear();
+      womanProducts.clear();
+      jewelery.clear();
       value.data.forEach((element) {
         if (element['category']['name'] == 'jewelery') {
           jewelery.add(ProductModel.fromJson(element));
@@ -77,11 +81,13 @@ class LayoutCubit extends Cubit<LayoutState> {
   void getCategoryDio() {
     emit(LayoutGetCategoryLoadingState());
     DioHelper.getData(url: ApiConstant.GET_CATEGORIES).then((value) {
+      categories.clear();
       if (admin != null && admin != '') {
         value.data.forEach((element) {
           categories.add(CategoryModel.fromJson(element));
         });
       } else {
+        categories.clear();
         value.data.forEach((element) {
           if (element['isActive'] == true) {
             categories.add(CategoryModel.fromJson(element));
@@ -100,10 +106,9 @@ class LayoutCubit extends Cubit<LayoutState> {
   void getProductByCategoryIdDio({required int categoryId}) {
     emit(LayoutGetProductByCategoryIdLoadingState());
     DioHelper.getDataUseToken(
-            url: ApiConstant.PRODUCT_BY_CATEGORIES_ID(categoryId),
-            token:
-                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhYmRvMTE5IiwianRpIjoiNTllYjE1MTUtMjdiMi00ZjA2LWJmZmItYTFkOTI2NjE2ZmNiIiwiZW1haWwiOiJhYmRvMTE5QGdtYWlsLmNvbSIsInVpZCI6IjE2OWY1NTk0LWI2NGEtNDZiYi04ZGFmLWU1NTA4N2M4MTllYyIsInJvbGVzIjpbIkFkbWluIiwiVXNlciJdLCJleHAiOjE2ODMyOTMzNjQsImlzcyI6IlNlY3VyZUFwaSIsImF1ZCI6IlNlY3VyZUFwaVVzZXIifQ.k63DOHEH8jKC6HHFyFb303ltyDHLCJLKzT4KTp4iu7A')
-        .then((value) {
+      url: ApiConstant.PRODUCT_BY_CATEGORIES_ID(categoryId),
+      token: "${CacheHelper.getData(key: 'token')}",
+    ).then((value) {
       value.data.forEach((element) {
         productsByCategoryId.add(ProductModel.fromJson(element));
       });
@@ -115,8 +120,6 @@ class LayoutCubit extends Cubit<LayoutState> {
     });
   }
 
-  //--use database to inset item to favorite
-  //insert to database
   void insertToFavorites(ProductModel model) {
     SqliteService().createItem(model).then((value) {
       getFromDatabase();
@@ -127,6 +130,7 @@ class LayoutCubit extends Cubit<LayoutState> {
   //get from database
   List<ProductModel> databaseFavoritesProducts = [];
   void getFromDatabase() {
+    databaseFavoritesProducts = [];
     SqliteService().getAllItems().then((value) {
       databaseFavoritesProducts = value;
       emit(LayoutGetFromDatabaseState());
@@ -142,17 +146,17 @@ class LayoutCubit extends Cubit<LayoutState> {
   List<ProductModel> searchProducts = [];
   void searchForProduct(String productName) {
     emit(LayoutSearchLoadingState());
-    DioHelper.getData(url: ApiConstant.SEARCH_PRODUCT(productName))
-        .then((value) {
+    DioHelper.getDataUseToken(
+      url: ApiConstant.SEARCH_PRODUCT(productName),
+      token: "${CacheHelper.getData(key: 'token')}",
+    ).then((value) {
       searchProducts = [];
       value.data.forEach((element) {
         searchProducts.add(ProductModel.fromJson(element));
       });
-      print("Success get search produces 🚀");
       emit(LayoutSearchSuccessState());
     }).catchError((error) {
       searchProducts = [];
-      print("error:🤔${error.toString()}");
       emit(LayoutSearchErrorState(error.toString()));
     });
   }
@@ -173,9 +177,6 @@ class LayoutCubit extends Cubit<LayoutState> {
     });
   }
 
-  // payment method
-
-  // for authentication in paymob
   AuthenticationRequestModel? authTokenModel;
 
 // for authentication in paymob
@@ -307,5 +308,12 @@ class LayoutCubit extends Cubit<LayoutState> {
     )) {
       throw 'Could not launch $url';
     }
+  }
+
+  //sign out
+  Future<void> userSignOutDio() async {
+    await CacheHelper.saveData(key: 'user', value: '');
+    await CacheHelper.saveData(key: 'token', value: '');
+    emit(UserSignOutSuccessState());
   }
 }

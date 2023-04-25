@@ -1,17 +1,18 @@
-import '../../../controllers/auth_cubit/auth_cubit.dart';
-import '../../../controllers/auth_cubit/auth_state.dart';
-import '../../../core/services/cache_helper.dart';
-import '../../../core/style/app_color.dart';
-import '../../../core/utils/screen_config.dart';
+import 'package:e_commerce_flutter/modules/widgets/build_circular_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../core/routes/app_routers.dart';
-import '../../../core/utils/app_size.dart';
-import '../../../core/widget/circular_progress_component.dart';
-import '../../widgets/bottom_app.dart';
-import '../../widgets/text_form_filed.dart';
+import '../../controllers/auth_cubit/auth_cubit.dart';
+import '../../controllers/auth_cubit/auth_state.dart';
+import '../../core/routes/app_routers.dart';
+import '../../core/services/cache_helper.dart';
+import '../../core/style/app_color.dart';
+import '../../core/utils/app_size.dart';
+import '../../core/utils/screen_config.dart';
+import '../../core/widget/circular_progress_component.dart';
+import '../widgets/bottom_app.dart';
+import '../widgets/text_form_filed.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -35,7 +36,7 @@ class LoginScreen extends StatelessWidget {
                   AppSize.sv_80,
                   Text(
                     'Login',
-                    style: Theme.of(context).textTheme.headline2,
+                    style: Theme.of(context).textTheme.displayMedium,
                   ),
                   AppSize.sv_20,
                   Form(
@@ -94,25 +95,25 @@ class LoginScreen extends StatelessWidget {
                           },
                           builder: (context, state) {
                             var cubit = AuthCubit.get(context);
-                            return BottomComponent(
-                              child: state is AuthLoginLoadingState
-                                  ? const CircularProgressComponent()
-                                  : const Text(
+                            return state is AuthLoginLoadingState
+                                ? const BuildCircularWidget()
+                                : BottomComponent(
+                                    child: const Text(
                                       'Login',
                                       style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white),
                                     ),
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  cubit.userLoginDio(
-                                    email: emailController.text,
-                                    password: passwordController.text,
+                                    onPressed: () {
+                                      if (_formKey.currentState!.validate()) {
+                                        cubit.userLoginDio(
+                                          email: emailController.text,
+                                          password: passwordController.text,
+                                        );
+                                      }
+                                    },
                                   );
-                                }
-                              },
-                            );
                           },
                         ),
                         //or
@@ -167,7 +168,7 @@ class LoginScreen extends StatelessWidget {
                     children: [
                       Text(
                         'Don\'t have an account?',
-                        style: Theme.of(context).textTheme.headline4,
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       TextButton(
                         onPressed: () => Navigator.pushNamedAndRemoveUntil(
@@ -224,7 +225,7 @@ class LoginScreen extends StatelessWidget {
         padding: const EdgeInsets.only(left: 10.0),
         child: Text(
           text,
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.displayLarge,
         ),
       ),
     );

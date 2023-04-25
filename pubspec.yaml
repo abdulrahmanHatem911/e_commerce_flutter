@@ -52,6 +52,7 @@ dependencies:
   path_provider: ^2.0.11
   url_launcher: ^6.1.7
   webview_flutter: ^3.0.4
+  fluttertoast: ^8.2.1
 
 dev_dependencies:
   flutter_test:

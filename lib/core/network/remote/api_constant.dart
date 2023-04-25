@@ -15,8 +15,7 @@ class ApiConstant {
   static String UPDATE_PRODUCT(int productId) => "/api/Product/$productId";
   static String DELETE_PRODUCT(int productId) => "/api/Product/$productId";
   static String SEARCH_PRODUCT(String productName) =>
-      "/api/Product/Search/$productName";
-
+      "$BASE_URL/Product/Search/$productName";
   //cart
   static String GET_CART_ITEMS(int userId) => "/api/Cart/GetItems/$userId";
   static String ADD_TO_CART = "/api/Cart";

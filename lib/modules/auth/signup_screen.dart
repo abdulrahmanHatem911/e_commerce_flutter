@@ -1,14 +1,15 @@
-import '../../../controllers/auth_cubit/auth_cubit.dart';
-import '../../../core/services/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../controllers/auth_cubit/auth_state.dart';
-import '../../../core/routes/app_routers.dart';
-import '../../../core/style/app_color.dart';
-import '../../../core/utils/app_size.dart';
-import '../../../core/widget/circular_progress_component.dart';
-import '../../widgets/bottom_app.dart';
-import '../../widgets/text_form_filed.dart';
+
+import '../../controllers/auth_cubit/auth_cubit.dart';
+import '../../controllers/auth_cubit/auth_state.dart';
+import '../../core/routes/app_routers.dart';
+import '../../core/services/cache_helper.dart';
+import '../../core/style/app_color.dart';
+import '../../core/utils/app_size.dart';
+import '../../core/widget/circular_progress_component.dart';
+import '../widgets/bottom_app.dart';
+import '../widgets/text_form_filed.dart';
 
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({super.key});
@@ -66,10 +67,12 @@ class SignUpScreen extends StatelessWidget {
                       child: Container(
                         child: Text(
                           'Sign Up',
-                          style:
-                              Theme.of(context).textTheme.headline1!.copyWith(
-                                    color: AppColor.primerColor,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge!
+                              .copyWith(
+                                color: AppColor.primerColor,
+                              ),
                         ),
                       ),
                     ),
@@ -201,7 +204,7 @@ class SignUpScreen extends StatelessWidget {
                                 'Sign Up',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline1!
+                                    .displayLarge!
                                     .copyWith(color: AppColor.white),
                               ),
                         onPressed: () {
@@ -225,7 +228,7 @@ class SignUpScreen extends StatelessWidget {
                       children: [
                         Text(
                           'Already have an account?',
-                          style: Theme.of(context).textTheme.headline4,
+                          style: Theme.of(context).textTheme.headlineMedium,
                         ),
                         TextButton(
                           onPressed: () => Navigator.pushNamedAndRemoveUntil(

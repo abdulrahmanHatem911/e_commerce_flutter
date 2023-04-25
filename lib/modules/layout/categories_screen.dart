@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../controllers/layout_cubit/layout_cubit.dart';
-import '../../../core/routes/app_routers.dart';
-import '../../../core/utils/app_size.dart';
-import '../../../core/utils/app_strings.dart';
-import '../../../core/utils/screen_config.dart';
-import '../../../core/widget/circular_progress_component.dart';
-import '../../../models/category_model.dart';
-import '../../widgets/empty_screen.dart';
+import '../../controllers/layout_cubit/layout_cubit.dart';
+import '../../core/routes/app_routers.dart';
+import '../../core/utils/app_size.dart';
+import '../../core/utils/app_strings.dart';
+import '../../core/utils/screen_config.dart';
+import '../../core/widget/circular_progress_component.dart';
+import '../../models/category_model.dart';
+import '../widgets/empty_screen.dart';
 
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});
@@ -86,7 +86,7 @@ class CategoriesScreen extends StatelessWidget {
         height: SizeConfig.screenHeight * 0.20,
         width: SizeConfig.screenWidth,
         decoration: BoxDecoration(
-          color: Colors.grey,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(10),
           image: DecorationImage(
             image: NetworkImage(item.imageUrl),

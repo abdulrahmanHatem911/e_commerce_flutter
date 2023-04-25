@@ -1,16 +1,13 @@
-import '../../../controllers/layout_cubit/layout_cubit.dart';
-import '../../../core/services/cache_helper.dart';
-import '../../../core/widget/show_snack_bar.dart';
-import '../../screens/cart/payment_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/routes/app_routers.dart';
+import '../../../controllers/layout_cubit/layout_cubit.dart';
 import '../../../core/utils/app_size.dart';
 import '../../../core/utils/screen_config.dart';
+import '../../layout/cart/payment_screen.dart';
 
 class ReusableWidget extends StatelessWidget {
   final String title, value;
-  const ReusableWidget({Key? key, required this.title, required this.value});
+  const ReusableWidget({super.key, required this.title, required this.value});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +35,7 @@ class ReusableWidget extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: Theme.of(context).textTheme.headline6!.copyWith(
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         color: Colors.grey,
                         fontSize: 18.0,
                       ),
@@ -46,7 +43,7 @@ class ReusableWidget extends StatelessWidget {
                 AppSize.sv_5,
                 Text(
                   r'$ ' + value.toString(),
-                  style: Theme.of(context).textTheme.headline6!.copyWith(
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         color: Colors.red,
                         fontWeight: FontWeight.bold,
                         fontSize: 22.0,

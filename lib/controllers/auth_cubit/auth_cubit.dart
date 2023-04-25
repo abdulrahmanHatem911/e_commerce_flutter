@@ -1,14 +1,15 @@
+import 'package:e_commerce_flutter/core/services/cache_helper.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../core/network/remote/api_constant.dart';
 import '../../core/network/remote/dio_helper.dart';
-import '../../core/services/cache_helper.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../models/registration_model.dart';
+import '../../core/utils/constent.dart';
+import '../../models/auth_model.dart';
 import 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
   static AuthCubit get(context) => BlocProvider.of<AuthCubit>(context);
-  RegistrationModel registerModel = RegistrationModel();
   Future<void> userAuthRegistrationDio({
     required String firstName,
     required String lastName,
@@ -29,7 +30,7 @@ class AuthCubit extends Cubit<AuthState> {
       "phoneNumber": phone,
     }).then((value) {
       print('Done 🔥');
-      registerModel = RegistrationModel.fromJson(value.data);
+      CURRENT_USER = AuthModel.fromJson(value.data);
       emit(AuthRegistrationSuccessState(user: value.data['roles'][0]));
     }).catchError((error) {
       print('error: 🚀${error.toString()}');
@@ -37,53 +38,22 @@ class AuthCubit extends Cubit<AuthState> {
     });
   }
 
-  Future<void> userLoginDio({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> userLoginDio(
+      {required String email, required String password}) async {
     emit(AuthLoginLoadingState());
-    await DioHelper.postData(url: ApiConstant.LOGIN, data: {
-      "email": email,
-      "password": password,
-    }).then((value) {
-      print('Done 🔥');
-      registerModel = RegistrationModel.fromJson(value.data);
-      if (registerModel.roles.length > 1) {
-        CacheHelper.saveData(
-          key: 'admin',
-          value: registerModel.roles[1],
-        );
-        CacheHelper.saveData(
-          key: 'token',
-          value: registerModel.token,
-        );
-        CacheHelper.saveData(
-          key: 'id',
-          value: registerModel.id,
-        );
-      }
-      print('the Admin id📌: ${registerModel.id}');
-      emit(
-        AuthLoginSuccessState(user: value.data['roles'][0]),
-      );
+    await DioHelper.postData(
+        url: ApiConstant.LOGIN,
+        data: {"email": email, "password": password}).then((value) {
+      print('Done 🎉 ${value.data}');
+      print('roles  Done 🎉 ${value.data['token']}');
+      CacheHelper.saveData(key: 'token', value: '${value.data['token']}');
+      CacheHelper.saveData(key: 'user', value: 'user');
+      CURRENT_USER = AuthModel.fromJson(value.data);
+      print('The token is ${CacheHelper.getData(key: 'token')}');
+      emit(AuthLoginSuccessState(user: 'user'));
     }).catchError((error) {
       print('error: 🚀${error.toString()}');
       emit(AuthLoginErrorState(error.toString()));
-    });
-  }
-
-  //sign out
-  Future<void> userSignOutDio() async {
-    await CacheHelper.saveData(
-      key: 'user',
-      value: '',
-    ).then((value) {
-      CacheHelper.saveData(
-        key: 'admin',
-        value: '',
-      ).then((value) {
-        emit(AuthSignOutSuccessState());
-      });
     });
   }
 }

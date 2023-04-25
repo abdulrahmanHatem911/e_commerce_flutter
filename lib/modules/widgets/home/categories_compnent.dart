@@ -1,3 +1,4 @@
+import 'package:e_commerce_flutter/modules/widgets/build_flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -90,16 +91,14 @@ class CategoriesComponent extends StatelessWidget {
                               if (value == 1) {
                                 cart.addTotalPrice(item.price);
                                 cart.addCounter();
-                                showSnackBar(
-                                  context: context,
+                                showFlutterToast(
                                   message: 'Added to Cart',
-                                  color: Colors.green,
+                                  toastColor: Colors.green,
                                 );
                               } else {
-                                showSnackBar(
-                                  context: context,
+                                showFlutterToast(
                                   message: 'Product already in cart',
-                                  color: Colors.red,
+                                  toastColor: Colors.red,
                                 );
                               }
                             }).onError((error, stackTrace) {

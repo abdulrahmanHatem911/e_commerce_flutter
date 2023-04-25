@@ -1,6 +1,9 @@
-import 'dart:io';
-
+import 'package:e_commerce_flutter/controllers/auth_cubit/auth_cubit.dart';
+import 'package:e_commerce_flutter/controllers/layout_cubit/layout_cubit.dart';
+import 'package:e_commerce_flutter/modules/auth/login_screen.dart';
+import 'package:e_commerce_flutter/modules/layout/layout_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import 'controllers/cart_provider.dart';
@@ -15,25 +18,49 @@ void main() async {
   await DioHelper.init();
   await SqliteService().initializeDB();
   await CacheHelper.init();
-  HttpOverrides.global = MyHttpOverrides();
+  runApp(MyApp(startWidget: checkUser()));
+}
 
-  runApp(const MyApp());
+checkUser() {
+  print('The user token is ${CacheHelper.getData(key: 'token')}');
+  var user = CacheHelper.getData(key: 'user') ?? '';
+  if (user == 'user') {
+    return const LayoutScreen();
+  } else if (user == 'admin') {
+    return const LayoutScreen();
+  } else {
+    return LoginScreen();
+  }
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final Widget startWidget;
+  const MyApp({
+    super.key,
+    required this.startWidget,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => CartProvider(),
+    return MultiProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LayoutCubit()
+            ..getProductDio()
+            ..getCategoryDio()
+            ..getFromDatabase(),
+        ),
+        BlocProvider(create: (context) => AuthCubit()),
+        ChangeNotifierProvider(create: (_) => CartProvider()),
+      ],
       child: Builder(
         builder: (BuildContext context) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: AppTheme.lightTheme(),
             onGenerateRoute: RoutersGenerated.onGenerateRoute,
-            initialRoute: Routers.SPLASH_SCREEN,
+            initialRoute: Routers.INIT_ROUTE,
+            home: startWidget,
           );
         },
       ),

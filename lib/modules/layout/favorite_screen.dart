@@ -1,13 +1,12 @@
-import '../../../controllers/layout_cubit/layout_cubit.dart';
-import '../../../models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/utils/app_size.dart';
-import '../../../core/utils/app_strings.dart';
-import '../../../core/utils/screen_config.dart';
-import '../../../core/widget/build_item_list.dart';
-import '../../widgets/empty_screen.dart';
+import '../../controllers/layout_cubit/layout_cubit.dart';
+import '../../core/utils/app_size.dart';
+import '../../core/utils/app_strings.dart';
+import '../../core/utils/screen_config.dart';
+import '../../models/product_model.dart';
+import '../widgets/empty_screen.dart';
 
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({super.key});
@@ -49,6 +48,7 @@ class FavoriteScreen extends StatelessWidget {
   Widget _buildItemList(
       {required BuildContext context, required ProductModel item}) {
     return Container(
+      width: SizeConfig.screenWidth * 0.3,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
         color: Colors.white,
@@ -64,8 +64,8 @@ class FavoriteScreen extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: SizeConfig.screenWidth * 0.3,
-            height: SizeConfig.screenWidth * 0.34,
+            width: SizeConfig.screenWidth * 0.26,
+            height: SizeConfig.screenWidth * 0.29,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),
