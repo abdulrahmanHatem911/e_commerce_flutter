@@ -67,18 +67,11 @@ class CategoriesScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildItemList({
-    required BuildContext context,
-    required CategoryModel item,
-
-    // required ProductModel products,
-  }) {
+  Widget _buildItemList(
+      {required BuildContext context, required CategoryModel item}) {
     return InkWell(
-      onTap: () => Navigator.pushNamed(
-        context,
-        Routers.GRID_VIEW,
-        arguments: item,
-      ),
+      onTap: () =>
+          Navigator.pushNamed(context, Routers.GRID_VIEW, arguments: item),
       child: Container(
         padding: EdgeInsets.symmetric(
             horizontal: SizeConfig.screenWidth * 0.05,

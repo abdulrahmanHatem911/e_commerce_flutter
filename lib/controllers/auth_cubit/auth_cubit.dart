@@ -47,6 +47,8 @@ class AuthCubit extends Cubit<AuthState> {
       print('Done 🎉 ${value.data}');
       print('roles  Done 🎉 ${value.data['token']}');
       CacheHelper.saveData(key: 'token', value: '${value.data['token']}');
+      CacheHelper.saveData(key: 'name', value: '${value.data['firstName']}');
+      CacheHelper.saveData(key: 'email', value: '${value.data['email']}');
       CacheHelper.saveData(key: 'user', value: 'user');
       CURRENT_USER = AuthModel.fromJson(value.data);
       print('The token is ${CacheHelper.getData(key: 'token')}');

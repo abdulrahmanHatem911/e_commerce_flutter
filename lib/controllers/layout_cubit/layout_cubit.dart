@@ -15,7 +15,7 @@ import '../../modules/layout/cart/cart_sreen.dart';
 import '../../modules/layout/categories_screen.dart';
 import '../../modules/layout/favorite_screen.dart';
 import '../../modules/layout/home_screen.dart';
-import '../../modules/layout/setting_screen.dart';
+import '../../modules/layout/setting/setting_screen.dart';
 
 part 'layout_state.dart';
 
@@ -101,7 +101,6 @@ class LayoutCubit extends Cubit<LayoutState> {
     });
   }
 
-  //get produt by category id
   List<ProductModel> productsByCategoryId = [];
   void getProductByCategoryIdDio({required int categoryId}) {
     emit(LayoutGetProductByCategoryIdLoadingState());
@@ -127,7 +126,51 @@ class LayoutCubit extends Cubit<LayoutState> {
     });
   }
 
-  //get from database
+  void addProductDio(
+      {required String name,
+      required String description,
+      required String image,
+      required String price,
+      required String categoryId}) {
+    emit(LayoutAddProductLoadingState());
+    DioHelper.postDataUseToken(
+      url: ApiConstant.ADD_PRODUCT,
+      token: "${CacheHelper.getData(key: 'token')}",
+      data: {
+        "name": name,
+        "description": description,
+        "imageURL": image,
+        "price": double.parse(price),
+        "categoryId": int.parse(categoryId),
+      },
+    ).then((value) {
+      getProductDio();
+      emit(LayoutAddProductSuccessState());
+    }).catchError((error) {
+      print("error:🤔${error.toString()}");
+      emit(LayoutAddProductErrorState(error.toString()));
+    });
+  }
+
+  void addCategoryDio({required String name, required String image}) {
+    emit(LayoutAddCategoryLoadingState());
+    DioHelper.postDataUseToken(
+      url: ApiConstant.ADD_CATEGORY,
+      token: "${CacheHelper.getData(key: 'token')}",
+      data: {
+        "name": name,
+        "imageURL": image,
+        "isActive": true,
+      },
+    ).then((value) {
+      getCategoryDio();
+      emit(LayoutAddCategorySuccessState());
+    }).catchError((error) {
+      print("error:🤔${error.toString()}");
+      emit(LayoutAddCategoryErrorState(error.toString()));
+    });
+  }
+
   List<ProductModel> databaseFavoritesProducts = [];
   void getFromDatabase() {
     databaseFavoritesProducts = [];
@@ -160,8 +203,6 @@ class LayoutCubit extends Cubit<LayoutState> {
       emit(LayoutSearchErrorState(error.toString()));
     });
   }
-
-  // add product to cart
 
   void getCartItems() async {
     emit(LayoutGetCartItemsLoadingState());

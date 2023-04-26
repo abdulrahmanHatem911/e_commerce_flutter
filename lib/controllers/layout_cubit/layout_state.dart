@@ -110,3 +110,21 @@ class PaymentVisaUrlErrorStates extends LayoutState {
 }
 
 class UserSignOutSuccessState extends LayoutState {}
+
+class LayoutAddProductSuccessState extends LayoutState {}
+
+class LayoutAddProductLoadingState extends LayoutState {}
+
+class LayoutAddProductErrorState extends LayoutState {
+  final String error;
+  LayoutAddProductErrorState(this.error);
+}
+
+class LayoutAddCategoryLoadingState extends LayoutState {}
+
+class LayoutAddCategorySuccessState extends LayoutState {}
+
+class LayoutAddCategoryErrorState extends LayoutState {
+  final String error;
+  LayoutAddCategoryErrorState(this.error);
+}
