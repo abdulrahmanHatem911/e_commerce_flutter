@@ -13,14 +13,10 @@ class ProductByCategoryId extends StatelessWidget {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as CategoryModel;
     return BlocProvider(
-      create: (context) => LayoutCubit()
-        ..getProductByCategoryIdDio(
-          categoryId: args.id,
-        ),
+      create: (context) =>
+          LayoutCubit()..getProductByCategoryId(categoryId: args.id),
       child: Scaffold(
-        appBar: AppBar(
-          elevation: 0.0,
-        ),
+        appBar: AppBar(elevation: 0.0),
         body: BlocConsumer<LayoutCubit, LayoutState>(
           listener: (context, state) {},
           builder: (context, state) {

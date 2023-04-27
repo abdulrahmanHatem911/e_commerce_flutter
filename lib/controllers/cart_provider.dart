@@ -1,10 +1,11 @@
-import '../core/network/local/sql_server.dart';
-import '../models/cart_model.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../core/network/local/sql_server.dart';
+import '../models/cart_model.dart';
+
 class CartProvider with ChangeNotifier {
-  SqliteService dbHelper = SqliteService();
+  SqliteServiceDatabase dbHelper = SqliteServiceDatabase();
   int _counter = 0;
   int _quantity = 1;
   int get counter => _counter;
@@ -16,7 +17,7 @@ class CartProvider with ChangeNotifier {
   List<CartModel> cart = [];
 
   Future<List<CartModel>> getData() async {
-    cart = await dbHelper.getCartList();
+    cart = await dbHelper.getAllCartItems();
     notifyListeners();
     return cart;
   }

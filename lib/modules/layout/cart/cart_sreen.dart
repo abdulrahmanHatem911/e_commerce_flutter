@@ -19,7 +19,7 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  SqliteService? dbHelper = SqliteService();
+  SqliteServiceDatabase? dbHelper = SqliteServiceDatabase();
 
   @override
   void initState() {

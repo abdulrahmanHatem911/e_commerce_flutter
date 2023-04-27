@@ -16,7 +16,7 @@ import 'core/style/theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DioHelper.init();
-  await SqliteService().initializeDB();
+  await SqliteServiceDatabase().initializeDB();
   await CacheHelper.init();
   runApp(MyApp(startWidget: checkUser()));
 }
@@ -46,9 +46,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => LayoutCubit()
-            ..getProductDio()
-            ..getCategoryDio()
-            ..getFromDatabase(),
+            ..getAllProduct()
+            ..getAllCategory()
+            ..getAllFavorites(),
         ),
         BlocProvider(create: (context) => AuthCubit()),
         ChangeNotifierProvider(create: (_) => CartProvider()),

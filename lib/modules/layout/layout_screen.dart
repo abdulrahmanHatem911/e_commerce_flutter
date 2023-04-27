@@ -102,9 +102,9 @@ class LayoutScreen extends StatelessWidget {
     return Future.delayed(
       const Duration(seconds: 1),
       () {
-        BlocProvider.of<LayoutCubit>(context).getProductDio();
-        BlocProvider.of<LayoutCubit>(context).getCategoryDio();
-        BlocProvider.of<LayoutCubit>(context).getFromDatabase();
+        BlocProvider.of<LayoutCubit>(context).getAllProduct();
+        BlocProvider.of<LayoutCubit>(context).getAllCategory();
+        BlocProvider.of<LayoutCubit>(context).getAllFavorites();
       },
     );
   }

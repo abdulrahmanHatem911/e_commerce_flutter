@@ -29,15 +29,9 @@ class LayoutCubit extends Cubit<LayoutState> {
     const FavoriteScreen(),
     const HomeScreen(),
     const CategoriesScreen(),
-    const SettingScreen(),
+    const SettingScreen()
   ];
-  List<String> titles = [
-    'Cart',
-    'Favorite',
-    'Home',
-    'Categories',
-    'Profile',
-  ];
+  List<String> titles = ['Cart', 'Favorite', 'Home', 'Categories', 'Profile'];
   void changeBottomNavBar(int index) {
     currentIndex = index;
     emit(LayoutChangeBottomNavBarState());
@@ -48,7 +42,7 @@ class LayoutCubit extends Cubit<LayoutState> {
   List<ProductModel> manProducts = [];
   List<ProductModel> womanProducts = [];
   List<ProductModel> jewelery = [];
-  void getProductDio() {
+  void getAllProduct() {
     emit(LayoutGetProductLoadingState());
     DioHelper.getData(url: ApiConstant.GET_PRODUCTS).then((value) {
       products.clear();
@@ -75,34 +69,8 @@ class LayoutCubit extends Cubit<LayoutState> {
     });
   }
 
-  //get category
-  List<CategoryModel> categories = [];
-  var admin = CacheHelper.getData(key: 'admin');
-  void getCategoryDio() {
-    emit(LayoutGetCategoryLoadingState());
-    DioHelper.getData(url: ApiConstant.GET_CATEGORIES).then((value) {
-      categories.clear();
-      if (admin != null && admin != '') {
-        value.data.forEach((element) {
-          categories.add(CategoryModel.fromJson(element));
-        });
-      } else {
-        categories.clear();
-        value.data.forEach((element) {
-          if (element['isActive'] == true) {
-            categories.add(CategoryModel.fromJson(element));
-          }
-        });
-      }
-      emit(LayoutGetCategorySuccessState());
-    }).catchError((error) {
-      print("error:🤔${error.toString()}");
-      emit(LayoutGetCategoryErrorState(error.toString()));
-    });
-  }
-
   List<ProductModel> productsByCategoryId = [];
-  void getProductByCategoryIdDio({required int categoryId}) {
+  void getProductByCategoryId({required int categoryId}) {
     emit(LayoutGetProductByCategoryIdLoadingState());
     DioHelper.getDataUseToken(
       url: ApiConstant.PRODUCT_BY_CATEGORIES_ID(categoryId),
@@ -111,7 +79,6 @@ class LayoutCubit extends Cubit<LayoutState> {
       value.data.forEach((element) {
         productsByCategoryId.add(ProductModel.fromJson(element));
       });
-      print("Success🚀");
       emit(LayoutGetProductByCategoryIdSuccessState());
     }).catchError((error) {
       print("error:🤔${error.toString()}");
@@ -119,19 +86,13 @@ class LayoutCubit extends Cubit<LayoutState> {
     });
   }
 
-  void insertToFavorites(ProductModel model) {
-    SqliteService().createItem(model).then((value) {
-      getFromDatabase();
-      emit(LayoutInsertToDatabaseState());
-    });
-  }
-
-  void addProductDio(
-      {required String name,
-      required String description,
-      required String image,
-      required String price,
-      required String categoryId}) {
+  void addProductDio({
+    required String name,
+    required String description,
+    required String image,
+    required String price,
+    required String categoryId,
+  }) {
     emit(LayoutAddProductLoadingState());
     DioHelper.postDataUseToken(
       url: ApiConstant.ADD_PRODUCT,
@@ -144,11 +105,24 @@ class LayoutCubit extends Cubit<LayoutState> {
         "categoryId": int.parse(categoryId),
       },
     ).then((value) {
-      getProductDio();
+      getAllProduct();
       emit(LayoutAddProductSuccessState());
     }).catchError((error) {
-      print("error:🤔${error.toString()}");
-      emit(LayoutAddProductErrorState(error.toString()));
+      emit(LayoutAddProductErrorState("error is ${error.toString()}"));
+    });
+  }
+
+  List<CategoryModel> categories = [];
+  void getAllCategory() {
+    emit(LayoutGetCategoryLoadingState());
+    DioHelper.getData(url: ApiConstant.GET_CATEGORIES).then((value) {
+      categories.clear();
+      value.data.forEach((element) {
+        categories.add(CategoryModel.fromJson(element));
+      });
+      emit(LayoutGetCategorySuccessState());
+    }).catchError((error) {
+      emit(LayoutGetCategoryErrorState("error:🤔 ${error.toString()}"));
     });
   }
 
@@ -163,7 +137,7 @@ class LayoutCubit extends Cubit<LayoutState> {
         "isActive": true,
       },
     ).then((value) {
-      getCategoryDio();
+      getAllCategory();
       emit(LayoutAddCategorySuccessState());
     }).catchError((error) {
       print("error:🤔${error.toString()}");
@@ -171,21 +145,6 @@ class LayoutCubit extends Cubit<LayoutState> {
     });
   }
 
-  List<ProductModel> databaseFavoritesProducts = [];
-  void getFromDatabase() {
-    databaseFavoritesProducts = [];
-    SqliteService().getAllItems().then((value) {
-      databaseFavoritesProducts = value;
-      emit(LayoutGetFromDatabaseState());
-    });
-  }
-
-  //search from database
-  bool isFavoriteFromDatabase(int productId) {
-    return databaseFavoritesProducts.any((element) => element.id == productId);
-  }
-
-  //search
   List<ProductModel> searchProducts = [];
   void searchForProduct(String productName) {
     emit(LayoutSearchLoadingState());
@@ -210,18 +169,33 @@ class LayoutCubit extends Cubit<LayoutState> {
       url: ApiConstant.GET_CART_ITEMS(CacheHelper.getData(key: 'id')),
       token: CacheHelper.getData(key: 'token'),
     ).then((value) {
-      print('success get cart items');
       emit(LayoutGetCartItemsSuccessState());
     }).catchError((error) {
-      print('error get cart items');
       emit(LayoutGetCartItemsErrorState(error.toString()));
     });
   }
 
-  AuthenticationRequestModel? authTokenModel;
+  void insertToFavorites(ProductModel model) {
+    SqliteServiceDatabase().createItem(model).then((value) {
+      getAllFavorites();
+      emit(LayoutInsertToDatabaseState());
+    });
+  }
 
-// for authentication in paymob
-  CacheHelper cacheHelper = CacheHelper();
+  List<ProductModel> databaseFavoritesProducts = [];
+  void getAllFavorites() {
+    databaseFavoritesProducts = [];
+    SqliteServiceDatabase().getAllFavoritesItems().then((value) {
+      databaseFavoritesProducts = value;
+      emit(LayoutGetFromDatabaseState());
+    });
+  }
+
+  bool isFavoriteFromDatabase(int productId) {
+    return databaseFavoritesProducts.any((element) => element.id == productId);
+  }
+
+  AuthenticationRequestModel? authTokenModel;
   var totalPrice = CacheHelper.getData(key: 'total_price');
   Future<void> getAuthToken() async {
     emit(PaymentAuthLoadingStates());
@@ -230,14 +204,9 @@ class LayoutCubit extends Cubit<LayoutState> {
     }).then((value) {
       authTokenModel = AuthenticationRequestModel.fromJson(value.data);
       ApiConstant.paymentFirstToken = authTokenModel!.token;
-      print('The token 🍅');
-      print("the value total Price is $totalPrice");
       emit(PaymentAuthSuccessStates());
     }).catchError((error) {
-      print('Error in auth token 🤦‍♂️');
-      emit(
-        PaymentAuthErrorStates(error.toString()),
-      );
+      emit(PaymentAuthErrorStates('Error in auth token ${error.toString()}'));
     });
   }
 
@@ -271,8 +240,6 @@ class LayoutCubit extends Cubit<LayoutState> {
       );
     });
   }
-
-  // for final request token
 
   Future<void> getPaymentRequest(
     String priceOrder,
@@ -351,7 +318,6 @@ class LayoutCubit extends Cubit<LayoutState> {
     }
   }
 
-  //sign out
   Future<void> userSignOutDio() async {
     await CacheHelper.saveData(key: 'user', value: '');
     await CacheHelper.saveData(key: 'token', value: '');

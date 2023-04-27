@@ -19,7 +19,7 @@ class CategoriesComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SqliteService dioHelper = SqliteService();
+    SqliteServiceDatabase dioHelper = SqliteServiceDatabase();
     return BlocConsumer<LayoutCubit, LayoutState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -76,7 +76,7 @@ class CategoriesComponent extends StatelessWidget {
                         IconButton(
                           onPressed: () {
                             dioHelper
-                                .insert(
+                                .insertCartItem(
                               CartModel(
                                 id: item.id,
                                 productId: index.toString(),
