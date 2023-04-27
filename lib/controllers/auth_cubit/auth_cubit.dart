@@ -9,6 +9,7 @@ import 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
+  DioHelper dioHelper = DioHelper();
   static AuthCubit get(context) => BlocProvider.of<AuthCubit>(context);
   Future<void> userAuthRegistrationDio({
     required String firstName,
@@ -20,7 +21,7 @@ class AuthCubit extends Cubit<AuthState> {
     required String userName,
   }) async {
     emit(AuthRegistrationLoadingState());
-    await DioHelper.postData(url: ApiConstant.REGISTER, data: {
+    await dioHelper.postData(url: ApiConstant.REGISTER, data: {
       "firstName": firstName,
       "lastName": lastName,
       "username": userName,
@@ -41,7 +42,7 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> userLoginDio(
       {required String email, required String password}) async {
     emit(AuthLoginLoadingState());
-    await DioHelper.postData(
+    await dioHelper.postData(
         url: ApiConstant.LOGIN,
         data: {"email": email, "password": password}).then((value) {
       print('Done 🎉 ${value.data}');

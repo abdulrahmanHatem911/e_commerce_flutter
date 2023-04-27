@@ -227,22 +227,22 @@ class ProductModelAdapter extends TypeAdapter<ProductModel> {
   }
 }
 
-class SqliteService {
-  //search item
-  // Future<int> searchItem(ProductModel model) async {
-  //   final Database db = await initializeDB();
-  //   final List<Map<String, dynamic>> maps = await db.query('products');
-  //   bool isExist = false;
-  //   for (var item in maps) {
-  //     if (item['id'] == model.id) {
-  //       isExist = true;
-  //       break;
-  //     }
-  //   }
-  //   if (isExist) {
-  //     return 1;
-  //   } else {
-  //     return 0;
-  //   }
-  // }
-}
+// class SqliteService {
+//   //search item
+//   // Future<int> searchItem(ProductModel model) async {
+//   //   final Database db = await initializeDB();
+//   //   final List<Map<String, dynamic>> maps = await db.query('products');
+//   //   bool isExist = false;
+//   //   for (var item in maps) {
+//   //     if (item['id'] == model.id) {
+//   //       isExist = true;
+//   //       break;
+//   //     }
+//   //   }
+//   //   if (isExist) {
+//   //     return 1;
+//   //   } else {
+//   //     return 0;
+//   //   }
+//   // }
+// }

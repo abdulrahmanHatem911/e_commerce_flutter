@@ -5,7 +5,6 @@ import '../../controllers/layout_cubit/layout_cubit.dart';
 import '../../core/style/app_color.dart';
 import '../../core/utils/screen_config.dart';
 import '../widgets/build_circular_widget.dart';
-import '../widgets/build_flutter_toast.dart';
 import '../widgets/home/categories_compnent.dart';
 import '../widgets/home/home_banner_component.dart';
 
@@ -16,14 +15,7 @@ class HomeScreen extends StatelessWidget {
     SizeConfig.init(context);
     return Scaffold(
       body: BlocConsumer<LayoutCubit, LayoutState>(
-        listener: (context, state) {
-          if (state is LayoutInsertToDatabaseState) {
-            showFlutterToast(
-              message: 'Added to cart',
-              toastColor: Colors.green,
-            );
-          }
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           LayoutCubit layoutCubit = LayoutCubit.get(context);
           return SafeArea(

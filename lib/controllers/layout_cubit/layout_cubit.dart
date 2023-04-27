@@ -22,7 +22,7 @@ part 'layout_state.dart';
 class LayoutCubit extends Cubit<LayoutState> {
   LayoutCubit() : super(LayoutInitial());
   static LayoutCubit get(context) => BlocProvider.of<LayoutCubit>(context);
-
+  DioHelper dioHelper = DioHelper();
   int currentIndex = 2;
   List<Widget> screens = [
     const CartScreen(),
@@ -44,7 +44,7 @@ class LayoutCubit extends Cubit<LayoutState> {
   List<ProductModel> jewelery = [];
   void getAllProduct() {
     emit(LayoutGetProductLoadingState());
-    DioHelper.getData(url: ApiConstant.GET_PRODUCTS).then((value) {
+    DioHelper().fetchData(url: ApiConstant.GET_PRODUCTS).then((value) {
       products.clear();
       manProducts.clear();
       womanProducts.clear();
@@ -72,10 +72,12 @@ class LayoutCubit extends Cubit<LayoutState> {
   List<ProductModel> productsByCategoryId = [];
   void getProductByCategoryId({required int categoryId}) {
     emit(LayoutGetProductByCategoryIdLoadingState());
-    DioHelper.getDataUseToken(
+    dioHelper
+        .fetchData(
       url: ApiConstant.PRODUCT_BY_CATEGORIES_ID(categoryId),
       token: "${CacheHelper.getData(key: 'token')}",
-    ).then((value) {
+    )
+        .then((value) {
       value.data.forEach((element) {
         productsByCategoryId.add(ProductModel.fromJson(element));
       });
@@ -94,7 +96,7 @@ class LayoutCubit extends Cubit<LayoutState> {
     required String categoryId,
   }) {
     emit(LayoutAddProductLoadingState());
-    DioHelper.postDataUseToken(
+    dioHelper.postData(
       url: ApiConstant.ADD_PRODUCT,
       token: "${CacheHelper.getData(key: 'token')}",
       data: {
@@ -115,7 +117,7 @@ class LayoutCubit extends Cubit<LayoutState> {
   List<CategoryModel> categories = [];
   void getAllCategory() {
     emit(LayoutGetCategoryLoadingState());
-    DioHelper.getData(url: ApiConstant.GET_CATEGORIES).then((value) {
+    dioHelper.fetchData(url: ApiConstant.GET_CATEGORIES).then((value) {
       categories.clear();
       value.data.forEach((element) {
         categories.add(CategoryModel.fromJson(element));
@@ -128,7 +130,7 @@ class LayoutCubit extends Cubit<LayoutState> {
 
   void addCategoryDio({required String name, required String image}) {
     emit(LayoutAddCategoryLoadingState());
-    DioHelper.postDataUseToken(
+    dioHelper.postData(
       url: ApiConstant.ADD_CATEGORY,
       token: "${CacheHelper.getData(key: 'token')}",
       data: {
@@ -148,10 +150,12 @@ class LayoutCubit extends Cubit<LayoutState> {
   List<ProductModel> searchProducts = [];
   void searchForProduct(String productName) {
     emit(LayoutSearchLoadingState());
-    DioHelper.getDataUseToken(
+    dioHelper
+        .fetchData(
       url: ApiConstant.SEARCH_PRODUCT(productName),
       token: "${CacheHelper.getData(key: 'token')}",
-    ).then((value) {
+    )
+        .then((value) {
       searchProducts = [];
       value.data.forEach((element) {
         searchProducts.add(ProductModel.fromJson(element));
@@ -165,10 +169,12 @@ class LayoutCubit extends Cubit<LayoutState> {
 
   void getCartItems() async {
     emit(LayoutGetCartItemsLoadingState());
-    DioHelper.getDataUseToken(
+    dioHelper
+        .fetchData(
       url: ApiConstant.GET_CART_ITEMS(CacheHelper.getData(key: 'id')),
       token: CacheHelper.getData(key: 'token'),
-    ).then((value) {
+    )
+        .then((value) {
       emit(LayoutGetCartItemsSuccessState());
     }).catchError((error) {
       emit(LayoutGetCartItemsErrorState(error.toString()));
@@ -199,7 +205,7 @@ class LayoutCubit extends Cubit<LayoutState> {
   var totalPrice = CacheHelper.getData(key: 'total_price');
   Future<void> getAuthToken() async {
     emit(PaymentAuthLoadingStates());
-    DioHelper.postData(url: ApiConstant.authTokenUrl, data: {
+    dioHelper.postData(url: ApiConstant.authTokenUrl, data: {
       'api_key': ApiConstant.paymentApiKey,
     }).then((value) {
       authTokenModel = AuthenticationRequestModel.fromJson(value.data);
@@ -219,7 +225,7 @@ class LayoutCubit extends Cubit<LayoutState> {
   }) async {
     print('price is $price');
     emit(PaymentOrderIdLoadingStates());
-    DioHelper.postData(url: ApiConstant.orderRegistrationIDUrl, data: {
+    dioHelper.postData(url: ApiConstant.orderRegistrationIDUrl, data: {
       'auth_token': ApiConstant.paymentFirstToken,
       "delivery_needed": "false",
       "amount_cents": price,
@@ -249,7 +255,7 @@ class LayoutCubit extends Cubit<LayoutState> {
     String phone,
   ) async {
     emit(PaymentRequestTokenLoadingStates());
-    DioHelper.postData(
+    dioHelper.postData(
       url: ApiConstant.paymentRequestTokenUrl,
       data: {
         "auth_token": ApiConstant.paymentFirstToken,
@@ -290,7 +296,7 @@ class LayoutCubit extends Cubit<LayoutState> {
   }
 
   Future getRefCode() async {
-    DioHelper.postData(
+    dioHelper.postData(
       url: ApiConstant.refCodeUrl,
       data: {
         "source": {

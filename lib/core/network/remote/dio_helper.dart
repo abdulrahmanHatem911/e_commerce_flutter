@@ -1,10 +1,17 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
 
 import 'api_constant.dart';
 
-class DioHelper {
+abstract class INetworkHelper {
+  Future<Response> fetchData(
+      {required String url, Map<String, dynamic>? query, String? token});
+
+  Future<Response> postData(
+      {required String url, required Map<String, dynamic> data, String? token});
+}
+
+class DioHelper implements INetworkHelper {
   static Dio? dio;
   static init() {
     dio = Dio(
@@ -26,63 +33,59 @@ class DioHelper {
     );
   }
 
-  // to get data
-  static Future<Response> getData(
-      {required String url, Map<String, dynamic>? query}) async {
+  @override
+  Future<Response> fetchData(
+      {required String url, Map<String, dynamic>? query, String? token}) async {
+    final options = token != null
+        ? Options(
+            headers: {'Authorization': 'Bearer $token'},
+          )
+        : null;
+
     return await dio!.get(
       url,
       queryParameters: query,
-    );
-    //psot data
-  }
-
-  static Future<Response> getDataUseToken({
-    required String url,
-    required String token,
-    Map<String, dynamic>? query,
-  }) async {
-    return await dio!.get(
-      url,
-      queryParameters: query,
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $token',
-        },
-      ),
+      options: options,
     );
   }
 
-  // to post data
-  static Future<Response> postData(
-      {required String url, required Map<String, dynamic> data}) async {
+  @override
+  Future<Response> postData(
+      {required String url,
+      required Map<String, dynamic> data,
+      String? token}) async {
+    final options = token != null
+        ? Options(
+            headers: {'Authorization': 'Bearer $token'},
+          )
+        : null;
+
     return await dio!.post(
       url,
       data: data,
-    );
-  }
-
-  static Future<Response> postDataUseToken({
-    required String url,
-    required String token,
-    required Map<String, dynamic> data,
-  }) async {
-    return await dio!.post(
-      url,
-      data: data,
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $token',
-        },
-      ),
+      options: options,
     );
   }
 }
 
-class MyHttpOverrides extends HttpOverrides {
+class HttpHelper implements INetworkHelper {
   @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
+  Future<Response<dynamic>> fetchData(
+      {required String url, Map<String, dynamic>? query, String? token}) async {
+    final uri = Uri.parse(url).replace(queryParameters: query);
+    final headers = token != null ? {'Authorization': 'Bearer $token'} : null;
+
+    return await http.get(uri, headers: headers) as Response<dynamic>;
+  }
+
+  @override
+  Future<Response<dynamic>> postData({
+    required String url,
+    required Map<String, dynamic> data,
+    String? token,
+  }) async {
+    final headers = token != null ? {'Authorization': 'Bearer $token'} : null;
+    return await http.post(Uri.parse(url), body: data, headers: headers)
+        as Response<dynamic>;
   }
 }

@@ -1,5 +1,4 @@
 class ApiConstant {
-  // for emulator use 10.0.2.2
   static const String BASE_URL =
       "http://ecommerce925-001-site1.atempurl.com/api";
 
