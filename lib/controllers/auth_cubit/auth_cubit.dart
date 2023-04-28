@@ -34,7 +34,6 @@ class AuthCubit extends Cubit<AuthState> {
       CURRENT_USER = AuthModel.fromJson(value.data);
       emit(AuthRegistrationSuccessState(user: value.data['roles'][0]));
     }).catchError((error) {
-      print('error: 🚀${error.toString()}');
       emit(AuthRegistrationErrorState(error.toString()));
     });
   }

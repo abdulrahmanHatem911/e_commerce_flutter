@@ -1,6 +1,7 @@
 import 'package:e_commerce_flutter/controllers/layout_cubit/layout_cubit.dart';
-import 'package:e_commerce_flutter/core/utils/constent.dart';
+import 'package:e_commerce_flutter/core/services/cache_helper.dart';
 import 'package:e_commerce_flutter/modules/layout/setting/add_category_screen.dart';
+import 'package:e_commerce_flutter/modules/layout/setting/products/show_all_products.dart';
 import 'package:e_commerce_flutter/modules/widgets/build_flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +13,6 @@ import '../../../core/utils/app_size.dart';
 import '../../../core/utils/app_strings.dart';
 import '../../../core/utils/screen_config.dart';
 import '../../widgets/bottom_app.dart';
-import 'add_product_screen.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -64,11 +64,12 @@ class SettingScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            CURRENT_USER?.firstName ?? '',
+                            CacheHelper.getData(key: 'name') ?? '',
                             style: Theme.of(context).textTheme.displayMedium,
                           ),
+                          AppSize.sv_5,
                           Text(
-                            CURRENT_USER?.email ?? '',
+                            CacheHelper.getData(key: 'email') ?? '',
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ],
@@ -78,13 +79,13 @@ class SettingScreen extends StatelessWidget {
                 ),
                 _buildListItem(
                   context,
-                  title: 'Add Product',
-                  subtitle: 'Add Product, Edit Product, Delete Product',
+                  title: 'Products',
+                  subtitle: 'show all products,and make some action on it',
                   leadingIcon: IconBroken.Plus,
                   onTapFunction: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const AddProductScreen(),
+                        builder: (context) => const ShowAllProductsScreen(),
                       ),
                     );
                   },
@@ -101,18 +102,6 @@ class SettingScreen extends StatelessWidget {
                       ),
                     );
                   },
-                ),
-                _buildListItem(
-                  context,
-                  title: 'Notification',
-                  leadingIcon: IconBroken.Setting,
-                  subtitle: 'Dark Mood RTL, Notification ',
-                ),
-                _buildListItem(
-                  context,
-                  title: 'Profile Setting',
-                  leadingIcon: IconBroken.User1,
-                  subtitle: 'Full Name',
                 ),
                 const Spacer(),
                 BottomComponent(

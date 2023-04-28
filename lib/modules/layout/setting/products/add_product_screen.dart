@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../controllers/layout_cubit/layout_cubit.dart';
-import '../../../core/routes/app_routers.dart';
-import '../../../core/utils/app_size.dart';
-import '../../../core/utils/app_strings.dart';
-import '../../../core/utils/screen_config.dart';
-import '../../../core/widget/circular_progress_component.dart';
-import '../../../models/category_model.dart';
-import '../../../models/product_model.dart';
-import '../../widgets/bottom_app.dart';
-import '../../widgets/build_descreption_widget.dart';
-import '../../widgets/text_form_filed.dart';
+import '../../../../controllers/layout_cubit/layout_cubit.dart';
+import '../../../../core/routes/app_routers.dart';
+import '../../../../core/utils/app_size.dart';
+import '../../../../core/utils/app_strings.dart';
+import '../../../../core/utils/screen_config.dart';
+import '../../../../core/widget/circular_progress_component.dart';
+import '../../../../models/category_model.dart';
+import '../../../../models/product_model.dart';
+import '../../../widgets/bottom_app.dart';
+import '../../../widgets/build_descreption_widget.dart';
+import '../../../widgets/text_form_filed.dart';
 
 class AddProductScreen extends StatefulWidget {
   final String? edit;
