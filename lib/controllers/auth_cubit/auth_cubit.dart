@@ -29,12 +29,30 @@ class AuthCubit extends Cubit<AuthState> {
       "password": password,
       "address": address,
       "phoneNumber": phone,
-    }).then((value) {
-      print('Done 🔥');
-      CURRENT_USER = AuthModel.fromJson(value.data);
+    }).then((value) async {
+      print('Done 🎉');
+      await assignRole(email, password);
       emit(AuthRegistrationSuccessState(user: value.data['roles'][0]));
     }).catchError((error) {
       emit(AuthRegistrationErrorState(error.toString()));
+    });
+  }
+
+  Future<void> assignRole(String email, String userPassword) async {
+    dioHelper
+        .postData(
+      url: ApiConstant.ASSIGN_ROLE,
+      data: {
+        "email": email,
+        "roleName": "ADMIN",
+      },
+      token: ADMIN_TOKEN,
+    )
+        .then((value) async {
+      print('success assign role 🎉');
+      await userLoginDio(email: email, password: userPassword);
+    }).catchError((error) {
+      emit(AuthAssignRoleErrorState(error.toString()));
     });
   }
 
@@ -44,8 +62,6 @@ class AuthCubit extends Cubit<AuthState> {
     await dioHelper.postData(
         url: ApiConstant.LOGIN,
         data: {"email": email, "password": password}).then((value) {
-      print('Done 🎉 ${value.data}');
-      print('roles  Done 🎉 ${value.data['token']}');
       CacheHelper.saveData(key: 'token', value: '${value.data['token']}');
       CacheHelper.saveData(key: 'name', value: '${value.data['firstName']}');
       CacheHelper.saveData(key: 'email', value: '${value.data['email']}');

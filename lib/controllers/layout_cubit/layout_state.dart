@@ -109,6 +109,8 @@ class PaymentVisaUrlErrorStates extends LayoutState {
   PaymentVisaUrlErrorStates();
 }
 
+class UserSignOutLoadingState extends LayoutState {}
+
 class UserSignOutSuccessState extends LayoutState {}
 
 class LayoutAddProductSuccessState extends LayoutState {}
@@ -127,4 +129,36 @@ class LayoutAddCategorySuccessState extends LayoutState {}
 class LayoutAddCategoryErrorState extends LayoutState {
   final String error;
   LayoutAddCategoryErrorState(this.error);
+}
+
+class LayoutUpdateCategoryLoadingState extends LayoutState {}
+
+class LayoutUpdateCategorySuccessState extends LayoutState {}
+
+class LayoutUpdateCategoryErrorState extends LayoutState {
+  final String error;
+  LayoutUpdateCategoryErrorState(this.error);
+}
+
+class LayoutDeleteCategoryLoadingState extends LayoutState {}
+
+class LayoutDeleteCategorySuccessState extends LayoutState {}
+
+class LayoutDeleteCategoryErrorState extends LayoutState {
+  final String error;
+  LayoutDeleteCategoryErrorState(this.error);
+}
+
+class LayoutUpdateProductLoadingState extends LayoutState {}
+
+class LayoutUpdateProductSuccessState extends LayoutState {}
+
+class LayoutUpdateProductErrorState extends LayoutState {
+  final String error;
+  LayoutUpdateProductErrorState(this.error);
+}
+
+class LayoutDeleteProductErrorState extends LayoutState {
+  final String error;
+  LayoutDeleteProductErrorState(this.error);
 }

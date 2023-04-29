@@ -1,8 +1,10 @@
+import 'package:e_commerce_flutter/modules/layout/setting/add_category_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../controllers/layout_cubit/layout_cubit.dart';
 import '../../core/routes/app_routers.dart';
+import '../../core/style/icon_broken.dart';
 import '../../core/utils/app_size.dart';
 import '../../core/utils/app_strings.dart';
 import '../../core/utils/screen_config.dart';
@@ -86,26 +88,74 @@ class CategoriesScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: Align(
-          alignment: Alignment.bottomRight,
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: SizeConfig.screenWidth * 0.05,
-              vertical: SizeConfig.screenHeight * 0.01,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Text(
-              item.name,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: SizeConfig.screenWidth * 0.05,
+                  vertical: SizeConfig.screenHeight * 0.01,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  item.name,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
-          ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddCategoryScreen(
+                            edit: "edit",
+                            model: item,
+                          ),
+                        ),
+                      );
+                    },
+                    icon: const Icon(
+                      IconBroken.Edit,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                      BlocProvider.of<LayoutCubit>(context)
+                          .deleteCategory(item.id);
+                    },
+                    icon: const Icon(
+                      IconBroken.Delete,
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

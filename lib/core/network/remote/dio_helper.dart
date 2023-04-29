@@ -9,6 +9,12 @@ abstract class INetworkHelper {
 
   Future<Response> postData(
       {required String url, required Map<String, dynamic> data, String? token});
+  //update data
+  Future<Response> updateData(
+      {required String url, required Map<String, dynamic> data, String? token});
+  //delete data
+  Future<Response> deleteData(
+      {required String url, required Map<String, dynamic> data, String? token});
 }
 
 class DioHelper implements INetworkHelper {
@@ -66,6 +72,40 @@ class DioHelper implements INetworkHelper {
       options: options,
     );
   }
+
+  @override
+  Future<Response> deleteData(
+      {required String url,
+      required Map<String, dynamic> data,
+      String? token}) async {
+    final options = token != null
+        ? Options(
+            headers: {'Authorization': 'Bearer $token'},
+          )
+        : null;
+    return await dio!.delete(
+      url,
+      data: data,
+      options: options,
+    );
+  }
+
+  @override
+  Future<Response> updateData(
+      {required String url,
+      required Map<String, dynamic> data,
+      String? token}) {
+    final options = token != null
+        ? Options(
+            headers: {'Authorization': 'Bearer $token'},
+          )
+        : null;
+    return dio!.put(
+      url,
+      data: data,
+      options: options,
+    );
+  }
 }
 
 class HttpHelper implements INetworkHelper {
@@ -87,5 +127,25 @@ class HttpHelper implements INetworkHelper {
     final headers = token != null ? {'Authorization': 'Bearer $token'} : null;
     return await http.post(Uri.parse(url), body: data, headers: headers)
         as Response<dynamic>;
+  }
+
+  @override
+  Future<Response> deleteData(
+      {required String url,
+      required Map<String, dynamic> data,
+      String? token}) async {
+    final headers = token != null ? {'Authorization': 'Bearer $token'} : null;
+    return await http.delete(Uri.parse(url), body: data, headers: headers)
+        as Response;
+  }
+
+  @override
+  Future<Response> updateData(
+      {required String url,
+      required Map<String, dynamic> data,
+      String? token}) async {
+    final headers = token != null ? {'Authorization': 'Bearer $token'} : null;
+    return await http.put(Uri.parse(url), body: data, headers: headers)
+        as Response;
   }
 }

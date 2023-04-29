@@ -49,6 +49,7 @@ class FavoriteScreen extends StatelessWidget {
       {required BuildContext context, required ProductModel item}) {
     return Container(
       width: SizeConfig.screenWidth * 0.3,
+      height: SizeConfig.screenWidth * 0.28,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
         color: Colors.white,
@@ -64,22 +65,22 @@ class FavoriteScreen extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: SizeConfig.screenWidth * 0.26,
+            width: SizeConfig.screenWidth * 0.21,
             height: SizeConfig.screenWidth * 0.29,
+            margin: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: Colors.white,
+              //color: Colors.amber,
               borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
-                image: item.imageUrl != null
-                    ? NetworkImage(item.imageUrl) as ImageProvider
-                    : const AssetImage(AppImage.testImage03),
                 fit: BoxFit.contain,
+                image: NetworkImage(item.imageUrl),
               ),
             ),
           ),
           AppSize.sh_10,
           Expanded(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -87,25 +88,27 @@ class FavoriteScreen extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                AppSize.sv_10,
+                AppSize.sv_5,
                 Text(
                   item.description,
-                  maxLines: 2,
+                  maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
-                    fontSize: 14,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w400,
                     color: Colors.grey,
                   ),
                 ),
-                AppSize.sv_10,
+                AppSize.sv_5,
                 Text(
                   '\$ ${item.price}',
                   style: const TextStyle(
-                    fontSize: 14,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
                     color: Colors.grey,
                   ),
                 ),

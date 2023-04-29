@@ -27,3 +27,12 @@ class AuthLoginErrorState extends AuthState {
 }
 
 class AuthSignOutSuccessState extends AuthState {}
+
+class AuthAssignRoleLoadingState extends AuthState {}
+
+class AuthAssignRoleSuccessState extends AuthState {}
+
+class AuthAssignRoleErrorState extends AuthState {
+  final String error;
+  AuthAssignRoleErrorState(this.error);
+}

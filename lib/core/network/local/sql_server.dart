@@ -12,7 +12,7 @@ abstract class LocalDatabaseService {
   Future<List<ProductModel>> getAllFavoritesItems();
   Future<int> createItem(ProductModel product);
   Future<int> deleteItem(int id);
-
+  Future<int> deleteAllItems(String tableName);
   //
   Future<List<CartModel>> getAllCartItems();
   Future<int> insertCartItem(CartModel cart);
@@ -96,6 +96,16 @@ class SqliteServiceDatabase implements LocalDatabaseService {
       where: "id = ?",
       whereArgs: [id],
     );
+  }
+
+  @override
+  Future<int> deleteAllItems(String tableName) async {
+    // final Database db = await database;
+    // final int result = await db.delete(tableName);
+    // return result;
+    final Database db = await database;
+    final int result = await db.rawDelete('DELETE FROM $tableName');
+    return result;
   }
 
   @override
@@ -190,6 +200,12 @@ class HiveService implements LocalDatabaseService {
 
   @override
   Future<int> insertCartItem(CartModel cart) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<int> deleteAllItems(String tableName) {
+    // TODO: implement deleteAllItems
     throw UnimplementedError();
   }
 }
