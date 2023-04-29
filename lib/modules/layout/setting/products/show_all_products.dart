@@ -54,30 +54,12 @@ class ShowAllProductsScreen extends StatelessWidget {
                         physics: const BouncingScrollPhysics(),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10.0, vertical: 10.0),
+                        itemCount: cubit.products.length,
                         itemBuilder: (context, index) {
-                          return _buildItemList(
-                              context: context,
-                              item: cubit.products[index],
-                              onEdit: () {
-                                // Navigator.pushAndRemoveUntil(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) => AddProductScreen(
-                                //       edit: 'edit',
-                                //       productModel: cubit.products[index],
-                                //     ),
-                                //   ),
-                                //   (route) => false,
-                                // );
-                              },
-                              onDelete: () {
-                                // cubit.deleteProductDio(
-                                //   id: cubit.products[index].id,
-                                // ),
-                              });
+                          return _buildItemList(context,
+                              item: cubit.products[index]);
                         },
                         separatorBuilder: (context, index) => AppSize.sv_10,
-                        itemCount: cubit.products.length,
                       ),
           );
         },
@@ -85,12 +67,7 @@ class ShowAllProductsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildItemList({
-    required BuildContext context,
-    required ProductModel item,
-    required Function() onDelete,
-    required Function() onEdit,
-  }) {
+  Widget _buildItemList(BuildContext context, {required ProductModel item}) {
     return Container(
       width: SizeConfig.screenWidth,
       height: SizeConfig.screenHeight * 0.16,
@@ -158,12 +135,34 @@ class ShowAllProductsScreen extends StatelessWidget {
                   ),
                 ),
                 AppSize.sv_5,
-                Text(
-                  '\$ ${item.price}',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey,
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      '\$ ${item.price}',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    AppSize.sh_15,
+                    Row(
+                      children: [
+                        const Icon(
+                          IconBroken.Category,
+                          size: 14,
+                          color: Colors.blue,
+                        ),
+                        AppSize.sh_5,
+                        Text(
+                          '${item.category!.name}',
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
                 ),
               ],
             ),
@@ -175,7 +174,13 @@ class ShowAllProductsScreen extends StatelessWidget {
                 child: Container(
                   color: Colors.grey[300],
                   child: IconButton(
-                    onPressed: onEdit,
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AddProductScreen(
+                                  edit: 'edit', productModel: item)));
+                    },
                     icon: const Icon(
                       IconBroken.Edit,
                       color: Colors.blue,
@@ -188,7 +193,10 @@ class ShowAllProductsScreen extends StatelessWidget {
                 child: Container(
                   color: Colors.grey[300],
                   child: IconButton(
-                    onPressed: onDelete,
+                    onPressed: () {
+                      BlocProvider.of<LayoutCubit>(context)
+                          .deleteProduct(item.id);
+                    },
                     icon: const Icon(
                       IconBroken.Delete,
                       color: Colors.red,

@@ -2,6 +2,7 @@ import 'package:e_commerce_flutter/controllers/layout_cubit/layout_cubit.dart';
 import 'package:e_commerce_flutter/core/services/cache_helper.dart';
 import 'package:e_commerce_flutter/modules/layout/setting/add_category_screen.dart';
 import 'package:e_commerce_flutter/modules/layout/setting/products/show_all_products.dart';
+import 'package:e_commerce_flutter/modules/widgets/build_circular_widget.dart';
 import 'package:e_commerce_flutter/modules/widgets/build_flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -80,7 +81,7 @@ class SettingScreen extends StatelessWidget {
                 _buildListItem(
                   context,
                   title: 'Products',
-                  subtitle: 'show all products,and make some action on it',
+                  subtitle: 'show all products,and make some action',
                   leadingIcon: IconBroken.Plus,
                   onTapFunction: () {
                     Navigator.of(context).push(
@@ -93,7 +94,7 @@ class SettingScreen extends StatelessWidget {
                 _buildListItem(
                   context,
                   title: 'Add Category',
-                  subtitle: 'Add Category, Edit Category, Delete Category',
+                  subtitle: 'Add Category to your store',
                   leadingIcon: IconBroken.Plus,
                   onTapFunction: () {
                     Navigator.of(context).push(
@@ -104,18 +105,20 @@ class SettingScreen extends StatelessWidget {
                   },
                 ),
                 const Spacer(),
-                BottomComponent(
-                  child: Text(
-                    'Sign Out',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineSmall!
-                        .copyWith(fontSize: 20.0),
-                  ),
-                  onPressed: () {
-                    cubit.userSignOutDio();
-                  },
-                ),
+                state is UserSignOutLoadingState
+                    ? const BuildCircularWidget()
+                    : BottomComponent(
+                        child: Text(
+                          'Sign Out',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .copyWith(fontSize: 20.0),
+                        ),
+                        onPressed: () {
+                          cubit.userSignOutDio();
+                        },
+                      ),
               ],
             ),
           ),

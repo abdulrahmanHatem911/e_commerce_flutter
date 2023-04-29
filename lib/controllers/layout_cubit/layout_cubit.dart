@@ -37,7 +37,6 @@ class LayoutCubit extends Cubit<LayoutState> {
     emit(LayoutChangeBottomNavBarState());
   }
 
-  // get product
   List<ProductModel> products = [];
   List<ProductModel> manProducts = [];
   List<ProductModel> womanProducts = [];
@@ -50,11 +49,11 @@ class LayoutCubit extends Cubit<LayoutState> {
       womanProducts.clear();
       jewelery.clear();
       value.data.forEach((element) {
-        if (element['category']['name'] == 'jewelery') {
+        if (element['category']['id'] == 3) {
           jewelery.add(ProductModel.fromJson(element));
-        } else if (element['category']['name'] == 'Man') {
+        } else if (element['category']['id'] == 1) {
           manProducts.add(ProductModel.fromJson(element));
-        } else if (element['category']['name'] == 'Woman') {
+        } else if (element['category']['id'] == 2) {
           womanProducts.add(ProductModel.fromJson(element));
         }
         products.add(ProductModel.fromJson(element));
@@ -114,6 +113,49 @@ class LayoutCubit extends Cubit<LayoutState> {
     });
   }
 
+  void deleteProduct(int id) {
+    dioHelper
+        .deleteData(
+      url: ApiConstant.DELETE_PRODUCT(id),
+      data: {},
+      token: "${CacheHelper.getData(key: 'token')}",
+    )
+        .then((value) {
+      getAllProduct();
+    }).catchError((error) {
+      print("error:🤔${error.toString()}");
+      emit(LayoutDeleteProductErrorState(error.toString()));
+    });
+  }
+
+  void updateProductDio({
+    required int id,
+    required String name,
+    required String description,
+    required String image,
+    required String price,
+    required String categoryId,
+  }) {
+    emit(LayoutUpdateProductLoadingState());
+    dioHelper.updateData(
+      url: ApiConstant.UPDATE_PRODUCT(id),
+      token: "${CacheHelper.getData(key: 'token')}",
+      data: {
+        "name": name,
+        "description": description,
+        "imageURL": image,
+        "price": double.parse(price),
+        "categoryId": int.parse(categoryId),
+      },
+    ).then((value) {
+      getAllProduct();
+      emit(LayoutUpdateProductSuccessState());
+    }).catchError((error) {
+      print("error:🤔${error.toString()}");
+      emit(LayoutUpdateProductErrorState(error.toString()));
+    });
+  }
+
   List<CategoryModel> categories = [];
   void getAllCategory() {
     emit(LayoutGetCategoryLoadingState());
@@ -128,9 +170,9 @@ class LayoutCubit extends Cubit<LayoutState> {
     });
   }
 
-  void addCategoryDio({required String name, required String image}) {
+  void addCategoryDio({required String name, required String image}) async {
     emit(LayoutAddCategoryLoadingState());
-    dioHelper.postData(
+    await dioHelper.postData(
       url: ApiConstant.ADD_CATEGORY,
       token: "${CacheHelper.getData(key: 'token')}",
       data: {
@@ -139,11 +181,48 @@ class LayoutCubit extends Cubit<LayoutState> {
         "isActive": true,
       },
     ).then((value) {
-      getAllCategory();
       emit(LayoutAddCategorySuccessState());
+      getAllCategory();
     }).catchError((error) {
       print("error:🤔${error.toString()}");
       emit(LayoutAddCategoryErrorState(error.toString()));
+    });
+  }
+
+  Future<void> updateCategory({
+    required int id,
+    required String name,
+    required String image,
+  }) async {
+    emit(LayoutUpdateCategoryLoadingState());
+    dioHelper.updateData(
+      url: ApiConstant.UPDATE_CATEGORY(id),
+      token: "${CacheHelper.getData(key: 'token')}",
+      data: {"name": name, "imageURL": image, "isActive": true},
+    ).then((value) {
+      emit(LayoutUpdateCategorySuccessState());
+      getAllCategory();
+    }).catchError((error) {
+      print("error:🤔${error.toString()}");
+      emit(LayoutUpdateCategoryErrorState(error.toString()));
+    });
+  }
+
+  void deleteCategory(int id) {
+    emit(LayoutDeleteCategoryLoadingState());
+    dioHelper
+        .deleteData(
+      url: ApiConstant.DELETE_CATEGORY(id),
+      data: {},
+      token: "${CacheHelper.getData(key: 'token')}",
+    )
+        .then((value) {
+      print("Success delete item  :🥳");
+      getAllCategory();
+      // emit(LayoutDeleteCategorySuccessState());
+    }).catchError((error) {
+      print("error:🤔${error.toString()}");
+      emit(LayoutDeleteCategoryErrorState(error.toString()));
     });
   }
 
@@ -164,20 +243,6 @@ class LayoutCubit extends Cubit<LayoutState> {
     }).catchError((error) {
       searchProducts = [];
       emit(LayoutSearchErrorState(error.toString()));
-    });
-  }
-
-  void getCartItems() async {
-    emit(LayoutGetCartItemsLoadingState());
-    dioHelper
-        .fetchData(
-      url: ApiConstant.GET_CART_ITEMS(CacheHelper.getData(key: 'id')),
-      token: CacheHelper.getData(key: 'token'),
-    )
-        .then((value) {
-      emit(LayoutGetCartItemsSuccessState());
-    }).catchError((error) {
-      emit(LayoutGetCartItemsErrorState(error.toString()));
     });
   }
 
@@ -325,8 +390,15 @@ class LayoutCubit extends Cubit<LayoutState> {
   }
 
   Future<void> userSignOutDio() async {
+    emit(UserSignOutLoadingState());
     await CacheHelper.saveData(key: 'user', value: '');
     await CacheHelper.saveData(key: 'token', value: '');
-    emit(UserSignOutSuccessState());
+    SqliteServiceDatabase().deleteAllItems('cart').then((value) {
+      databaseFavoritesProducts.clear();
+    });
+    SqliteServiceDatabase().deleteAllItems('products').then((value) {
+      databaseFavoritesProducts.clear();
+      emit(UserSignOutSuccessState());
+    });
   }
 }

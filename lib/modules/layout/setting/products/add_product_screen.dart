@@ -1,3 +1,4 @@
+import 'package:e_commerce_flutter/modules/widgets/build_flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -68,10 +69,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
       body: BlocConsumer<LayoutCubit, LayoutState>(
         listener: (context, state) {
           if (state is LayoutAddProductSuccessState) {
-            CircularProgressComponent.showSnackBar(
-              context: context,
-              message: "Success Add/Edit product ",
-              color: Colors.green,
+            showFlutterToast(
+              message: 'Product Added Successfully',
+              toastColor: Colors.green,
             );
             Navigator.pushNamedAndRemoveUntil(
               context,
@@ -81,10 +81,21 @@ class _AddProductScreenState extends State<AddProductScreen> {
           }
 
           if (state is LayoutAddProductErrorState) {
-            CircularProgressComponent.showSnackBar(
-              context: context,
+            showFlutterToast(
               message: state.error,
-              color: Colors.red,
+              toastColor: Colors.red,
+            );
+          }
+          if (state is LayoutUpdateProductSuccessState) {
+            showFlutterToast(
+              message: 'Product Updated Successfully',
+              toastColor: Colors.green,
+            );
+          }
+          if (state is LayoutUpdateProductErrorState) {
+            showFlutterToast(
+              message: state.error,
+              toastColor: Colors.red,
             );
           }
         },
@@ -208,37 +219,38 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         },
                       ),
                       AppSize.sv_30,
-                      BottomComponent(
-                        child: state is LayoutAddProductLoadingState
-                            ? const CircularProgressComponent()
-                            : Text(
+                      state is LayoutAddProductLoadingState ||
+                              state is LayoutUpdateProductLoadingState
+                          ? const CircularProgressComponent()
+                          : BottomComponent(
+                              child: Text(
                                 isEditing ? 'Edit Product' : 'Add Product',
                                 style:
                                     Theme.of(context).textTheme.headlineSmall,
                               ),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            if (isEditing) {
-                              // cubit.updateProductDio(
-                              //   id: widget.productModel!.id,
-                              //   name: nameController.text,
-                              //   price: priceController.text,
-                              //   description: descriptionController.text,
-                              //   categoryId: categoryController.text,
-                              //   image: imageController.text,
-                              // );
-                            } else {
-                              layoutCubit.addProductDio(
-                                name: nameController.text,
-                                price: priceController.text,
-                                description: descriptionController.text,
-                                categoryId: categoryController.text,
-                                image: imageController.text,
-                              );
-                            }
-                          }
-                        },
-                      ),
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  if (isEditing) {
+                                    layoutCubit.updateProductDio(
+                                      id: widget.productModel!.id,
+                                      name: nameController.text,
+                                      price: priceController.text,
+                                      description: descriptionController.text,
+                                      categoryId: categoryController.text,
+                                      image: imageController.text,
+                                    );
+                                  } else {
+                                    layoutCubit.addProductDio(
+                                      name: nameController.text,
+                                      price: priceController.text,
+                                      description: descriptionController.text,
+                                      categoryId: categoryController.text,
+                                      image: imageController.text,
+                                    );
+                                  }
+                                }
+                              },
+                            ),
                       AppSize.sv_20,
                     ],
                   ),
