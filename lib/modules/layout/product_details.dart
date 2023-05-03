@@ -17,11 +17,9 @@ class ProductDetails extends StatelessWidget {
         elevation: 0.0,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.screenWidth * 0.04,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        padding:
+            EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.04),
+        child: ListView(
           children: [
             Hero(
               tag: 'product_image_${args.id}',
@@ -37,26 +35,15 @@ class ProductDetails extends StatelessWidget {
               ),
             ),
             AppSize.sv_10,
-            Text(
-              args.name,
-              style: Theme.of(context).textTheme.displayMedium,
-            ),
+            Text(args.name, style: Theme.of(context).textTheme.displayMedium),
             AppSize.sv_10,
             Text(
               args.description,
               style: Theme.of(context).textTheme.displayLarge,
             ),
             AppSize.sv_10,
-            Text(
-              '\$${args.price}',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
+            Text('\$${args.price}',
+                style: Theme.of(context).textTheme.bodyLarge),
           ],
         ),
       ),

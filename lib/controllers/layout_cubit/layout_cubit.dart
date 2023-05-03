@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../core/network/local/sql_server.dart';
 import '../../core/network/remote/api_constant.dart';
 import '../../core/network/remote/dio_helper.dart';
+import '../../core/network/remote/serveise_indecator.dart';
 import '../../core/services/cache_helper.dart';
 import '../../models/category_model.dart';
 import '../../models/payment/authentication_request_model.dart';
@@ -22,7 +23,7 @@ part 'layout_state.dart';
 class LayoutCubit extends Cubit<LayoutState> {
   LayoutCubit() : super(LayoutInitial());
   static LayoutCubit get(context) => BlocProvider.of<LayoutCubit>(context);
-  DioHelper dioHelper = DioHelper();
+  DioHelper dioHelper = ServiceLocator.instance<DioHelper>();
   int currentIndex = 2;
   List<Widget> screens = [
     const CartScreen(),

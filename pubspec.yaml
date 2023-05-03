@@ -55,6 +55,7 @@ dependencies:
   fluttertoast: ^8.2.1
   hive_ui: ^1.0.14
   hive: ^2.2.3
+  get_it: ^7.3.0
 
 dev_dependencies:
   flutter_test:
