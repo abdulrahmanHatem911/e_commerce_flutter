@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'controllers/cart_provider.dart';
 import 'core/network/local/sql_server.dart';
 import 'core/network/remote/dio_helper.dart';
+import 'core/network/remote/serveise_indecator.dart';
 import 'core/routes/app_routers.dart';
 import 'core/services/cache_helper.dart';
 import 'core/style/theme.dart';
@@ -16,6 +17,7 @@ import 'core/style/theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DioHelper.init();
+  await ServiceLocator.init();
   await SqliteServiceDatabase().initializeDB();
   await CacheHelper.init();
   runApp(MyApp(startWidget: checkUser()));

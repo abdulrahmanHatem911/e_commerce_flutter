@@ -2,12 +2,10 @@ class ApiConstant {
   static const String BASE_URL =
       "http://ecommerce925-001-site1.atempurl.com/api";
 
-  //Authorization
   static const String REGISTER = "$BASE_URL/AuthUser/Register";
   static const String LOGIN = "$BASE_URL/AuthUser/Login";
   static const String ASSIGN_ROLE = "$BASE_URL/Admin/AssignRole";
 
-  //productes
   static const String GET_PRODUCTS = "$BASE_URL/Product/GetProducts";
   static String ADD_PRODUCT = "$BASE_URL/Product/AddProduct";
   static String PRODUCT_BY_CATEGORIES_ID(int categoryId) =>

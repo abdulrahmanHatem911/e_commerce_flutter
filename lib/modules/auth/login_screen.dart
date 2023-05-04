@@ -1,4 +1,5 @@
 import 'package:e_commerce_flutter/modules/widgets/build_circular_widget.dart';
+import 'package:e_commerce_flutter/modules/widgets/build_flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -6,11 +7,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../controllers/auth_cubit/auth_cubit.dart';
 import '../../controllers/auth_cubit/auth_state.dart';
 import '../../core/routes/app_routers.dart';
-import '../../core/services/cache_helper.dart';
 import '../../core/style/app_color.dart';
 import '../../core/utils/app_size.dart';
 import '../../core/utils/screen_config.dart';
-import '../../core/widget/circular_progress_component.dart';
 import '../widgets/bottom_app.dart';
 import '../widgets/text_form_filed.dart';
 
@@ -73,24 +72,15 @@ class LoginScreen extends StatelessWidget {
                         BlocConsumer<AuthCubit, AuthState>(
                           listener: (context, state) {
                             if (state is AuthLoginSuccessState) {
-                              CacheHelper.saveData(
-                                      key: 'user', value: state.user)
-                                  .then((value) {
-                                CircularProgressComponent.showSnackBar(
-                                  context: context,
-                                  message: 'Login Success',
-                                  color: Colors.green,
-                                );
-                                Navigator.pushNamedAndRemoveUntil(context,
-                                    Routers.LAYOUT_SCREEN, (route) => false);
-                              });
+                              showFlutterToast(
+                                  message: 'Success Login to your account',
+                                  toastColor: Colors.green);
+                              Navigator.pushNamedAndRemoveUntil(context,
+                                  Routers.LAYOUT_SCREEN, (route) => false);
                             }
                             if (state is AuthLoginErrorState) {
-                              CircularProgressComponent.showSnackBar(
-                                context: context,
-                                message: state.error,
-                                color: Colors.red,
-                              );
+                              showFlutterToast(
+                                  message: state.error, toastColor: Colors.red);
                             }
                           },
                           builder: (context, state) {

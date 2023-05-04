@@ -67,11 +67,15 @@ class AuthCubit extends Cubit<AuthState> {
       CacheHelper.saveData(key: 'email', value: '${value.data['email']}');
       CacheHelper.saveData(key: 'user', value: 'user');
       CURRENT_USER = AuthModel.fromJson(value.data);
-      print('The token is ${CacheHelper.getData(key: 'token')}');
       emit(AuthLoginSuccessState(user: 'user'));
     }).catchError((error) {
-      print('error: 🚀${error.toString()}');
-      emit(AuthLoginErrorState(error.toString()));
+      if (error.toString().contains('400')) {
+        emit(AuthLoginErrorState('Email or password is incorrect'));
+      } else if (error.toString().contains('500')) {
+        emit(AuthLoginErrorState('Email or password is incorrect'));
+      } else {
+        emit(AuthLoginErrorState(error.toString()));
+      }
     });
   }
 }
