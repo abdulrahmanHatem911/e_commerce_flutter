@@ -218,9 +218,7 @@ class LayoutCubit extends Cubit<LayoutState> {
       token: "${CacheHelper.getData(key: 'token')}",
     )
         .then((value) {
-      print("Success delete item  :🥳");
       getAllCategory();
-      // emit(LayoutDeleteCategorySuccessState());
     }).catchError((error) {
       print("error:🤔${error.toString()}");
       emit(LayoutDeleteCategoryErrorState(error.toString()));

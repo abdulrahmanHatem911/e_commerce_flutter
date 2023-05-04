@@ -43,4 +43,4 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 # google-services.json
-lib/core/network/remote/api_constant.dart
+/lib/core/network/remote/

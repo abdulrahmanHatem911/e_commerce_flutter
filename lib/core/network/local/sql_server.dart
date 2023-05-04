@@ -100,9 +100,6 @@ class SqliteServiceDatabase implements LocalDatabaseService {
 
   @override
   Future<int> deleteAllItems(String tableName) async {
-    // final Database db = await database;
-    // final int result = await db.delete(tableName);
-    // return result;
     final Database db = await database;
     final int result = await db.rawDelete('DELETE FROM $tableName');
     return result;
@@ -242,23 +239,3 @@ class ProductModelAdapter extends TypeAdapter<ProductModel> {
     writer.writeInt(obj.categoryId);
   }
 }
-
-// class SqliteService {
-//   //search item
-//   // Future<int> searchItem(ProductModel model) async {
-//   //   final Database db = await initializeDB();
-//   //   final List<Map<String, dynamic>> maps = await db.query('products');
-//   //   bool isExist = false;
-//   //   for (var item in maps) {
-//   //     if (item['id'] == model.id) {
-//   //       isExist = true;
-//   //       break;
-//   //     }
-//   //   }
-//   //   if (isExist) {
-//   //     return 1;
-//   //   } else {
-//   //     return 0;
-//   //   }
-//   // }
-// }

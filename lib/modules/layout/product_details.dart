@@ -13,9 +13,7 @@ class ProductDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ProductModel;
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-      ),
+      appBar: AppBar(elevation: 0.0),
       body: Padding(
         padding:
             EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.04),
