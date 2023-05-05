@@ -3,6 +3,7 @@ import 'package:e_commerce_flutter/controllers/layout_cubit/layout_cubit.dart';
 import 'package:e_commerce_flutter/modules/auth/login_screen.dart';
 import 'package:e_commerce_flutter/modules/layout/layout_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +21,8 @@ void main() async {
   await ServiceLocator.init();
   await SqliteServiceDatabase().initializeDB();
   await CacheHelper.init();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(MyApp(startWidget: checkUser()));
 }
 
