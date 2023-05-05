@@ -98,8 +98,9 @@ class LoginScreen extends StatelessWidget {
                                     onPressed: () {
                                       if (_formKey.currentState!.validate()) {
                                         cubit.userLoginDio(
-                                          email: emailController.text,
-                                          password: passwordController.text,
+                                          email: emailController.text.trim(),
+                                          password:
+                                              passwordController.text.trim(),
                                         );
                                       }
                                     },
