@@ -53,7 +53,8 @@ class MyApp extends StatelessWidget {
           create: (context) => LayoutCubit()
             ..getAllProduct()
             ..getAllCategory()
-            ..getAllFavorites(),
+            ..getAllFavorites()
+            ..getCurrentUser(),
         ),
         BlocProvider(create: (context) => AuthCubit()),
         ChangeNotifierProvider(create: (_) => CartProvider()),

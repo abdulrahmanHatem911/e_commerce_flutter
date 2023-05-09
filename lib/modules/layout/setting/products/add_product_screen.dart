@@ -58,6 +58,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,

@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/network/remote/api_constant.dart';
 import '../../core/network/remote/dio_helper.dart';
 import '../../core/utils/constent.dart';
-import '../../models/auth_model.dart';
 import 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
@@ -66,7 +65,6 @@ class AuthCubit extends Cubit<AuthState> {
       CacheHelper.saveData(key: 'name', value: '${value.data['firstName']}');
       CacheHelper.saveData(key: 'email', value: '${value.data['email']}');
       CacheHelper.saveData(key: 'user', value: 'user');
-      CURRENT_USER = AuthModel.fromJson(value.data);
       emit(AuthLoginSuccessState(user: 'user'));
     }).catchError((error) {
       if (error.toString().contains('400')) {

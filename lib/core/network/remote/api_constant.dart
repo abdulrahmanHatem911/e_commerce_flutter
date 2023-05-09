@@ -23,6 +23,12 @@ class ApiConstant {
   static String DELETE_CART_ITEM(int cartItemId) => "/api/Cart/$cartItemId";
   static String UPDATE_CART_ITEM(int updateCartId) => "/api/Cart/$updateCartId";
 
+//profile
+  static String GET_PROFILE(String userEmail) =>
+      "$BASE_URL/ProfileSetting/GetProfileToUpdate/$userEmail";
+  static String UPDATE_PROFILE(String userEmail) =>
+      "$BASE_URL/ProfileSetting/UpdateProfile/$userEmail";
+
   //category
   static const String GET_CATEGORIES = "$BASE_URL/Category/GetAllCategories";
   static const String ADD_CATEGORY = "$BASE_URL/Category/AddCategory";

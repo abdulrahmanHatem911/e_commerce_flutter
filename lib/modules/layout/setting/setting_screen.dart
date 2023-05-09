@@ -1,5 +1,6 @@
 import 'package:e_commerce_flutter/controllers/layout_cubit/layout_cubit.dart';
 import 'package:e_commerce_flutter/core/services/cache_helper.dart';
+import 'package:e_commerce_flutter/core/utils/constent.dart';
 import 'package:e_commerce_flutter/modules/layout/setting/add_category_screen.dart';
 import 'package:e_commerce_flutter/modules/layout/setting/products/show_all_products.dart';
 import 'package:e_commerce_flutter/modules/widgets/build_circular_widget.dart';
@@ -65,7 +66,11 @@ class SettingScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            CacheHelper.getData(key: 'name') ?? '',
+                            CURRENT_USER?.firstName == null
+                                ? ''
+                                : '${CURRENT_USER?.firstName}' +
+                                    ' ' +
+                                    '${CURRENT_USER!.lastName}',
                             style: Theme.of(context).textTheme.displayMedium,
                           ),
                           AppSize.sv_5,
@@ -74,6 +79,20 @@ class SettingScreen extends StatelessWidget {
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ],
+                      ),
+                      Spacer(),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushNamed(Routers.EDIT_PROFILE_SCREEN);
+                          },
+                          icon: Icon(
+                            IconBroken.Edit,
+                            color: AppColor.primerColor,
+                          ),
+                        ),
                       ),
                     ],
                   ),

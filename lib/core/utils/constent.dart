@@ -1,5 +1,5 @@
-import 'package:e_commerce_flutter/models/auth_model.dart';
+import '../../models/user_model.dart';
 
-AuthModel? CURRENT_USER;
+UserModel? CURRENT_USER;
 String ADMIN_TOKEN =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhYmRvMTE5IiwianRpIjoiMTEzNTdmMGQtOTNhZi00OTUwLTg3YjAtMDNkNjcxMGNhYTQ1IiwiZW1haWwiOiJhYmRvMTE5QGdtYWlsLmNvbSIsInVpZCI6IjE2OWY1NTk0LWI2NGEtNDZiYi04ZGFmLWU1NTA4N2M4MTllYyIsInJvbGVzIjpbIkFkbWluIiwiVXNlciJdLCJleHAiOjE2ODM2MjYwMjYsImlzcyI6IlNlY3VyZUFwaSIsImF1ZCI6IlNlY3VyZUFwaVVzZXIifQ.cOvpCU_f3IYixKsqR_8W5PFnjm5UPJIN4yMFrFQXn4Q';

@@ -1,3 +1,4 @@
+import 'package:e_commerce_flutter/core/utils/constent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,6 +13,7 @@ import '../../models/payment/authentication_request_model.dart';
 import '../../models/payment/order_registration_model.dart';
 import '../../models/payment/payment_reqeust_model.dart';
 import '../../models/product_model.dart';
+import '../../models/user_model.dart';
 import '../../modules/layout/cart/cart_sreen.dart';
 import '../../modules/layout/categories_screen.dart';
 import '../../modules/layout/favorite_screen.dart';
@@ -386,6 +388,39 @@ class LayoutCubit extends Cubit<LayoutState> {
     )) {
       throw 'Could not launch $url';
     }
+  }
+
+  Future<void> getCurrentUser() async {
+    emit(GetCurrentUserLoadingState());
+    await dioHelper
+        .fetchData(
+      url: ApiConstant.GET_PROFILE("${CacheHelper.getData(key: 'email')}"),
+      token: "${CacheHelper.getData(key: 'token')}",
+    )
+        .then((value) {
+      CURRENT_USER = UserModel.fromJson(value.data);
+      emit(GetCurrentUserSuccessState());
+    }).catchError((error) {
+      print('Error in get current user 🤦‍♂️');
+      emit(GetCurrentUserErrorState(error.toString()));
+    });
+  }
+
+  Future<void> updateUserProfile(UserModel userModel) async {
+    emit(UpdateUserProfileLoadingState());
+    dioHelper
+        .postData(
+      url: ApiConstant.UPDATE_PROFILE('${CacheHelper.getData(key: 'email')}'),
+      data: userModel.toMap(),
+      token: "${CacheHelper.getData(key: 'token')}",
+    )
+        .then((value) async {
+      await getCurrentUser();
+      emit(UpdateUserProfileSuccessState());
+    }).catchError((error) {
+      print('Error in update user profile 🤦‍♂️');
+      emit(UpdateUserProfileErrorState(error.toString()));
+    });
   }
 
   Future<void> userSignOutDio() async {
