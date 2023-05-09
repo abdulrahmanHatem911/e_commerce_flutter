@@ -21,165 +21,163 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return BlocProvider(
-      create: (context) => AuthCubit(),
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppSize.sv_80,
-                  Text(
-                    'Login',
-                    style: Theme.of(context).textTheme.displayMedium,
-                  ),
-                  AppSize.sv_20,
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        TextFormFiledComponent(
-                          controller: emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          hintText: 'Email',
-                          prefixIcon: Icons.email,
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Please enter your email';
-                            }
-                            return null;
-                          },
-                        ),
-                        AppSize.sv_10,
-                        TextFormFiledComponent(
-                          controller: passwordController,
-                          keyboardType: TextInputType.visiblePassword,
-                          hintText: 'Password',
-                          prefixIcon: Icons.lock,
-                          obscureText: true,
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Please enter your password';
-                            }
-                            return null;
-                          },
-                        ),
-                        AppSize.sv_20,
-                        BlocConsumer<AuthCubit, AuthState>(
-                          listener: (context, state) {
-                            if (state is AuthLoginSuccessState) {
-                              showFlutterToast(
-                                  message: 'Success Login to your account',
-                                  toastColor: Colors.green);
-                              Navigator.pushNamedAndRemoveUntil(context,
-                                  Routers.LAYOUT_SCREEN, (route) => false);
-                            }
-                            if (state is AuthLoginErrorState) {
-                              showFlutterToast(
-                                  message: state.error, toastColor: Colors.red);
-                            }
-                          },
-                          builder: (context, state) {
-                            var cubit = AuthCubit.get(context);
-                            return state is AuthLoginLoadingState
-                                ? const BuildCircularWidget()
-                                : BottomComponent(
-                                    child: const Text(
-                                      'Login',
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    ),
-                                    onPressed: () {
-                                      if (_formKey.currentState!.validate()) {
-                                        cubit.userLoginDio(
-                                          email: emailController.text.trim(),
-                                          password:
-                                              passwordController.text.trim(),
-                                        );
-                                      }
-                                    },
-                                  );
-                          },
-                        ),
-                        //or
-                        AppSize.sv_40,
-                      ],
-                    ),
-                  ),
-                  Row(
-                    children: const [
-                      Expanded(
-                        child: Divider(
-                          color: Colors.grey,
-                          thickness: 1.0,
-                        ),
-                      ),
-                      SizedBox(width: 10.0),
-                      Text(
-                        'OR',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(width: 10.0),
-                      Expanded(
-                        child: Divider(
-                          color: Colors.grey,
-                          thickness: 1.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                  AppSize.sv_30,
-                  _buildSocialButton(
-                    context: context,
-                    text: 'Login with Facebook',
-                    icon: FontAwesomeIcons.facebook,
-                    color: Colors.blue,
-                    onPressed: () {},
-                  ),
-                  AppSize.sv_10,
-                  _buildSocialButton(
-                    context: context,
-                    text: 'Login with google',
-                    icon: FontAwesomeIcons.google,
-                    color: Colors.red,
-                    onPressed: () {},
-                  ),
-                  AppSize.sv_10,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppSize.sv_80,
+                Text(
+                  'Login',
+                  style: Theme.of(context).textTheme.displayMedium,
+                ),
+                AppSize.sv_20,
+                Form(
+                  key: _formKey,
+                  child: Column(
                     children: [
-                      Text(
-                        'Don\'t have an account?',
-                        style: Theme.of(context).textTheme.headlineMedium,
+                      TextFormFiledComponent(
+                        controller: emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        hintText: 'Email',
+                        prefixIcon: Icons.email,
+                        validate: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your email';
+                          }
+                          return null;
+                        },
                       ),
-                      TextButton(
-                        onPressed: () => Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          Routers.REGISTER,
-                          (route) => false,
-                        ),
-                        child: Text(
-                          'Register',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: AppColor.primerColor,
-                          ),
-                        ),
+                      AppSize.sv_10,
+                      TextFormFiledComponent(
+                        controller: passwordController,
+                        keyboardType: TextInputType.visiblePassword,
+                        hintText: 'Password',
+                        prefixIcon: Icons.lock,
+                        obscureText: true,
+                        suffix: Icons.remove_red_eye,
+                        validate: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your password';
+                          }
+                          return null;
+                        },
                       ),
+                      AppSize.sv_20,
+                      BlocConsumer<AuthCubit, AuthState>(
+                        listener: (context, state) {
+                          if (state is AuthLoginSuccessState) {
+                            showFlutterToast(
+                                message: 'Success Login to your account',
+                                toastColor: Colors.green);
+                            Navigator.pushNamedAndRemoveUntil(context,
+                                Routers.LAYOUT_SCREEN, (route) => false);
+                          }
+                          if (state is AuthLoginErrorState) {
+                            showFlutterToast(
+                                message: state.error, toastColor: Colors.red);
+                          }
+                        },
+                        builder: (context, state) {
+                          var cubit = AuthCubit.get(context);
+                          return state is AuthLoginLoadingState
+                              ? const BuildCircularWidget()
+                              : BottomComponent(
+                                  child: const Text(
+                                    'Login',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      cubit.userLoginDio(
+                                        email: emailController.text.trim(),
+                                        password:
+                                            passwordController.text.trim(),
+                                      );
+                                    }
+                                  },
+                                );
+                        },
+                      ),
+                      //or
+                      //AppSize.sv_40,
                     ],
                   ),
-                ],
-              ),
+                ),
+                // Row(
+                //   children: const [
+                //     Expanded(
+                //       child: Divider(
+                //         color: Colors.grey,
+                //         thickness: 1.0,
+                //       ),
+                //     ),
+                //     SizedBox(width: 10.0),
+                //     Text(
+                //       'OR',
+                //       style: TextStyle(
+                //         color: Colors.grey,
+                //         fontWeight: FontWeight.bold,
+                //       ),
+                //     ),
+                //     SizedBox(width: 10.0),
+                //     Expanded(
+                //       child: Divider(
+                //         color: Colors.grey,
+                //         thickness: 1.0,
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                // AppSize.sv_30,
+                // _buildSocialButton(
+                //   context: context,
+                //   text: 'Login with Facebook',
+                //   icon: FontAwesomeIcons.facebook,
+                //   color: Colors.blue,
+                //   onPressed: () {},
+                // ),
+                // AppSize.sv_10,
+                // _buildSocialButton(
+                //   context: context,
+                //   text: 'Login with google',
+                //   icon: FontAwesomeIcons.google,
+                //   color: Colors.red,
+                //   onPressed: () {},
+                // ),
+                AppSize.sv_10,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Don\'t have an account?',
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        Routers.REGISTER,
+                        (route) => false,
+                      ),
+                      child: Text(
+                        'Register',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: AppColor.primerColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),

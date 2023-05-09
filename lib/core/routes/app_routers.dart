@@ -1,3 +1,4 @@
+import 'package:e_commerce_flutter/modules/layout/setting/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../modules/auth/login_screen.dart';
@@ -23,6 +24,7 @@ class Routers {
   static const String GRID_VIEW = '/grid_view';
   static const String SEARCH_SCREEN = '/search_screen';
   static const String REF_CODE_SCREEN = '/ref_code_screen';
+  static const String EDIT_PROFILE_SCREEN = '/edit_profile_screen';
 }
 
 class RoutersGenerated {
@@ -55,6 +57,9 @@ class RoutersGenerated {
       case Routers.REF_CODE_SCREEN:
         return MaterialPageRoute(
             builder: (_) => const RefCodeScreen(), settings: settings);
+      case Routers.EDIT_PROFILE_SCREEN:
+        return MaterialPageRoute(
+            builder: (_) => const EditProfileScreen(), settings: settings);
       default:
         return MaterialPageRoute(builder: (_) => const LayoutScreen());
     }

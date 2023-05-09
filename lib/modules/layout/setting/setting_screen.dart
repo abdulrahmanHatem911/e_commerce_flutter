@@ -1,11 +1,13 @@
 import 'package:e_commerce_flutter/controllers/layout_cubit/layout_cubit.dart';
 import 'package:e_commerce_flutter/core/services/cache_helper.dart';
+import 'package:e_commerce_flutter/core/utils/constent.dart';
 import 'package:e_commerce_flutter/modules/layout/setting/add_category_screen.dart';
 import 'package:e_commerce_flutter/modules/layout/setting/products/show_all_products.dart';
 import 'package:e_commerce_flutter/modules/widgets/build_circular_widget.dart';
 import 'package:e_commerce_flutter/modules/widgets/build_flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/routes/app_routers.dart';
 import '../../../core/style/app_color.dart';
@@ -60,20 +62,44 @@ class SettingScreen extends StatelessWidget {
                         ),
                       ),
                       AppSize.sh_10,
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            CacheHelper.getData(key: 'name') ?? '',
-                            style: Theme.of(context).textTheme.displayMedium,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              CURRENT_USER?.firstName == null
+                                  ? ''
+                                  : '${CURRENT_USER?.firstName}' +
+                                      ' ' +
+                                      '${CURRENT_USER!.lastName}',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.ubuntu(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            AppSize.sv_5,
+                            Text(
+                              CacheHelper.getData(key: 'email') ?? '',
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushNamed(Routers.EDIT_PROFILE_SCREEN);
+                          },
+                          icon: Icon(
+                            IconBroken.Edit,
+                            color: AppColor.primerColor,
                           ),
-                          AppSize.sv_5,
-                          Text(
-                            CacheHelper.getData(key: 'email') ?? '',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                        ],
+                        ),
                       ),
                     ],
                   ),

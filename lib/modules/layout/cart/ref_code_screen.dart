@@ -1,10 +1,12 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../controllers/layout_cubit/layout_cubit.dart';
+import '../../../core/network/local/sql_server.dart';
 import '../../../core/network/remote/api_constant.dart';
 import '../../../core/routes/app_routers.dart';
 import '../../../core/style/icon_broken.dart';
 import '../../../core/utils/app_size.dart';
-import 'package:flutter/material.dart';
-
 import '../../../core/utils/screen_config.dart';
 
 class RefCodeScreen extends StatelessWidget {
@@ -28,12 +30,12 @@ class RefCodeScreen extends StatelessWidget {
           children: [
             Text(
               'you can get ref code from here',
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             AppSize.sv_15,
             Text(
               'The ref code is:',
-              style: Theme.of(context).textTheme.headline1,
+              style: Theme.of(context).textTheme.displayLarge,
             ),
             AppSize.sv_20,
             Container(
@@ -46,7 +48,7 @@ class RefCodeScreen extends StatelessWidget {
               child: Center(
                 child: Text(
                   ApiConstant.refCode,
-                  style: Theme.of(context).textTheme.headline1!.copyWith(
+                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
                         fontSize: 23.0,
                       ),
                 ),
@@ -72,6 +74,9 @@ class RefCodeScreen extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: () {
+                SqliteServiceDatabase().deleteAllItems('cart').then((value) {
+                  BlocProvider.of<LayoutCubit>(context).currentIndex = 0;
+                });
                 Navigator.pop(context);
                 Navigator.pushNamedAndRemoveUntil(
                   context,

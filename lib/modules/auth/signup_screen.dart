@@ -87,8 +87,8 @@ class SignUpScreen extends StatelessWidget {
                                   controller: firstNameController,
                                   hintText: 'first name',
                                   prefixIcon: Icons.person,
-                                  validator: (value) {
-                                    if (value.isEmpty) {
+                                  validate: (value) {
+                                    if (value!.isEmpty) {
                                       return 'Please enter your first name';
                                     }
                                     return null;
@@ -101,8 +101,8 @@ class SignUpScreen extends StatelessWidget {
                                   controller: lastNameController,
                                   hintText: 'last name',
                                   prefixIcon: Icons.person,
-                                  validator: (value) {
-                                    if (value.isEmpty) {
+                                  validate: (value) {
+                                    if (value!.isEmpty) {
                                       return 'Please enter your last name';
                                     }
                                     return null;
@@ -119,8 +119,8 @@ class SignUpScreen extends StatelessWidget {
                                   controller: addressController,
                                   hintText: 'address',
                                   prefixIcon: Icons.add_location,
-                                  validator: (value) {
-                                    if (value.isEmpty) {
+                                  validate: (value) {
+                                    if (value!.isEmpty) {
                                       return 'Please enter your address';
                                     }
                                     return null;
@@ -134,8 +134,8 @@ class SignUpScreen extends StatelessWidget {
                                   controller: phoneController,
                                   hintText: 'phone',
                                   prefixIcon: Icons.phone,
-                                  validator: (value) {
-                                    if (value.isEmpty) {
+                                  validate: (value) {
+                                    if (value!.isEmpty) {
                                       return 'Please enter your phone';
                                     }
                                     return null;
@@ -150,8 +150,8 @@ class SignUpScreen extends StatelessWidget {
                             keyboardType: TextInputType.emailAddress,
                             hintText: 'User Name',
                             prefixIcon: Icons.person,
-                            validator: (value) {
-                              if (value.isEmpty) {
+                            validate: (value) {
+                              if (value!.isEmpty) {
                                 return 'Please enter your user name';
                               }
                               return null;
@@ -163,8 +163,8 @@ class SignUpScreen extends StatelessWidget {
                             keyboardType: TextInputType.emailAddress,
                             hintText: 'Email',
                             prefixIcon: Icons.email,
-                            validator: (value) {
-                              if (value.isEmpty) {
+                            validate: (value) {
+                              if (value!.isEmpty) {
                                 return 'Please enter your email';
                               }
                               return null;
@@ -177,8 +177,8 @@ class SignUpScreen extends StatelessWidget {
                             hintText: 'Password',
                             prefixIcon: Icons.lock,
                             obscureText: true,
-                            validator: (value) {
-                              if (value.isEmpty) {
+                            validate: (value) {
+                              if (value!.isEmpty) {
                                 return 'Please enter your password';
                               }
                               return null;

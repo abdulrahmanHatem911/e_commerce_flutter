@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'controllers/cart_provider.dart';
 import 'core/network/local/sql_server.dart';
 import 'core/network/remote/dio_helper.dart';
-import 'core/network/remote/serveise_indecator.dart';
+import 'core/network/remote/serveise_indecator.dart' as serviceLocator;
 import 'core/routes/app_routers.dart';
 import 'core/services/cache_helper.dart';
 import 'core/style/theme.dart';
@@ -18,7 +18,7 @@ import 'core/style/theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DioHelper.init();
-  await ServiceLocator.init();
+  await serviceLocator.ServiceLocator.init();
   await SqliteServiceDatabase().initializeDB();
   await CacheHelper.init();
   SystemChrome.setPreferredOrientations(
@@ -50,12 +50,16 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         BlocProvider(
-          create: (context) => LayoutCubit()
-            ..getAllProduct()
-            ..getAllCategory()
-            ..getAllFavorites(),
+          create: (context) =>
+              serviceLocator.ServiceLocator.instance<LayoutCubit>()
+                ..getAllProduct()
+                ..getAllCategory()
+                ..getAllFavorites()
+                ..getCurrentUser(),
         ),
-        BlocProvider(create: (context) => AuthCubit()),
+        BlocProvider(
+            create: (context) =>
+                serviceLocator.ServiceLocator.instance<AuthCubit>()),
         ChangeNotifierProvider(create: (_) => CartProvider()),
       ],
       child: Builder(

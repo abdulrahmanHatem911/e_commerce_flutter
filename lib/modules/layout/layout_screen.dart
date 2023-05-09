@@ -105,6 +105,7 @@ class LayoutScreen extends StatelessWidget {
         BlocProvider.of<LayoutCubit>(context).getAllProduct();
         BlocProvider.of<LayoutCubit>(context).getAllCategory();
         BlocProvider.of<LayoutCubit>(context).getAllFavorites();
+        BlocProvider.of<LayoutCubit>(context).getCurrentUser();
       },
     );
   }

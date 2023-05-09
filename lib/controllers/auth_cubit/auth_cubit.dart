@@ -4,12 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/network/remote/api_constant.dart';
 import '../../core/network/remote/dio_helper.dart';
 import '../../core/utils/constent.dart';
-import '../../models/auth_model.dart';
 import 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthInitial());
-  DioHelper dioHelper = DioHelper();
+  final DioHelper dioHelper;
+  AuthCubit({required this.dioHelper}) : super(AuthInitial());
   static AuthCubit get(context) => BlocProvider.of<AuthCubit>(context);
   Future<void> userAuthRegistrationDio({
     required String firstName,
@@ -30,11 +29,16 @@ class AuthCubit extends Cubit<AuthState> {
       "address": address,
       "phoneNumber": phone,
     }).then((value) async {
-      print('Done 🎉');
       await assignRole(email, password);
       emit(AuthRegistrationSuccessState(user: value.data['roles'][0]));
     }).catchError((error) {
-      emit(AuthRegistrationErrorState(error.toString()));
+      if (error.toString().contains('400')) {
+        emit(AuthRegistrationErrorState('Email is already in use'));
+      } else if (error.toString().contains('500')) {
+        emit(AuthRegistrationErrorState('Email is already in use'));
+      } else {
+        emit(AuthRegistrationErrorState(error.toString()));
+      }
     });
   }
 
@@ -49,7 +53,6 @@ class AuthCubit extends Cubit<AuthState> {
       token: ADMIN_TOKEN,
     )
         .then((value) async {
-      print('success assign role 🎉');
       await userLoginDio(email: email, password: userPassword);
     }).catchError((error) {
       emit(AuthAssignRoleErrorState(error.toString()));
@@ -59,14 +62,13 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> userLoginDio(
       {required String email, required String password}) async {
     emit(AuthLoginLoadingState());
-    await dioHelper.postData(
-        url: ApiConstant.LOGIN,
-        data: {"email": email, "password": password}).then((value) {
+    await dioHelper.postData(url: ApiConstant.LOGIN, data: {
+      "email": email,
+      "password": password,
+    }).then((value) {
       CacheHelper.saveData(key: 'token', value: '${value.data['token']}');
-      CacheHelper.saveData(key: 'name', value: '${value.data['firstName']}');
       CacheHelper.saveData(key: 'email', value: '${value.data['email']}');
       CacheHelper.saveData(key: 'user', value: 'user');
-      CURRENT_USER = AuthModel.fromJson(value.data);
       emit(AuthLoginSuccessState(user: 'user'));
     }).catchError((error) {
       if (error.toString().contains('400')) {

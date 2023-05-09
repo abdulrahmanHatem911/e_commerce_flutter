@@ -162,3 +162,21 @@ class LayoutDeleteProductErrorState extends LayoutState {
   final String error;
   LayoutDeleteProductErrorState(this.error);
 }
+
+class GetCurrentUserLoadingState extends LayoutState {}
+
+class GetCurrentUserSuccessState extends LayoutState {}
+
+class GetCurrentUserErrorState extends LayoutState {
+  final String error;
+  GetCurrentUserErrorState(this.error);
+}
+
+class UpdateUserProfileLoadingState extends LayoutState {}
+
+class UpdateUserProfileSuccessState extends LayoutState {}
+
+class UpdateUserProfileErrorState extends LayoutState {
+  final String error;
+  UpdateUserProfileErrorState(this.error);
+}
