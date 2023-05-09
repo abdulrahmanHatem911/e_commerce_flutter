@@ -53,22 +53,21 @@ class AuthCubit extends Cubit<AuthState> {
       token: ADMIN_TOKEN,
     )
         .then((value) async {
-      await userLoginDio(email: email, password: userPassword);
+      userLoginDio(email: email, password: userPassword);
     }).catchError((error) {
       emit(AuthAssignRoleErrorState(error.toString()));
     });
   }
 
-  Future<void> userLoginDio(
-      {required String email, required String password}) async {
+  void userLoginDio({required String email, required String password}) {
     emit(AuthLoginLoadingState());
-    await dioHelper.postData(url: ApiConstant.LOGIN, data: {
+    dioHelper.postData(url: ApiConstant.LOGIN, data: {
       "email": email,
       "password": password,
-    }).then((value) {
-      CacheHelper.saveData(key: 'token', value: '${value.data['token']}');
-      CacheHelper.saveData(key: 'email', value: '${value.data['email']}');
-      CacheHelper.saveData(key: 'user', value: 'user');
+    }).then((value) async {
+      await CacheHelper.saveData(key: 'token', value: '${value.data['token']}');
+      await CacheHelper.saveData(key: 'email', value: '${value.data['email']}');
+      await CacheHelper.saveData(key: 'user', value: 'user');
       emit(AuthLoginSuccessState(user: 'user'));
     }).catchError((error) {
       if (error.toString().contains('400')) {

@@ -69,26 +69,11 @@ class LayoutScreen extends StatelessWidget {
                 buttonBackgroundColor: AppColor.blue,
                 height: 50.0,
                 items: const [
-                  Icon(
-                    IconBroken.Bag,
-                    size: 25,
-                  ),
-                  Icon(
-                    IconBroken.Heart,
-                    size: 25,
-                  ),
-                  Icon(
-                    IconBroken.Home,
-                    size: 25,
-                  ),
-                  Icon(
-                    IconBroken.Category,
-                    size: 25,
-                  ),
-                  Icon(
-                    IconBroken.Profile,
-                    size: 25,
-                  ),
+                  Icon(IconBroken.Bag, size: 25),
+                  Icon(IconBroken.Heart, size: 25),
+                  Icon(IconBroken.Home, size: 25),
+                  Icon(IconBroken.Category, size: 25),
+                  Icon(IconBroken.Profile, size: 25),
                 ],
               ),
             ),
