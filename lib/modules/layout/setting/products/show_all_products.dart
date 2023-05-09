@@ -2,6 +2,7 @@ import 'package:e_commerce_flutter/controllers/layout_cubit/layout_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/network/remote/serveise_indecator.dart';
 import '../../../../core/routes/app_routers.dart';
 import '../../../../core/style/icon_broken.dart';
 import '../../../../core/utils/app_size.dart';
@@ -18,7 +19,8 @@ class ShowAllProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LayoutCubit()..getAllProduct(),
+      create: (context) =>
+          ServiceLocator.instance<LayoutCubit>()..getAllProduct(),
       child: BlocConsumer<LayoutCubit, LayoutState>(
         listener: (context, state) {},
         builder: (context, state) {

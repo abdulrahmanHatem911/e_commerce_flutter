@@ -6,7 +6,6 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../core/network/local/sql_server.dart';
 import '../../core/network/remote/api_constant.dart';
 import '../../core/network/remote/dio_helper.dart';
-import '../../core/network/remote/serveise_indecator.dart';
 import '../../core/services/cache_helper.dart';
 import '../../models/category_model.dart';
 import '../../models/payment/authentication_request_model.dart';
@@ -23,9 +22,9 @@ import '../../modules/layout/setting/setting_screen.dart';
 part 'layout_state.dart';
 
 class LayoutCubit extends Cubit<LayoutState> {
-  LayoutCubit() : super(LayoutInitial());
+  final DioHelper dioHelper;
+  LayoutCubit({required this.dioHelper}) : super(LayoutInitial());
   static LayoutCubit get(context) => BlocProvider.of<LayoutCubit>(context);
-  DioHelper dioHelper = ServiceLocator.instance<DioHelper>();
   int currentIndex = 2;
   List<Widget> screens = [
     const CartScreen(),
@@ -112,7 +111,19 @@ class LayoutCubit extends Cubit<LayoutState> {
       getAllProduct();
       emit(LayoutAddProductSuccessState());
     }).catchError((error) {
-      emit(LayoutAddProductErrorState("error is ${error.toString()}"));
+      if (error.toString().contains('SocketException')) {
+        emit(LayoutAddProductErrorState('No Internet Connection'));
+      } else if (error.toString().contains('HttpException')) {
+        emit(LayoutAddProductErrorState('Server Not Found'));
+      } else if (error.toString().contains('FormatException')) {
+        emit(LayoutAddProductErrorState('Invalid Data'));
+      } else if (error.toString().contains('404')) {
+        emit(LayoutAddProductErrorState('404 Server Not Found'));
+      } else if (error.toString().contains('400')) {
+        emit(LayoutAddProductErrorState('400 Bad Request'));
+      } else {
+        emit(LayoutAddProductErrorState("error is ${error.toString()}"));
+      }
     });
   }
 

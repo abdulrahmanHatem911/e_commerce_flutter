@@ -82,20 +82,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     TextFormFiledComponent(
                       controller: firstNameController,
                       hintText: 'First Name',
-                      validator: (value) {
-                        if (value.isEmpty) {
+                      validate: (value) {
+                        if (value!.isEmpty) {
                           return 'Please enter your first name';
                         }
+                        return null;
                       },
                     ),
                     AppSize.sv_10,
                     TextFormFiledComponent(
                       controller: lastNameController,
                       hintText: 'Last Name',
-                      validator: (value) {
-                        if (value.isEmpty) {
+                      validate: (value) {
+                        if (value!.isEmpty) {
                           return 'Please enter your last name';
                         }
+                        return null;
                       },
                     ),
                     AppSize.sv_10,
@@ -103,10 +105,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       controller: addressController,
                       prefixIcon: Icons.location_on,
                       hintText: 'Address',
-                      validator: (value) {
-                        if (value.isEmpty) {
+                      validate: (value) {
+                        if (value!.isEmpty) {
                           return 'Please enter your address';
                         }
+                        return null;
                       },
                     ),
                     AppSize.sv_10,
@@ -115,10 +118,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       keyboardType: TextInputType.phone,
                       prefixIcon: Icons.phone,
                       hintText: 'Phone',
-                      validator: (value) {
-                        if (value.isEmpty) {
+                      validate: (value) {
+                        if (value!.isEmpty) {
                           return 'Please enter your phone';
                         }
+                        return null;
                       },
                     ),
                     AppSize.sv_10,

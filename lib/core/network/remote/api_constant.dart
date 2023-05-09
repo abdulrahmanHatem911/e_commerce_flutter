@@ -36,11 +36,11 @@ class ApiConstant {
       "$BASE_URL/Category/UpdateCategory/$categoryId";
   static String DELETE_CATEGORY(int categoryId) =>
       "$BASE_URL/Category/DeleteCategory/$categoryId";
-  //
 
   //payment method
   static const String baseUrl = 'https://accept.paymob.com/api';
-  static const String paymentApiKey = "";
+  static const String paymentApiKey =
+      "ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6VXhNaUo5LmV5SndjbTltYVd4bFgzQnJJam95TXpNM056UXNJbTVoYldVaU9pSXhOamN4TURBeU5qQXlMalF3TlRVMk9TSXNJbU5zWVhOeklqb2lUV1Z5WTJoaGJuUWlmUS5Ld3FYY2Uwdk1xbkJHR0UyUDlXQktCRXFyOXNQWElQWXlWYmhOVXZPUDVjUnAzN3Z0TWlBNWkzR3JBNTVQd3E0VG96RTJfNnpHQThkQ2QwQ091dmNtUQ==";
   static const String authTokenUrl = "$baseUrl/auth/tokens";
   static const String orderRegistrationIDUrl = "$baseUrl/ecommerce/orders";
   static const String paymentRequestTokenUrl =
@@ -54,8 +54,8 @@ class ApiConstant {
 
   static String finalToken = '';
 
-  static const String integrationIdCard = '    ';
-  static const String integrationIdKiosk = '';
+  static const String integrationIdCard = '2363536';
+  static const String integrationIdKiosk = '2363564';
 
   static String refCode = '';
 }

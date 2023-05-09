@@ -104,8 +104,8 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
                           controller: nameController,
                           hintText: 'Name',
                           prefixIcon: Icons.title,
-                          validator: (value) {
-                            if (value.isEmpty) {
+                          validate: (value) {
+                            if (value!.isEmpty) {
                               return 'Please Enter Product Name';
                             }
                             return null;
@@ -117,8 +117,8 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
                           controller: imageController,
                           hintText: 'Image url',
                           prefixIcon: Icons.image,
-                          validator: (value) {
-                            if (value.isEmpty) {
+                          validate: (value) {
+                            if (value!.isEmpty) {
                               return 'Please Enter Product image url';
                             }
                             return null;

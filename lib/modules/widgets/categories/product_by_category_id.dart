@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../controllers/layout_cubit/layout_cubit.dart';
+import '../../../core/network/remote/serveise_indecator.dart';
 import '../../../core/utils/app_size.dart';
 import '../../../core/widget/build_item_list.dart';
 import '../../../models/category_model.dart';
@@ -13,8 +14,8 @@ class ProductByCategoryId extends StatelessWidget {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as CategoryModel;
     return BlocProvider(
-      create: (context) =>
-          LayoutCubit()..getProductByCategoryId(categoryId: args.id),
+      create: (context) => ServiceLocator.instance<LayoutCubit>()
+        ..getProductByCategoryId(categoryId: args.id),
       child: Scaffold(
         appBar: AppBar(elevation: 0.0),
         body: BlocConsumer<LayoutCubit, LayoutState>(
