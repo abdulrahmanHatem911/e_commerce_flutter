@@ -44,6 +44,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Edit Profile'),
+        elevation: 0.0,
       ),
       body: BlocConsumer<LayoutCubit, LayoutState>(
         listener: (context, state) {
