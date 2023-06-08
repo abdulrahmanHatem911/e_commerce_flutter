@@ -1,9 +1,9 @@
+import 'package:e_commerce_flutter/modules/widgets/cart/widgets/discount_alert.dart';
 import 'package:flutter/material.dart';
 
-import '../../../controllers/layout_cubit/layout_cubit.dart';
 import '../../../core/utils/app_size.dart';
 import '../../../core/utils/screen_config.dart';
-import '../../layout/cart/payment_screen.dart';
+import '../build_flutter_toast.dart';
 
 class ReusableWidget extends StatelessWidget {
   final String title, value;
@@ -54,16 +54,28 @@ class ReusableWidget extends StatelessWidget {
             AppSize.sh_20,
             ElevatedButton(
               onPressed: () {
-                var totalPrice = int.parse(value);
-                LayoutCubit.get(context).getAuthToken().then((value) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PaymentScreen(price: totalPrice),
-                    ),
+                // var totalPrice = int.parse(value);
+                // LayoutCubit.get(context).getAuthToken().then((value) {
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => PaymentScreen(price: totalPrice),
+                //     ),
+                //   );
+                // }
+                // );
+                if (int.parse(value) <= 0) {
+                  showFlutterToast(
+                    message: 'Please add items to your cart',
+                    toastColor: Colors.red,
                   );
-                });
-                // showSnackBar(context, "Checkout"
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: (context) =>
+                        DiscountAlertWidget(totalPrice: int.parse(value)),
+                  );
+                }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
