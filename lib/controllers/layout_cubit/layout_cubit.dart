@@ -23,7 +23,9 @@ part 'layout_state.dart';
 
 class LayoutCubit extends Cubit<LayoutState> {
   final DioHelper dioHelper;
-  LayoutCubit({required this.dioHelper}) : super(LayoutInitial());
+  LayoutCubit({
+    required this.dioHelper,
+  }) : super(LayoutInitial());
   static LayoutCubit get(context) => BlocProvider.of<LayoutCubit>(context);
   int currentIndex = 2;
   List<Widget> screens = [
@@ -438,6 +440,7 @@ class LayoutCubit extends Cubit<LayoutState> {
     emit(UserSignOutLoadingState());
     await CacheHelper.saveData(key: 'user', value: '');
     await CacheHelper.saveData(key: 'token', value: '');
+    currentIndex = 0;
     SqliteServiceDatabase().deleteAllItems('cart').then((value) {
       databaseFavoritesProducts.clear();
     });

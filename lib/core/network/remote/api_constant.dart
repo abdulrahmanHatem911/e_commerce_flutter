@@ -1,6 +1,6 @@
 class ApiConstant {
   static const String BASE_URL =
-      "http://ecommerce925-001-site1.atempurl.com/api";
+      "http://ecommerce36-001-site1.gtempurl.com/api";
 
   static const String REGISTER = "$BASE_URL/AuthUser/Register";
   static const String LOGIN = "$BASE_URL/AuthUser/Login";

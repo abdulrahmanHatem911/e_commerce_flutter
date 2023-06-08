@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     HomeBannerComponent(),
                     _buildTitle(
-                      title: 'Man Clothes',
+                      title: 'Man',
                       onTap: () {},
                     ),
                     layoutCubit.manProducts.isNotEmpty
@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                           )
                         : const BuildCircularWidget(),
                     _buildTitle(
-                      title: 'Woman Clothes',
+                      title: 'Woman',
                       onTap: () {},
                     ),
                     layoutCubit.womanProducts.isNotEmpty
@@ -47,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                           )
                         : const BuildCircularWidget(),
                     _buildTitle(
-                      title: 'Jewelery',
+                      title: 'Children',
                       onTap: () {},
                     ),
                     layoutCubit.jewelery.isNotEmpty
