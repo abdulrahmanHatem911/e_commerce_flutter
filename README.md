@@ -22,14 +22,35 @@ Welcome to our E-Commerce Application! This application is designed to showcase 
 
 Our E-Commerce Application is built using the following technologies:
 
-- Front-end: HTML, CSS, JavaScript, and React.js
-- Back-end: Node.js, Express.js
+- Front-end: Flutter and Dart
+- Back-end: .NET APIs with MVC
 - Database: MongoDB
 - Payment Gateway Integration: Stripe
 
-## Installation
 
-To run the E-Commerce Application on your local machine, follow these steps:
+## Packages Used
 
-1. Clone the repository from GitHub:
-
+| Library Name               | Download Link                                            |
+| -------------------------- | -------------------------------------------------------- |
+| google_fonts               | [google_fonts](https://pub.dev/packages/google_fonts)     |
+| dio                        | [dio](https://pub.dev/packages/dio)                       |
+| shared_preferences         | [shared_preferences](https://pub.dev/packages/shared_preferences)   |
+| flutter_blob               | [flutter_blob](https://pub.dev/packages/flutter_blob)     |
+| flutter_bloc               | [flutter_bloc](https://pub.dev/packages/flutter_bloc)     |
+| bloc                       | [bloc](https://pub.dev/packages/bloc)                     |
+| font_awesome_flutter       | [font_awesome_flutter](https://pub.dev/packages/font_awesome_flutter) |
+| smooth_page_indicator      | [smooth_page_indicator](https://pub.dev/packages/smooth_page_indicator) |
+| curved_navigation_bar      | [curved_navigation_bar](https://pub.dev/packages/curved_navigation_bar) |
+| http                       | [http](https://pub.dev/packages/http)                     |
+| equatable                  | [equatable](https://pub.dev/packages/equatable)           |
+| sqflite                    | [sqflite](https://pub.dev/packages/sqflite)               |
+| provider                   | [provider](https://pub.dev/packages/provider)             |
+| path_provider              | [path_provider](https://pub.dev/packages/path_provider)   |
+| url_launcher               | [url_launcher](https://pub.dev/packages/url_launcher)     |
+| webview_flutter            | [webview_flutter](https://pub.dev/packages/webview_flutter) |
+| fluttertoast               | [fluttertoast](https://pub.dev/packages/fluttertoast)     |
+| hive_ui                    | [hive_ui](https://pub.dev/packages/hive_ui)               |
+| hive                       | [hive](https://pub.dev/packages/hive)                     |
+| get_it                     | [get_it](https://pub.dev/packages/get_it)                 |
+| intl_phone_number_input    | [intl_phone_number_input](https://pub.dev/packages/intl_phone_number_input) |
+| intl                       | [intl](https://pub.dev/packages/intl)                     |
