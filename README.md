@@ -1,4 +1,4 @@
-# E-Commerce Application - Product Showcase
+# E-Commerce Application
 
 Welcome to our E-Commerce Application! This application is designed to showcase a wide range of products, including men's, women's, and children's clothing. With an intuitive and user-friendly interface, our app aims to provide a seamless shopping experience for customers. 
 
